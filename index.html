@@ -385,9 +385,9 @@
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 700px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -584,6 +584,34 @@
         .footer-tagline {
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .footer-social i {
+            font-size: 20px;
         }
 
         .footer-links {
@@ -834,12 +862,28 @@
                     </ul>
                     <a href="#" class="btn btn-secondary">Download Free</a>
                 </div>
-                <div class="pricing-card featured">
-                    <div class="pricing-tier">Pro</div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">Pro Monthly</div>
                     <div class="pricing-price">$4.99<span>/mo</span></div>
                     <div class="pricing-period">Billed monthly</div>
+                    <div class="pricing-yearly">&nbsp;</div>
+                    <ul class="pricing-features">
+                        <li><i class="ph ph-check-circle"></i> Everything in Free, plus:</li>
+                        <li><i class="ph ph-check-circle"></i> Unlimited products</li>
+                        <li><i class="ph ph-check-circle"></i> Unlimited custom routines</li>
+                        <li><i class="ph ph-check-circle"></i> Smart reminders</li>
+                        <li><i class="ph ph-check-circle"></i> UV alerts</li>
+                        <li><i class="ph ph-check-circle"></i> Weekly insights</li>
+                        <li><i class="ph ph-check-circle"></i> Achievements & badges</li>
+                        <li><i class="ph ph-check-circle"></i> Priority support</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Go Pro</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-tier">Pro Yearly</div>
+                    <div class="pricing-price">$39.99<span>/yr</span></div>
+                    <div class="pricing-period">Billed annually</div>
                     <div class="pricing-yearly">
-                        <span class="pricing-yearly-price">or $39.99/year</span>
                         <span class="savings-badge">Save 33%</span>
                     </div>
                     <ul class="pricing-features">
@@ -882,10 +926,18 @@
             Renew
         </div>
         <p class="footer-tagline">Made with <i class="ph ph-coffee"></i> in Melbourne, Australia</p>
+        <div class="footer-social">
+            <a href="https://x.com/renewapp" target="_blank" rel="noopener" aria-label="Follow us on X">
+                <i class="ph ph-x-logo"></i>
+            </a>
+            <a href="https://instagram.com/renewapp" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+                <i class="ph ph-instagram-logo"></i>
+            </a>
+        </div>
         <div class="footer-links">
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
-            <a href="mailto:support@getrenew.app">Contact</a>
+            <a href="mailto:hello@getrenew.app">Contact</a>
         </div>
         <p class="footer-copyright">&copy; 2026 Renew. All rights reserved.</p>
     </footer>
