@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for Renew - Skincare Tracking App">
+    <meta name="theme-color" content="#4A5240">
+
+    <title>Privacy Policy - Renew</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            --color-cream: #FAF8F5;
+            --color-charcoal: #2C2C2C;
+            --color-olive: #4A5240;
+            --color-olive-hover: #3d4435;
+            --color-oat: #F0EBE3;
+            --font-heading: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --radius-sm: 8px;
+            --transition: 0.3s ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        a {
+            color: var(--color-olive);
+            text-decoration: underline;
+            transition: color var(--transition);
+        }
+
+        a:hover {
+            color: var(--color-olive-hover);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+            text-decoration: none;
+        }
+
+        .navbar-logo i {
+            font-size: 28px;
+        }
+
+        .navbar-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-olive);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .navbar-back:hover {
+            color: var(--color-olive-hover);
+        }
+
+        /* Content */
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 1.5rem 4rem;
+        }
+
+        .legal-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-oat);
+        }
+
+        .legal-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .legal-body h2 {
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-charcoal);
+        }
+
+        .legal-body h3 {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-charcoal);
+        }
+
+        .legal-body p {
+            margin-bottom: 1rem;
+        }
+
+        .legal-body ul, .legal-body ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .legal-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .legal-body th, .legal-body td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-oat);
+        }
+
+        .legal-body th {
+            background: var(--color-oat);
+            font-weight: 600;
+        }
+
+        .legal-body strong {
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-charcoal);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .legal-content {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .legal-header h1 {
+                font-size: 2rem;
+            }
+
+            .legal-body h2 {
+                font-size: 1.3rem;
+            }
+
+            .legal-body table {
+                font-size: 0.85rem;
+            }
+
+            .legal-body th, .legal-body td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <i class="ph ph-leaf"></i>
+                Renew
+            </a>
+            <a href="index.html" class="navbar-back">
+                <i class="ph ph-arrow-left"></i>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="legal-content">
+        <header class="legal-header">
+            <h1>Privacy Policy</h1>
+            <p>Last updated: January 2026</p>
+        </header>
+
+        <div class="legal-body">
+            <h2>Overview</h2>
+            <p>Renew ("we", "our", "us") is operated by RenewPro, a sole trader registered in Australia. We respect your privacy and are committed to protecting your personal data.</p>
+            <p>This Privacy Policy explains how we collect, use, and protect your information when you use the Renew mobile application ("the App").</p>
+            <p><strong>By using Renew, you agree to this Privacy Policy.</strong> If you do not agree, please do not use the App.</p>
+
+            <h2>Information We Collect</h2>
+
+            <h3>Information You Provide</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Purpose</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Email address</strong></td>
+                        <td>Account creation, login, password reset</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Name</strong> (optional)</td>
+                        <td>Personalisation within the App</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Product information</strong></td>
+                        <td>Skincare products you add to your library</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Routine data</strong></td>
+                        <td>Routines you create and daily tracking</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Photos</strong></td>
+                        <td>Product photos you upload</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location</strong> (approximate)</td>
+                        <td>UV index feature (city-level only)</td>
+                        <td>No</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Information Collected Automatically</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Device information</strong></td>
+                        <td>App functionality, troubleshooting</td>
+                    </tr>
+                    <tr>
+                        <td><strong>App usage data</strong></td>
+                        <td>Improving the App, understanding feature usage</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Crash reports</strong></td>
+                        <td>Fixing bugs and improving stability</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Information We Do NOT Collect</h3>
+            <ul>
+                <li>Health or medical information</li>
+                <li>Skin condition diagnoses</li>
+                <li>Biometric data</li>
+                <li>Photos of your face or skin</li>
+                <li>Precise GPS location</li>
+                <li>Contacts or address book</li>
+                <li>Payment card details (handled by Apple/Google)</li>
+            </ul>
+
+            <h2>How We Use Your Information</h2>
+            <p>We use your information to:</p>
+            <ul>
+                <li><strong>Provide the App</strong> — Create your account, sync your data, deliver features</li>
+                <li><strong>Improve the App</strong> — Understand how features are used, fix bugs</li>
+                <li><strong>Communicate with you</strong> — Password resets, important service updates</li>
+                <li><strong>Process payments</strong> — Manage your subscription (via Apple App Store or Google Play)</li>
+            </ul>
+            <p>We do <strong>not</strong> sell your personal data to third parties.</p>
+
+            <h2>Third-Party Services</h2>
+            <p>We use trusted third-party services to operate the App:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Purpose</th>
+                        <th>Privacy Policy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Supabase</strong></td>
+                        <td>Database, authentication, file storage</td>
+                        <td><a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>RevenueCat</strong></td>
+                        <td>Subscription management</td>
+                        <td><a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apple App Store</strong></td>
+                        <td>Payments (iOS)</td>
+                        <td><a href="https://www.apple.com/privacy/" target="_blank" rel="noopener">apple.com/privacy</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Play</strong></td>
+                        <td>Payments (Android)</td>
+                        <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>We may add analytics and crash reporting services in the future. This policy will be updated accordingly.</p>
+
+            <h2>Data Storage & Security</h2>
+            <ul>
+                <li>Your data is stored on secure servers provided by Supabase (hosted on AWS)</li>
+                <li>Data is encrypted in transit (TLS/SSL) and at rest</li>
+                <li>We use industry-standard security practices</li>
+                <li>Access to user data is strictly limited</li>
+            </ul>
+            <p><strong>Data location:</strong> Our primary database servers are located in Australia. Some third-party services may process data in other regions (US, EU) in compliance with applicable data protection laws.</p>
+
+            <h2>Data Retention</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Retention Period</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Account data</strong></td>
+                        <td>Until you delete your account</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Product & routine data</strong></td>
+                        <td>Until you delete your account</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Photos</strong></td>
+                        <td>Until you delete them or your account</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Crash reports</strong></td>
+                        <td>Up to 90 days</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>When you delete your account, we will delete your personal data within 30 days, except where we are required to retain it for legal purposes.</p>
+
+            <h2>Your Rights</h2>
+            <p>Depending on your location, you may have the right to:</p>
+            <ul>
+                <li><strong>Access</strong> — Request a copy of your personal data</li>
+                <li><strong>Correction</strong> — Update inaccurate information</li>
+                <li><strong>Deletion</strong> — Request deletion of your data</li>
+                <li><strong>Portability</strong> — Receive your data in a portable format</li>
+                <li><strong>Withdraw consent</strong> — Where processing is based on consent</li>
+                <li><strong>Complaint</strong> — Lodge a complaint with a supervisory authority</li>
+            </ul>
+
+            <h3>For Australian Users</h3>
+            <p>You have rights under the Australian Privacy Act 1988. You can contact the Office of the Australian Information Commissioner (OAIC) at <a href="https://www.oaic.gov.au/" target="_blank" rel="noopener">oaic.gov.au</a> if you have concerns.</p>
+
+            <h3>For EU/UK Users (GDPR)</h3>
+            <p>If you are in the European Union or United Kingdom, you have additional rights under the General Data Protection Regulation (GDPR). Our lawful bases for processing are:</p>
+            <ul>
+                <li><strong>Contract</strong> — To provide the App services you requested</li>
+                <li><strong>Legitimate interests</strong> — To improve and secure the App</li>
+                <li><strong>Consent</strong> — For optional features like marketing emails (if applicable)</li>
+            </ul>
+
+            <h3>For California Users (CCPA)</h3>
+            <p>If you are a California resident, you have rights under the California Consumer Privacy Act. We do not sell personal information.</p>
+
+            <h2>Children's Privacy</h2>
+            <p>Renew is intended for users aged <strong>13 and older</strong>. We do not knowingly collect personal information from children under 13.</p>
+            <p>If you are a parent or guardian and believe your child has provided us with personal information, please contact us and we will delete it.</p>
+
+            <h2>Marketing Communications</h2>
+            <p>We may send you marketing emails about new features, tips, or promotions. You can opt out at any time by:</p>
+            <ul>
+                <li>Clicking "unsubscribe" in any marketing email</li>
+                <li>Updating your preferences in the App settings</li>
+                <li>Contacting us directly</li>
+            </ul>
+            <p>We will always send transactional emails (password resets, payment receipts, important service updates) regardless of your marketing preferences.</p>
+
+            <h2>Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of significant changes by:</p>
+            <ul>
+                <li>Posting a notice in the App</li>
+                <li>Updating the "Last updated" date above</li>
+            </ul>
+            <p>Continued use of the App after changes constitutes acceptance of the updated policy.</p>
+
+            <h2>Contact Us</h2>
+            <p>If you have questions about this Privacy Policy or want to exercise your rights, contact us at:</p>
+            <p>
+                <strong>Email:</strong> <a href="mailto:privacy@renewpro.app">privacy@renewpro.app</a><br>
+                <strong>Business:</strong> RenewPro<br>
+                <strong>Location:</strong> Melbourne, Australia
+            </p>
+            <p>We aim to respond to all requests within 30 days.</p>
+
+            <p><em>This Privacy Policy is effective as of January 2026.</em></p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <i class="ph ph-leaf"></i>
+            Renew
+        </div>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="mailto:support@getrenew.app">Contact</a>
+        </div>
+    </footer>
+</body>
+</html>

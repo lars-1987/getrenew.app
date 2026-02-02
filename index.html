@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Renew - Track your skincare journey. Build consistent routines. Know what's working.">
+    <meta name="theme-color" content="#4A5240">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Renew - Track Your Skincare Journey">
+    <meta property="og:description" content="Build consistent routines. Know what's working. Finally bring calm to your skincare shelf.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://getrenew.app">
+
+    <title>Renew - Track Your Skincare Journey</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* ============================================
+           CSS Variables - Brand Colors
+           ============================================ */
+        :root {
+            --color-cream: #FAF8F5;
+            --color-charcoal: #2C2C2C;
+            --color-olive: #4A5240;
+            --color-olive-hover: #3d4435;
+            --color-oat: #F0EBE3;
+            --color-oat-dark: #E5DFD5;
+            --font-heading: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --transition: 0.3s ease;
+        }
+
+        /* ============================================
+           Reset & Base Styles
+           ============================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        a {
+            color: var(--color-olive);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        a:hover {
+            color: var(--color-olive-hover);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ============================================
+           Navbar
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            transition: all var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 0.75rem 0;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+        }
+
+        .navbar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: var(--color-charcoal);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-olive);
+            transition: width var(--transition);
+        }
+
+        .navbar-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-links .btn-download {
+            background: var(--color-olive);
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+        }
+
+        .navbar-links .btn-download:hover {
+            background: var(--color-olive-hover);
+            color: white;
+        }
+
+        .navbar-links .btn-download::after {
+            display: none;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--color-charcoal);
+            transition: all var(--transition);
+        }
+
+        /* ============================================
+           Hero Section
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 1.5rem 4rem;
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-oat) 100%);
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+            border-radius: 28px;
+            box-shadow: var(--shadow-medium);
+            background: linear-gradient(135deg, var(--color-olive) 0%, #5d6850 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-icon i {
+            font-size: 60px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: var(--color-olive);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero-subheadline {
+            font-size: 1.125rem;
+            max-width: 500px;
+            color: #666;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .store-badge {
+            height: 52px;
+            transition: transform var(--transition), opacity var(--transition);
+        }
+
+        .store-badge:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* Placeholder for screenshot */
+        .screenshot-placeholder {
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(145deg, var(--color-oat) 0%, var(--color-oat-dark) 100%);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--color-olive);
+            border: 2px dashed var(--color-olive);
+            opacity: 0.7;
+        }
+
+        .screenshot-placeholder i {
+            font-size: 48px;
+        }
+
+        /* ============================================
+           Section Base Styles
+           ============================================ */
+        .section {
+            padding: 5rem 1.5rem;
+        }
+
+        .section-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* ============================================
+           Features Section
+           ============================================ */
+        #features {
+            background: var(--color-cream);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--color-oat);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-olive);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: var(--color-olive);
+            color: white;
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================
+           Pricing Section
+           ============================================ */
+        #pricing {
+            background: var(--color-oat);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--color-cream);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            transition: transform var(--transition);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--color-olive);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-olive);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .pricing-tier {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-olive);
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+        }
+
+        .pricing-period {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-yearly {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-yearly-price {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .savings-badge {
+            background: #E8F5E9;
+            color: #2E7D32;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li i {
+            color: var(--color-olive);
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            text-align: center;
+            transition: all var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--color-olive);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-olive-hover);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-olive);
+            border: 2px solid var(--color-olive);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-olive);
+            color: white;
+        }
+
+        .pricing-note {
+            text-align: center;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* ============================================
+           CTA Section
+           ============================================ */
+        #download {
+            background: var(--color-cream);
+            text-align: center;
+        }
+
+        #download .section-container {
+            max-width: 600px;
+        }
+
+        #download p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================
+           Footer
+           ============================================ */
+        .footer {
+            background: var(--color-charcoal);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo i {
+            font-size: 32px;
+        }
+
+        .footer-tagline {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            transition: color var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* ============================================
+           Mobile Responsive
+           ============================================ */
+        @media (max-width: 768px) {
+            .navbar-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--color-cream);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                transition: right var(--transition);
+                box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar-links.active {
+                right: 0;
+            }
+
+            .navbar-links a {
+                font-size: 1.25rem;
+            }
+
+            .navbar-links .btn-download {
+                margin-top: 1rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .hero-icon {
+                width: 100px;
+                height: 100px;
+                border-radius: 24px;
+            }
+
+            .hero-icon i {
+                font-size: 50px;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .store-badge {
+                height: 44px;
+            }
+
+            .screenshot-placeholder {
+                width: 260px;
+                height: 520px;
+            }
+
+            .footer-links {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Mobile overlay */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition);
+            z-index: 999;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">
+                <i class="ph ph-leaf"></i>
+                Renew
+            </a>
+            <ul class="navbar-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#download" class="btn-download">Download</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-icon">
+            <i class="ph ph-leaf"></i>
+        </div>
+        <h1>Renew</h1>
+        <p class="hero-tagline">Track your skincare journey</p>
+        <p class="hero-subheadline">Build consistent routines. Know what's working. Finally bring calm to your skincare shelf.</p>
+
+        <div class="hero-buttons">
+            <a href="#" aria-label="Download on the App Store">
+                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" class="store-badge">
+            </a>
+            <a href="#" aria-label="Get it on Google Play">
+                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" class="store-badge" style="height: 78px; margin-top: -13px;">
+            </a>
+        </div>
+
+        <div class="screenshot-placeholder">
+            <i class="ph ph-device-mobile"></i>
+            <span>App Screenshot</span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="section-container">
+            <h2 class="section-title">Skincare tracking, simplified.</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ph ph-package"></i>
+                    </div>
+                    <h3>Track Products</h3>
+                    <p>Add your entire skincare collection. Know what you have, what's running low.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ph ph-sparkle"></i>
+                    </div>
+                    <h3>Build Routines</h3>
+                    <p>Create AM and PM routines. Check off products as you go.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ph ph-sun"></i>
+                    </div>
+                    <h3>UV Index</h3>
+                    <p>Real-time UV for your location. Know when to apply (and reapply) SPF.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ph ph-fire"></i>
+                    </div>
+                    <h3>Streaks</h3>
+                    <p>Build consistency with daily streaks. Small habits, big results.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ph ph-bell-ringing"></i>
+                    </div>
+                    <h3>Smart Reminders <span class="feature-badge">Pro</span></h3>
+                    <p>Gentle nudges to complete your routine. Never forget your retinol again.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ph ph-trophy"></i>
+                    </div>
+                    <h3>Achievements <span class="feature-badge">Pro</span></h3>
+                    <p>Unlock badges as you build your skincare habits. Celebrate the wins.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="section-container">
+            <h2 class="section-title">Simple pricing. No surprises.</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Free</div>
+                    <div class="pricing-price">$0</div>
+                    <div class="pricing-period">Forever free</div>
+                    <div class="pricing-yearly">&nbsp;</div>
+                    <ul class="pricing-features">
+                        <li><i class="ph ph-check-circle"></i> Up to 10 products</li>
+                        <li><i class="ph ph-check-circle"></i> AM & PM routines</li>
+                        <li><i class="ph ph-check-circle"></i> Streak tracking</li>
+                        <li><i class="ph ph-check-circle"></i> UV index widget</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Download Free</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-tier">Pro</div>
+                    <div class="pricing-price">$4.99<span>/mo</span></div>
+                    <div class="pricing-period">Billed monthly</div>
+                    <div class="pricing-yearly">
+                        <span class="pricing-yearly-price">or $39.99/year</span>
+                        <span class="savings-badge">Save 33%</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="ph ph-check-circle"></i> Everything in Free, plus:</li>
+                        <li><i class="ph ph-check-circle"></i> Unlimited products</li>
+                        <li><i class="ph ph-check-circle"></i> Unlimited custom routines</li>
+                        <li><i class="ph ph-check-circle"></i> Smart reminders</li>
+                        <li><i class="ph ph-check-circle"></i> UV alerts</li>
+                        <li><i class="ph ph-check-circle"></i> Weekly insights</li>
+                        <li><i class="ph ph-check-circle"></i> Achievements & badges</li>
+                        <li><i class="ph ph-check-circle"></i> Priority support</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Go Pro</a>
+                </div>
+            </div>
+            <p class="pricing-note">7-day free trial. Cancel anytime.</p>
+        </div>
+    </section>
+
+    <!-- Download CTA Section -->
+    <section class="section" id="download">
+        <div class="section-container">
+            <h2 class="section-title">Ready to start your skincare journey?</h2>
+            <p>Download Renew for free and build the routine your skin deserves.</p>
+            <div class="cta-buttons">
+                <a href="#" aria-label="Download on the App Store">
+                    <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" class="store-badge">
+                </a>
+                <a href="#" aria-label="Get it on Google Play">
+                    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" class="store-badge" style="height: 78px; margin-top: -13px;">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <i class="ph ph-leaf"></i>
+            Renew
+        </div>
+        <p class="footer-tagline">Made with <i class="ph ph-coffee"></i> in Melbourne, Australia</p>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="mailto:support@getrenew.app">Contact</a>
+        </div>
+        <p class="footer-copyright">&copy; 2026 Renew. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ============================================
+        // Navbar scroll effect
+        // ============================================
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ============================================
+        // Mobile menu toggle
+        // ============================================
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.navbar-links');
+        const mobileOverlay = document.querySelector('.mobile-overlay');
+
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            menuToggle.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        mobileOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // ============================================
+        // Smooth scroll for anchor links
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        const navHeight = navbar.offsetHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

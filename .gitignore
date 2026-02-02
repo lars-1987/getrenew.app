@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build artifacts
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+
+# Local env files
+.env
+.env.local
+
+# Old build guide (not needed for deployment)
+CARRD_BUILD_GUIDE.md
