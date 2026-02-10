@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renew Admin — Product Catalogue</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --cream: #FAF8F5;
+            --oat: #F0EBE3;
+            --oat-dark: #E5DFD5;
+            --clay: #C4B5A4;
+            --charcoal: #2C2C2C;
+            --stone: #8A8A8A;
+            --sage: #7A8B6F;
+            --sage-light: #e8ede5;
+            --amber: #D4A853;
+            --amber-light: #faf3e0;
+            --terracotta: #C17C5A;
+            --terracotta-light: #f8ede7;
+            --deepOlive: #4A5240;
+            --deepOlive-hover: #3d4435;
+            --red: #c0392b;
+            --red-light: #fbeaea;
+            --font-heading: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--charcoal);
+            min-height: 100vh;
+        }
+
+        /* ── Login Screen ── */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .login-card {
+            background: white;
+            border: 1px solid var(--clay);
+            border-radius: var(--radius-lg);
+            padding: 48px 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .login-card h1 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .login-card p {
+            color: var(--stone);
+            margin-bottom: 32px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--charcoal);
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--clay);
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            background: white;
+            color: var(--charcoal);
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--deepOlive);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--deepOlive);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover { background: var(--deepOlive-hover); }
+
+        .btn-secondary {
+            background: var(--oat);
+            color: var(--charcoal);
+            border: 1px solid var(--clay);
+        }
+
+        .btn-secondary:hover { background: var(--oat-dark); }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        .btn-save {
+            background: var(--sage);
+            color: white;
+        }
+
+        .btn-save:hover { background: #6b7c61; }
+
+        .btn-danger {
+            background: var(--red-light);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        .btn-danger:hover { background: #f5d5d5; }
+
+        .login-error {
+            color: var(--terracotta);
+            font-size: 13px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* ── App Shell ── */
+        .app-container { display: none; }
+
+        .top-bar {
+            background: white;
+            border-bottom: 1px solid var(--oat-dark);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-bar h1 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* ── Stats Bar ── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--oat-dark);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--deepOlive);
+        }
+
+        .stat-card .stat-label {
+            font-size: 12px;
+            color: var(--stone);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── Filters & Controls ── */
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-select {
+            width: 180px;
+        }
+
+        .sort-select {
+            width: 160px;
+        }
+
+        /* ── Product Queue ── */
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .queue-item {
+            background: white;
+            border: 1px solid var(--oat-dark);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .queue-item:hover {
+            border-color: var(--clay);
+            box-shadow: var(--shadow);
+        }
+
+        .queue-item-info {
+            flex: 1;
+        }
+
+        .queue-item-brand {
+            font-size: 12px;
+            color: var(--stone);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .queue-item-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 2px;
+        }
+
+        .queue-item-meta {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-missing {
+            background: var(--terracotta-light);
+            color: var(--terracotta);
+        }
+
+        .badge-has {
+            background: var(--sage-light);
+            color: var(--sage);
+        }
+
+        .badge-users {
+            background: var(--oat);
+            color: var(--charcoal);
+        }
+
+        .queue-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 16px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--oat-dark);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--stone);
+            transition: all 0.15s;
+        }
+
+        .icon-btn:hover {
+            border-color: var(--clay);
+            color: var(--charcoal);
+        }
+
+        /* ── Editor Panel ── */
+        .editor-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 200;
+            justify-content: flex-end;
+        }
+
+        .editor-overlay.open {
+            display: flex;
+        }
+
+        .editor-panel {
+            background: var(--cream);
+            width: 580px;
+            max-width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+            padding: 24px;
+        }
+
+        .editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .editor-header h2 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .editor-section {
+            background: white;
+            border: 1px solid var(--oat-dark);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .editor-section h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--stone);
+            margin-bottom: 14px;
+        }
+
+        .editor-row {
+            margin-bottom: 14px;
+        }
+
+        .editor-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .editor-row label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .editor-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            position: sticky;
+            bottom: 0;
+            background: var(--cream);
+            padding: 16px 0;
+        }
+
+        .search-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--deepOlive);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            background: var(--oat);
+            transition: background 0.15s;
+        }
+
+        .search-link:hover { background: var(--oat-dark); }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--deepOlive);
+            color: white;
+            padding: 14px 24px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 300;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Pagination ── */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+            padding: 16px 0;
+        }
+
+        .pagination-info {
+            font-size: 13px;
+            color: var(--stone);
+        }
+
+        /* ── Empty state ── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--stone);
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        /* ── Loading ── */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--oat-dark);
+            border-top-color: var(--deepOlive);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-overlay {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .main-content { padding: 16px; }
+            .top-bar { padding: 12px 16px; }
+            .editor-panel { width: 100%; }
+            .controls-bar { flex-direction: column; }
+            .search-input, .filter-select, .sort-select { width: 100%; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .queue-item { flex-direction: column; align-items: flex-start; }
+            .queue-item-actions { margin-left: 0; margin-top: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     LOGIN SCREEN
+     ═══════════════════════════════════════════ -->
+<div class="login-container" id="loginScreen">
+    <div class="login-card">
+        <h1>Renew Admin</h1>
+        <p>Product catalogue management</p>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
+            <div class="login-error" id="loginError"></div>
+        </form>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     APP SHELL
+     ═══════════════════════════════════════════ -->
+<div class="app-container" id="appShell">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <h1>Renew Admin</h1>
+        <div class="top-bar-right">
+            <span id="userEmail" style="font-size:13px;color:var(--stone)"></span>
+            <button class="btn btn-secondary btn-small" id="logoutBtn">Sign Out</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <!-- Stats -->
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-card">
+                <div class="stat-value" id="statTotal">—</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statComplete">—</div>
+                <div class="stat-label">Complete</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statNeedIngredients">—</div>
+                <div class="stat-label">Need Ingredients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statNeedInstructions">—</div>
+                <div class="stat-label">Need Instructions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statBrands">—</div>
+                <div class="stat-label">Brands</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-bar">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search by brand or product name...">
+            <select class="filter-select" id="filterSelect">
+                <option value="all">All Products</option>
+                <option value="needs_attention" selected>Needs Attention</option>
+                <option value="missing_ingredients">Missing Ingredients</option>
+                <option value="missing_instructions">Missing Instructions</option>
+                <option value="complete">Complete</option>
+            </select>
+            <select class="sort-select" id="sortSelect">
+                <option value="user_count">Most Users</option>
+                <option value="updated_at">Recently Updated</option>
+                <option value="created_at">Newest</option>
+                <option value="brand">Brand A-Z</option>
+            </select>
+        </div>
+
+        <!-- Product Queue -->
+        <div id="queueContainer">
+            <div class="loading-overlay"><div class="loading-spinner"></div></div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination" style="display:none">
+            <button class="btn btn-secondary btn-small" id="prevBtn">← Previous</button>
+            <span class="pagination-info" id="paginationInfo"></span>
+            <button class="btn btn-secondary btn-small" id="nextBtn">Next →</button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     EDITOR SLIDE PANEL
+     ═══════════════════════════════════════════ -->
+<div class="editor-overlay" id="editorOverlay">
+    <div class="editor-panel" id="editorPanel">
+        <div class="editor-header">
+            <h2>Edit Product</h2>
+            <button class="icon-btn" id="editorClose" title="Close">
+                <i class="ph ph-x" style="font-size:20px"></i>
+            </button>
+        </div>
+
+        <!-- Lookup Links -->
+        <div class="editor-section">
+            <h3>Quick Lookup</h3>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <a class="search-link" id="searchGoogle" href="#" target="_blank">
+                    <i class="ph ph-magnifying-glass"></i> Google
+                </a>
+                <a class="search-link" id="searchBrand" href="#" target="_blank">
+                    <i class="ph ph-storefront"></i> Brand Site
+                </a>
+            </div>
+        </div>
+
+        <!-- Current Data -->
+        <div class="editor-section">
+            <h3>Current Data (User Entered)</h3>
+            <div class="editor-row">
+                <label>Brand</label>
+                <input type="text" id="editorBrand" readonly style="background:var(--oat);cursor:default">
+            </div>
+            <div class="editor-row">
+                <label>Product Name (as entered)</label>
+                <input type="text" id="editorNameOriginal" readonly style="background:var(--oat);cursor:default">
+            </div>
+            <div class="editor-row">
+                <label>Category</label>
+                <input type="text" id="editorCategoryDisplay" readonly style="background:var(--oat);cursor:default">
+            </div>
+            <div style="display:flex;gap:12px">
+                <div class="badge badge-users" id="editorUserCount"></div>
+                <div class="badge" id="editorCreatedAt"></div>
+            </div>
+        </div>
+
+        <!-- Editable Fields -->
+        <div class="editor-section">
+            <h3>Official Details</h3>
+            <div class="editor-row">
+                <label>Official Product Name</label>
+                <input type="text" id="editorName" placeholder="e.g. CeraVe Moisturizing Cream">
+            </div>
+            <div class="editor-row">
+                <label>Category</label>
+                <select id="editorCategory">
+                    <option value="">— Select —</option>
+                    <option value="cleanser">Cleanser</option>
+                    <option value="toner">Toner</option>
+                    <option value="essence">Essence</option>
+                    <option value="serum">Serum</option>
+                    <option value="ampoule">Ampoule</option>
+                    <option value="moisturizer">Moisturizer</option>
+                    <option value="oil">Face Oil</option>
+                    <option value="sunscreen">Sunscreen</option>
+                    <option value="eye_cream">Eye Cream</option>
+                    <option value="lip_care">Lip Care</option>
+                    <option value="mask">Mask</option>
+                    <option value="exfoliant">Exfoliant</option>
+                    <option value="spot_treatment">Spot Treatment</option>
+                    <option value="mist">Mist / Setting Spray</option>
+                    <option value="body_lotion">Body Lotion</option>
+                    <option value="body_wash">Body Wash</option>
+                    <option value="hand_cream">Hand Cream</option>
+                    <option value="hair_care">Hair Care</option>
+                    <option value="scalp_care">Scalp Care</option>
+                    <option value="tool">Tool / Device</option>
+                    <option value="prescription">Prescription</option>
+                    <option value="supplement">Supplement</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="editor-row">
+                <label>Ingredients</label>
+                <textarea id="editorIngredients" rows="6" placeholder="Paste full ingredients list..."></textarea>
+            </div>
+            <div class="editor-row">
+                <label>How to Use (Instructions)</label>
+                <textarea id="editorInstructions" rows="4" placeholder="Paste usage instructions..."></textarea>
+            </div>
+            <div class="editor-row">
+                <label>Description</label>
+                <textarea id="editorDescription" rows="3" placeholder="Brief product description (optional)"></textarea>
+            </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="editor-footer">
+            <button class="btn btn-save" id="editorSave" style="flex:1">
+                <i class="ph ph-check-circle"></i> Save Changes
+            </button>
+            <button class="btn btn-secondary" id="editorCancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════════════════
+const SUPABASE_URL = 'https://mxxnqaqmsyxuwkwwzqrk.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14eG5xYXFtc3l4dXdrd3d6cXJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NTc3NjIsImV4cCI6MjA4NTAzMzc2Mn0.k6tedGBZLnbqzWHwaU1qWkb7zmXD3nwIiGPD7lhBIZk';
+const PAGE_SIZE = 30;
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+let currentPage = 0;
+let totalCount = 0;
+let currentProducts = [];
+let editingProduct = null;
+let searchTimeout = null;
+
+// ═══════════════════════════════════════════════════════
+//  DOM REFS
+// ═══════════════════════════════════════════════════════
+const $ = (id) => document.getElementById(id);
+
+// ═══════════════════════════════════════════════════════
+//  AUTH
+// ═══════════════════════════════════════════════════════
+async function init() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+        showApp(session.user);
+    }
+}
+
+$('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = $('loginEmail').value.trim();
+    const password = $('loginPassword').value;
+    $('loginBtn').textContent = 'Signing in...';
+    $('loginBtn').disabled = true;
+    $('loginError').style.display = 'none';
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+        $('loginError').textContent = error.message;
+        $('loginError').style.display = 'block';
+        $('loginBtn').textContent = 'Sign In';
+        $('loginBtn').disabled = false;
+        return;
+    }
+
+    showApp(data.user);
+});
+
+$('logoutBtn').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    $('loginScreen').style.display = 'flex';
+    $('appShell').style.display = 'none';
+    $('loginPassword').value = '';
+});
+
+function showApp(user) {
+    $('loginScreen').style.display = 'none';
+    $('appShell').style.display = 'block';
+    $('userEmail').textContent = user.email;
+    loadStats();
+    loadProducts();
+}
+
+// ═══════════════════════════════════════════════════════
+//  STATS
+// ═══════════════════════════════════════════════════════
+async function loadStats() {
+    const { data, error } = await supabase.rpc('catalogue_stats');
+    if (error) {
+        // Fallback: count manually
+        const { count: total } = await supabase.from('product_catalogue').select('*', { count: 'exact', head: true });
+        const { count: withIngredients } = await supabase.from('product_catalogue').select('*', { count: 'exact', head: true }).not('ingredients', 'is', null);
+        const { count: withInstructions } = await supabase.from('product_catalogue').select('*', { count: 'exact', head: true }).not('instructions', 'is', null);
+        const { count: withBoth } = await supabase.from('product_catalogue').select('*', { count: 'exact', head: true }).not('ingredients', 'is', null).not('instructions', 'is', null);
+
+        // Distinct brands
+        const { data: brands } = await supabase.from('product_catalogue').select('brand_normalised');
+        const uniqueBrands = new Set(brands?.map(b => b.brand_normalised)).size;
+
+        $('statTotal').textContent = total || 0;
+        $('statComplete').textContent = withBoth || 0;
+        $('statNeedIngredients').textContent = (total || 0) - (withIngredients || 0);
+        $('statNeedInstructions').textContent = (total || 0) - (withInstructions || 0);
+        $('statBrands').textContent = uniqueBrands || 0;
+        return;
+    }
+
+    // RPC path
+    if (data && data.length > 0) {
+        const s = data[0];
+        $('statTotal').textContent = s.total_entries;
+        $('statComplete').textContent = s.with_both;
+        $('statNeedIngredients').textContent = s.total_entries - s.with_ingredients;
+        $('statNeedInstructions').textContent = s.total_entries - s.with_instructions;
+        $('statBrands').textContent = s.unique_brands;
+    }
+}
+
+// ═══════════════════════════════════════════════════════
+//  LOAD PRODUCTS
+// ═══════════════════════════════════════════════════════
+async function loadProducts() {
+    const container = $('queueContainer');
+    container.innerHTML = '<div class="loading-overlay"><div class="loading-spinner"></div></div>';
+
+    const filter = $('filterSelect').value;
+    const sort = $('sortSelect').value;
+    const search = $('searchInput').value.trim();
+
+    let query = supabase
+        .from('product_catalogue')
+        .select('*', { count: 'exact' });
+
+    // Filters
+    if (filter === 'needs_attention') {
+        // Missing ingredients OR instructions
+        query = query.or('ingredients.is.null,instructions.is.null');
+    } else if (filter === 'missing_ingredients') {
+        query = query.is('ingredients', null);
+    } else if (filter === 'missing_instructions') {
+        query = query.is('instructions', null);
+    } else if (filter === 'complete') {
+        query = query.not('ingredients', 'is', null).not('instructions', 'is', null);
+    }
+
+    // Search
+    if (search) {
+        const searchLower = search.toLowerCase();
+        query = query.or(`brand_normalised.ilike.%${searchLower}%,name_normalised.ilike.%${searchLower}%`);
+    }
+
+    // Sort
+    const sortMap = {
+        'user_count': { column: 'user_count', ascending: false },
+        'updated_at': { column: 'updated_at', ascending: false },
+        'created_at': { column: 'created_at', ascending: false },
+        'brand': { column: 'brand_normalised', ascending: true },
+    };
+    const sortConfig = sortMap[sort] || sortMap['user_count'];
+    query = query.order(sortConfig.column, { ascending: sortConfig.ascending });
+
+    // Pagination
+    const from = currentPage * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+
+    const { data, error, count } = await query;
+
+    if (error) {
+        container.innerHTML = `<div class="empty-state"><p>Error loading products: ${error.message}</p></div>`;
+        return;
+    }
+
+    totalCount = count || 0;
+    currentProducts = data || [];
+
+    if (currentProducts.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="ph ph-check-circle"></i>
+                <p>${search ? 'No products match your search' : 'All caught up! No products need attention.'}</p>
+            </div>`;
+        $('pagination').style.display = 'none';
+        return;
+    }
+
+    renderQueue();
+    renderPagination();
+}
+
+function renderQueue() {
+    const container = $('queueContainer');
+    const html = currentProducts.map(p => {
+        const hasIngredients = p.ingredients !== null && p.ingredients !== '';
+        const hasInstructions = p.instructions !== null && p.instructions !== '';
+
+        return `
+            <div class="queue-item" data-id="${p.id}" onclick="openEditor('${p.id}')">
+                <div class="queue-item-info">
+                    <div class="queue-item-brand">${escapeHtml(p.brand)}</div>
+                    <div class="queue-item-name">${escapeHtml(p.name)}</div>
+                    <div class="queue-item-meta">
+                        <span class="badge ${hasIngredients ? 'badge-has' : 'badge-missing'}">
+                            ${hasIngredients ? '✓' : '✗'} Ingredients
+                        </span>
+                        <span class="badge ${hasInstructions ? 'badge-has' : 'badge-missing'}">
+                            ${hasInstructions ? '✓' : '✗'} Instructions
+                        </span>
+                        <span class="badge badge-users">
+                            <i class="ph ph-users"></i> ${p.user_count}
+                        </span>
+                    </div>
+                </div>
+                <div class="queue-item-actions">
+                    <button class="icon-btn" title="Search Google" onclick="event.stopPropagation();searchProduct('${p.id}')">
+                        <i class="ph ph-magnifying-glass" style="font-size:16px"></i>
+                    </button>
+                </div>
+            </div>`;
+    }).join('');
+
+    container.innerHTML = `<div class="queue-list">${html}</div>`;
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+    if (totalPages <= 1) {
+        $('pagination').style.display = 'none';
+        return;
+    }
+
+    $('pagination').style.display = 'flex';
+    $('paginationInfo').textContent = `Page ${currentPage + 1} of ${totalPages} (${totalCount} products)`;
+    $('prevBtn').disabled = currentPage === 0;
+    $('nextBtn').disabled = currentPage >= totalPages - 1;
+}
+
+$('prevBtn').addEventListener('click', () => {
+    if (currentPage > 0) { currentPage--; loadProducts(); }
+});
+
+$('nextBtn').addEventListener('click', () => {
+    const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+    if (currentPage < totalPages - 1) { currentPage++; loadProducts(); }
+});
+
+$('filterSelect').addEventListener('change', () => { currentPage = 0; loadProducts(); });
+$('sortSelect').addEventListener('change', () => { currentPage = 0; loadProducts(); });
+$('searchInput').addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => { currentPage = 0; loadProducts(); }, 300);
+});
+
+// ═══════════════════════════════════════════════════════
+//  EDITOR
+// ═══════════════════════════════════════════════════════
+function openEditor(id) {
+    const product = currentProducts.find(p => p.id === id);
+    if (!product) return;
+    editingProduct = product;
+
+    // Lookup links
+    const googleQuery = encodeURIComponent(`${product.brand} ${product.name}`);
+    $('searchGoogle').href = `https://www.google.com/search?q=${googleQuery}`;
+
+    const brandQuery = encodeURIComponent(`${product.brand} ${product.name} site:${guessBrandDomain(product.brand)}`);
+    $('searchBrand').href = `https://www.google.com/search?q=${brandQuery}`;
+
+    // Read-only fields
+    $('editorBrand').value = product.brand;
+    $('editorNameOriginal').value = product.name;
+    $('editorCategoryDisplay').value = product.category || '—';
+    $('editorUserCount').textContent = `${product.user_count} user${product.user_count !== 1 ? 's' : ''}`;
+    $('editorCreatedAt').textContent = `Added ${timeAgo(product.created_at)}`;
+    $('editorCreatedAt').className = 'badge badge-users';
+
+    // Editable fields
+    $('editorName').value = product.name || '';
+    $('editorCategory').value = product.category || '';
+    $('editorIngredients').value = product.ingredients || '';
+    $('editorInstructions').value = product.instructions || '';
+    $('editorDescription').value = product.description || '';
+
+    // Show panel
+    $('editorOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEditor() {
+    $('editorOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    editingProduct = null;
+}
+
+$('editorClose').addEventListener('click', closeEditor);
+$('editorCancel').addEventListener('click', closeEditor);
+$('editorOverlay').addEventListener('click', (e) => {
+    if (e.target === $('editorOverlay')) closeEditor();
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && editingProduct) closeEditor();
+});
+
+// Save
+$('editorSave').addEventListener('click', async () => {
+    if (!editingProduct) return;
+
+    const saveBtn = $('editorSave');
+    saveBtn.innerHTML = '<div class="loading-spinner"></div> Saving...';
+    saveBtn.disabled = true;
+
+    const updates = {
+        name: $('editorName').value.trim() || editingProduct.name,
+        category: $('editorCategory').value || null,
+        ingredients: $('editorIngredients').value.trim() || null,
+        instructions: $('editorInstructions').value.trim() || null,
+        description: $('editorDescription').value.trim() || null,
+        updated_at: new Date().toISOString(),
+    };
+
+    const { error } = await supabase
+        .from('product_catalogue')
+        .update(updates)
+        .eq('id', editingProduct.id);
+
+    saveBtn.innerHTML = '<i class="ph ph-check-circle"></i> Save Changes';
+    saveBtn.disabled = false;
+
+    if (error) {
+        showToast('Error saving: ' + error.message, true);
+        return;
+    }
+
+    showToast('Product updated successfully');
+    closeEditor();
+    loadProducts();
+    loadStats();
+});
+
+// ═══════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════
+function searchProduct(id) {
+    const product = currentProducts.find(p => p.id === id);
+    if (!product) return;
+    const query = encodeURIComponent(`${product.brand} ${product.name}`);
+    window.open(`https://www.google.com/search?q=${query}`, '_blank');
+}
+
+function guessBrandDomain(brand) {
+    // Common brand → domain mappings
+    const known = {
+        'cerave': 'cerave.com',
+        'the ordinary': 'theordinary.com',
+        'la roche-posay': 'laroche-posay.com',
+        'la roche posay': 'laroche-posay.com',
+        'neutrogena': 'neutrogena.com',
+        'paula\'s choice': 'paulaschoice.com',
+        'drunk elephant': 'drunkelephant.com',
+        'tatcha': 'tatcha.com',
+        'skinceuticals': 'skinceuticals.com',
+        'cosrx': 'cosrx.com',
+        'innisfree': 'innisfree.com',
+        'laneige': 'laneige.com',
+        'kiehl\'s': 'kiehls.com',
+        'clinique': 'clinique.com',
+        'niacinamide': 'theordinary.com',
+        'avene': 'avene.com',
+        'bioderma': 'bioderma.com',
+        'cetaphil': 'cetaphil.com',
+        'aveeno': 'aveeno.com',
+        'olay': 'olay.com',
+        'vichy': 'vichy.com',
+        'eucerin': 'eucerin.com',
+        'first aid beauty': 'firstaidbeauty.com',
+    };
+    const lower = brand.toLowerCase().trim();
+    if (known[lower]) return known[lower];
+    // Guess: brand name with no spaces + .com
+    return lower.replace(/[^a-z0-9]/g, '') + '.com';
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function timeAgo(dateStr) {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffDays = Math.floor(diffMs / 86400000);
+    if (diffDays === 0) return 'today';
+    if (diffDays === 1) return 'yesterday';
+    if (diffDays < 30) return `${diffDays}d ago`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`;
+    return `${Math.floor(diffDays / 365)}y ago`;
+}
+
+function showToast(msg, isError = false) {
+    const toast = $('toast');
+    toast.textContent = msg;
+    toast.style.background = isError ? 'var(--terracotta)' : 'var(--deepOlive)';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
+init();
+</script>
+
+</body>
+</html>
