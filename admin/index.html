@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Renew Admin — Product Catalogue</title>
+    <title>Renew Admin</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -526,6 +526,207 @@
             padding: 60px;
         }
 
+        /* ── Tab Navigation ── */
+        .tab-bar {
+            display: flex;
+            gap: 4px;
+            background: var(--oat);
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background: transparent;
+            color: var(--stone);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--charcoal);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .tab-btn .tab-count {
+            background: var(--terracotta);
+            color: white;
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .tab-btn.active .tab-count {
+            background: var(--terracotta);
+        }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* ── Feedback Items ── */
+        .feedback-item {
+            background: white;
+            border: 1px solid var(--oat-dark);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 8px;
+            transition: all 0.15s;
+        }
+
+        .feedback-item:hover {
+            border-color: var(--clay);
+            box-shadow: var(--shadow);
+        }
+
+        .feedback-item.is-new {
+            border-left: 3px solid var(--sage);
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .feedback-user {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .feedback-date {
+            font-size: 12px;
+            color: var(--stone);
+        }
+
+        .feedback-message {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--charcoal);
+            white-space: pre-wrap;
+            margin-bottom: 12px;
+        }
+
+        .feedback-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .feedback-status {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .status-new { background: var(--sage-light); color: var(--sage); }
+        .status-read { background: var(--oat); color: var(--stone); }
+        .status-replied { background: var(--amber-light); color: var(--amber); }
+        .status-resolved { background: var(--oat-dark); color: var(--stone); }
+
+        .feedback-filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+
+        /* ── Merge / Duplicates ── */
+        .dupe-group {
+            background: white;
+            border: 1px solid var(--oat-dark);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .dupe-group-header {
+            background: var(--oat);
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dupe-entry {
+            padding: 14px 20px;
+            border-top: 1px solid var(--oat-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dupe-entry:first-child {
+            border-top: none;
+        }
+
+        .dupe-radio {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--deepOlive);
+            cursor: pointer;
+        }
+
+        .dupe-entry-info {
+            flex: 1;
+        }
+
+        .dupe-entry-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .dupe-entry-meta {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+
+        .dupe-winner-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: var(--sage-light);
+            color: var(--sage);
+        }
+
+        .merge-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            background: var(--oat);
+            border-top: 1px solid var(--oat-dark);
+        }
+
+        .merge-summary {
+            font-size: 13px;
+            color: var(--stone);
+        }
+
         /* ── Responsive ── */
         @media (max-width: 640px) {
             .main-content { padding: 16px; }
@@ -577,6 +778,24 @@
     </div>
 
     <div class="main-content">
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <button class="tab-btn active" data-tab="products" onclick="switchTab('products')">
+                <i class="ph ph-package"></i> Products
+            </button>
+            <button class="tab-btn" data-tab="duplicates" onclick="switchTab('duplicates')">
+                <i class="ph ph-copy"></i> Duplicates
+                <span class="tab-count" id="dupeCount" style="display:none">0</span>
+            </button>
+            <button class="tab-btn" data-tab="feedback" onclick="switchTab('feedback')">
+                <i class="ph ph-chat-circle-dots"></i> Feedback
+                <span class="tab-count" id="feedbackCount" style="display:none">0</span>
+            </button>
+        </div>
+
+        <!-- ═══ PRODUCTS TAB ═══ -->
+        <div class="tab-panel active" id="productsTab">
 
         <!-- Stats -->
         <div class="stats-bar" id="statsBar">
@@ -631,6 +850,36 @@
             <span class="pagination-info" id="paginationInfo"></span>
             <button class="btn btn-secondary btn-small" id="nextBtn">Next →</button>
         </div>
+
+        </div><!-- /productsTab -->
+
+        <!-- ═══ DUPLICATES TAB ═══ -->
+        <div class="tab-panel" id="duplicatesTab">
+            <p style="font-size:14px;color:var(--stone);margin-bottom:16px">
+                Potential duplicates detected by matching brand + similar product names.
+                Select the <strong>winner</strong> (the entry to keep), then merge.
+            </p>
+            <div id="dupeContainer">
+                <div class="loading-overlay"><div class="loading-spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- ═══ FEEDBACK TAB ═══ -->
+        <div class="tab-panel" id="feedbackTab">
+            <div class="feedback-filter-bar">
+                <select class="filter-select" id="feedbackFilter">
+                    <option value="new" selected>New</option>
+                    <option value="all">All</option>
+                    <option value="read">Read</option>
+                    <option value="replied">Replied</option>
+                    <option value="resolved">Resolved</option>
+                </select>
+            </div>
+            <div id="feedbackContainer">
+                <div class="loading-overlay"><div class="loading-spinner"></div></div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -857,6 +1106,8 @@ function showApp(user) {
     $('userEmail').textContent = user.email;
     loadStats();
     loadProducts();
+    loadFeedbackCount();
+    loadDupeCount();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1185,6 +1436,338 @@ function showToast(msg, isError = false) {
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
+
+// ═══════════════════════════════════════════════════════
+//  TABS
+// ═══════════════════════════════════════════════════════
+function switchTab(tab) {
+    // Update buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tab);
+    });
+    // Update panels
+    document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.id === tab + 'Tab');
+    });
+    if (tab === 'feedback') loadFeedback();
+    if (tab === 'duplicates') loadDuplicates();
+}
+
+// ═══════════════════════════════════════════════════════
+//  DUPLICATES
+// ═══════════════════════════════════════════════════════
+let dupeGroups = [];
+
+async function loadDupeCount() {
+    // Query the potential duplicates view
+    const { data, error } = await sb.from('catalogue_potential_duplicates').select('entry_a_id');
+    const badge = $('dupeCount');
+    if (!error && data && data.length > 0) {
+        badge.textContent = data.length;
+        badge.style.display = 'inline';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+async function loadDuplicates() {
+    const container = $('dupeContainer');
+    container.innerHTML = '<div class="loading-overlay"><div class="loading-spinner"></div></div>';
+
+    const { data, error } = await sb.from('catalogue_potential_duplicates').select('*');
+
+    if (error) {
+        container.innerHTML = `<div class="empty-state"><p>Error loading duplicates: ${error.message}</p></div>`;
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="ph ph-check-circle"></i>
+                <p>No duplicates detected. Catalogue is clean!</p>
+            </div>`;
+        return;
+    }
+
+    // Group duplicates: collect all entries that share a brand+name group
+    // The view returns pairs (a, b). We need to group them.
+    const groupMap = new Map(); // key = brand_norm + name_a → Set of entry IDs
+    const entryCache = {};
+
+    for (const row of data) {
+        // Cache entry info from the view
+        entryCache[row.entry_a_id] = {
+            id: row.entry_a_id,
+            brand: row.entry_a_brand,
+            name: row.entry_a_name,
+            users: row.entry_a_users,
+            hasIngredients: row.entry_a_has_ingredients,
+        };
+        entryCache[row.entry_b_id] = {
+            id: row.entry_b_id,
+            brand: row.entry_b_brand,
+            name: row.entry_b_name,
+            users: row.entry_b_users,
+            hasIngredients: row.entry_b_has_ingredients,
+        };
+
+        // Group: find or create a group containing entry_a
+        let foundGroup = null;
+        for (const [key, group] of groupMap) {
+            if (group.has(row.entry_a_id) || group.has(row.entry_b_id)) {
+                foundGroup = key;
+                break;
+            }
+        }
+
+        if (foundGroup) {
+            groupMap.get(foundGroup).add(row.entry_a_id);
+            groupMap.get(foundGroup).add(row.entry_b_id);
+        } else {
+            const newGroup = new Set([row.entry_a_id, row.entry_b_id]);
+            groupMap.set(row.entry_a_id, newGroup);
+        }
+    }
+
+    // Convert to array of groups
+    dupeGroups = [];
+    for (const [key, idSet] of groupMap) {
+        const entries = [...idSet].map(id => entryCache[id]).filter(Boolean);
+        if (entries.length < 2) continue;
+        // Sort: most users first, then has ingredients
+        entries.sort((a, b) => {
+            if (b.hasIngredients !== a.hasIngredients) return b.hasIngredients ? 1 : -1;
+            return b.users - a.users;
+        });
+        dupeGroups.push({
+            brand: entries[0].brand,
+            entries,
+            winnerId: entries[0].id, // Default: best entry
+        });
+    }
+
+    renderDuplicates();
+}
+
+function renderDuplicates() {
+    const container = $('dupeContainer');
+
+    if (dupeGroups.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="ph ph-check-circle"></i>
+                <p>No duplicates detected. Catalogue is clean!</p>
+            </div>`;
+        return;
+    }
+
+    const html = dupeGroups.map((group, gi) => {
+        const entriesHtml = group.entries.map(entry => {
+            const isWinner = entry.id === group.winnerId;
+            return `
+                <div class="dupe-entry">
+                    <input type="radio" class="dupe-radio" name="dupe-group-${gi}"
+                        value="${entry.id}" ${isWinner ? 'checked' : ''}
+                        onchange="selectWinner(${gi}, '${entry.id}')">
+                    <div class="dupe-entry-info">
+                        <div class="dupe-entry-name">
+                            ${escapeHtml(entry.name)}
+                            ${isWinner ? '<span class="dupe-winner-label"><i class="ph ph-crown"></i> Keep</span>' : ''}
+                        </div>
+                        <div class="dupe-entry-meta">
+                            <span class="badge badge-users"><i class="ph ph-users"></i> ${entry.users}</span>
+                            <span class="badge ${entry.hasIngredients ? 'badge-has' : 'badge-missing'}">
+                                ${entry.hasIngredients ? '✓' : '✗'} Ingredients
+                            </span>
+                        </div>
+                    </div>
+                </div>`;
+        }).join('');
+
+        const loserCount = group.entries.length - 1;
+
+        return `
+            <div class="dupe-group">
+                <div class="dupe-group-header">
+                    <span>${escapeHtml(group.brand)} — ${group.entries.length} entries</span>
+                </div>
+                ${entriesHtml}
+                <div class="merge-bar">
+                    <span class="merge-summary">Merge ${loserCount} duplicate${loserCount > 1 ? 's' : ''} into selected entry</span>
+                    <button class="btn btn-save btn-small" onclick="mergeGroup(${gi})">
+                        <i class="ph ph-git-merge"></i> Merge
+                    </button>
+                </div>
+            </div>`;
+    }).join('');
+
+    container.innerHTML = html;
+}
+
+function selectWinner(groupIndex, entryId) {
+    dupeGroups[groupIndex].winnerId = entryId;
+    renderDuplicates();
+}
+
+async function mergeGroup(groupIndex) {
+    const group = dupeGroups[groupIndex];
+    const winnerId = group.winnerId;
+    const losers = group.entries.filter(e => e.id !== winnerId);
+
+    if (!confirm(`Merge ${losers.length} duplicate(s) into "${group.entries.find(e => e.id === winnerId)?.name}"?\n\nThis will:\n• Move all user products to the winner\n• Combine user counts\n• Fill any data gaps\n• Delete the duplicate entries\n\nThis cannot be undone.`)) {
+        return;
+    }
+
+    let successCount = 0;
+    for (const loser of losers) {
+        const { data, error } = await sb.rpc('merge_catalogue_entries', {
+            winner_id: winnerId,
+            loser_id: loser.id,
+        });
+
+        if (error) {
+            showToast(`Error merging "${loser.name}": ${error.message}`, true);
+        } else {
+            successCount++;
+        }
+    }
+
+    if (successCount > 0) {
+        showToast(`Merged ${successCount} duplicate${successCount > 1 ? 's' : ''} successfully`);
+        // Remove this group and re-render
+        dupeGroups.splice(groupIndex, 1);
+        renderDuplicates();
+        loadDupeCount();
+        loadStats();
+    }
+}
+
+// ═══════════════════════════════════════════════════════
+//  FEEDBACK
+// ═══════════════════════════════════════════════════════
+let feedbackItems = [];
+
+async function loadFeedbackCount() {
+    const { count } = await sb.from('feedback').select('*', { count: 'exact', head: true }).eq('status', 'new');
+    const badge = $('feedbackCount');
+    if (count && count > 0) {
+        badge.textContent = count;
+        badge.style.display = 'inline';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+async function loadFeedback() {
+    const container = $('feedbackContainer');
+    container.innerHTML = '<div class="loading-overlay"><div class="loading-spinner"></div></div>';
+
+    const filter = $('feedbackFilter').value;
+
+    let query = sb
+        .from('feedback')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+    if (filter !== 'all') {
+        query = query.eq('status', filter);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+        container.innerHTML = `<div class="empty-state"><p>Error loading feedback: ${error.message}</p></div>`;
+        return;
+    }
+
+    feedbackItems = data || [];
+
+    if (feedbackItems.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="ph ph-chat-circle-dots"></i>
+                <p>${filter === 'new' ? 'No new feedback — all caught up!' : 'No feedback matching this filter.'}</p>
+            </div>`;
+        return;
+    }
+
+    // Resolve user emails for display
+    const userIds = [...new Set(feedbackItems.map(f => f.user_id))];
+    const userEmails = {};
+
+    // Try to get emails from auth.users via RPC (may not work without service key)
+    // Fallback: show truncated user_id
+    for (const id of userIds) {
+        userEmails[id] = id.substring(0, 8) + '...';
+    }
+
+    renderFeedback(userEmails);
+}
+
+function renderFeedback(userEmails) {
+    const container = $('feedbackContainer');
+    const html = feedbackItems.map(f => {
+        const statusClass = `status-${f.status}`;
+        const isNew = f.status === 'new';
+        const date = new Date(f.created_at);
+        const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+        return `
+            <div class="feedback-item ${isNew ? 'is-new' : ''}">
+                <div class="feedback-header">
+                    <div>
+                        <div class="feedback-user">
+                            <i class="ph ph-user" style="font-size:14px"></i>
+                            ${escapeHtml(userEmails[f.user_id] || f.user_id)}
+                        </div>
+                        <div class="feedback-date">${dateStr} at ${timeStr}</div>
+                    </div>
+                    <span class="feedback-status ${statusClass}">${f.status}</span>
+                </div>
+                <div class="feedback-message">${escapeHtml(f.message)}</div>
+                <div class="feedback-actions">
+                    ${f.status === 'new' ? `
+                        <button class="btn btn-secondary btn-small" onclick="updateFeedbackStatus('${f.id}', 'read')">
+                            <i class="ph ph-check"></i> Mark Read
+                        </button>
+                    ` : ''}
+                    ${f.status !== 'resolved' ? `
+                        <button class="btn btn-secondary btn-small" onclick="updateFeedbackStatus('${f.id}', 'resolved')">
+                            <i class="ph ph-check-circle"></i> Resolve
+                        </button>
+                    ` : ''}
+                    ${f.status === 'resolved' ? `
+                        <button class="btn btn-secondary btn-small" onclick="updateFeedbackStatus('${f.id}', 'new')">
+                            <i class="ph ph-arrow-counter-clockwise"></i> Reopen
+                        </button>
+                    ` : ''}
+                </div>
+            </div>`;
+    }).join('');
+
+    container.innerHTML = html;
+}
+
+async function updateFeedbackStatus(id, status) {
+    const { error } = await sb
+        .from('feedback')
+        .update({ status, updated_at: new Date().toISOString() })
+        .eq('id', id);
+
+    if (error) {
+        showToast('Error updating: ' + error.message, true);
+        return;
+    }
+
+    showToast(`Feedback marked as ${status}`);
+    loadFeedback();
+    loadFeedbackCount();
+}
+
+$('feedbackFilter').addEventListener('change', loadFeedback);
 
 // ═══════════════════════════════════════════════════════
 //  INIT
