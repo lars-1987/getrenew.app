@@ -825,8 +825,8 @@
         <div class="controls-bar">
             <input type="text" class="search-input" id="searchInput" placeholder="Search by brand or product name...">
             <select class="filter-select" id="filterSelect">
-                <option value="all">All Products</option>
-                <option value="needs_attention" selected>Needs Attention</option>
+                <option value="all" selected>All Products</option>
+                <option value="needs_attention">Needs Attention</option>
                 <option value="missing_ingredients">Missing Ingredients</option>
                 <option value="missing_instructions">Missing Instructions</option>
                 <option value="complete">Complete</option>
@@ -940,29 +940,106 @@
                 <label>Category</label>
                 <select id="editorCategory">
                     <option value="">— Select —</option>
-                    <option value="cleanser">Cleanser</option>
-                    <option value="toner">Toner</option>
-                    <option value="essence">Essence</option>
-                    <option value="serum">Serum</option>
-                    <option value="ampoule">Ampoule</option>
-                    <option value="moisturizer">Moisturizer</option>
-                    <option value="oil">Face Oil</option>
-                    <option value="sunscreen">Sunscreen</option>
-                    <option value="eye_cream">Eye Cream</option>
-                    <option value="lip_care">Lip Care</option>
-                    <option value="mask">Mask</option>
-                    <option value="exfoliant">Exfoliant</option>
-                    <option value="spot_treatment">Spot Treatment</option>
-                    <option value="mist">Mist / Setting Spray</option>
-                    <option value="body_lotion">Body Lotion</option>
-                    <option value="body_wash">Body Wash</option>
-                    <option value="hand_cream">Hand Cream</option>
-                    <option value="hair_care">Hair Care</option>
-                    <option value="scalp_care">Scalp Care</option>
-                    <option value="tool">Tool / Device</option>
-                    <option value="prescription">Prescription</option>
-                    <option value="supplement">Supplement</option>
-                    <option value="other">Other</option>
+                    <optgroup label="Cleansers">
+                        <option value="cleanser_oil">Oil Cleanser</option>
+                        <option value="cleanser_balm">Cleansing Balm</option>
+                        <option value="cleanser_micellar">Micellar Water</option>
+                        <option value="cleanser_gel">Gel Cleanser</option>
+                        <option value="cleanser_foam">Foam Cleanser</option>
+                        <option value="cleanser_cream">Cream Cleanser</option>
+                        <option value="cleanser_powder">Powder Cleanser</option>
+                    </optgroup>
+                    <optgroup label="Toners & Essences">
+                        <option value="toner">Toner</option>
+                        <option value="essence">Essence</option>
+                        <option value="exfoliating_toner">Exfoliating Toner</option>
+                        <option value="mist">Face Mist</option>
+                    </optgroup>
+                    <optgroup label="Serums & Treatments">
+                        <option value="serum">Serum</option>
+                        <option value="ampoule">Ampoule</option>
+                        <option value="booster">Booster / Drops</option>
+                        <option value="retinoid">Retinoid / Retinol</option>
+                        <option value="vitamin_c">Vitamin C</option>
+                        <option value="niacinamide">Niacinamide</option>
+                        <option value="aha">AHA (Glycolic, Lactic, etc.)</option>
+                        <option value="bha">BHA (Salicylic Acid)</option>
+                        <option value="pha">PHA</option>
+                        <option value="azelaic_acid">Azelaic Acid</option>
+                        <option value="hyaluronic_acid">Hyaluronic Acid</option>
+                        <option value="peptides">Peptides</option>
+                        <option value="spot_treatment">Spot Treatment</option>
+                        <option value="peel">Peel / Exfoliant</option>
+                    </optgroup>
+                    <optgroup label="Moisturizers">
+                        <option value="moisturizer_gel">Gel Moisturizer</option>
+                        <option value="moisturizer_lotion">Lotion / Emulsion</option>
+                        <option value="moisturizer_cream">Cream Moisturizer</option>
+                        <option value="moisturizer_balm">Balm / Ointment</option>
+                        <option value="sleeping_mask">Sleeping Mask / Pack</option>
+                    </optgroup>
+                    <optgroup label="Sun Protection">
+                        <option value="sunscreen_chemical">Chemical Sunscreen</option>
+                        <option value="sunscreen_mineral">Mineral Sunscreen</option>
+                        <option value="sunscreen_hybrid">Hybrid Sunscreen</option>
+                        <option value="sunscreen_tinted">Tinted Sunscreen</option>
+                        <option value="sunscreen_spray">Sunscreen Spray</option>
+                        <option value="sunscreen_stick">Sunscreen Stick</option>
+                        <option value="lip_spf">Lip SPF</option>
+                    </optgroup>
+                    <optgroup label="Eye Care">
+                        <option value="eye_cream">Eye Cream</option>
+                        <option value="eye_serum">Eye Serum</option>
+                        <option value="eye_patches">Eye Patches / Masks</option>
+                    </optgroup>
+                    <optgroup label="Lip Care">
+                        <option value="lip_balm">Lip Balm</option>
+                        <option value="lip_mask">Lip Mask</option>
+                        <option value="lip_scrub">Lip Scrub</option>
+                    </optgroup>
+                    <optgroup label="Masks">
+                        <option value="sheet_mask">Sheet Mask</option>
+                        <option value="clay_mask">Clay Mask</option>
+                        <option value="hydrating_mask">Hydrating Mask</option>
+                        <option value="exfoliating_mask">Exfoliating Mask</option>
+                    </optgroup>
+                    <optgroup label="Body Care">
+                        <option value="body_wash">Body Wash</option>
+                        <option value="body_scrub">Body Scrub</option>
+                        <option value="body_lotion">Body Lotion</option>
+                        <option value="body_cream">Body Cream / Butter</option>
+                        <option value="body_oil">Body Oil</option>
+                        <option value="hand_cream">Hand Cream</option>
+                        <option value="foot_cream">Foot Cream</option>
+                        <option value="deodorant">Deodorant</option>
+                    </optgroup>
+                    <optgroup label="Hair & Scalp">
+                        <option value="shampoo">Shampoo</option>
+                        <option value="conditioner">Conditioner</option>
+                        <option value="hair_mask">Hair Mask</option>
+                        <option value="hair_oil">Hair Oil / Serum</option>
+                        <option value="scalp_treatment">Scalp Treatment</option>
+                    </optgroup>
+                    <optgroup label="Tools & Devices">
+                        <option value="tool_cleansing">Cleansing Device</option>
+                        <option value="tool_led">LED Device</option>
+                        <option value="tool_microcurrent">Microcurrent Device</option>
+                        <option value="tool_gua_sha">Gua Sha</option>
+                        <option value="tool_roller">Face Roller</option>
+                        <option value="tool_other">Other Tool</option>
+                    </optgroup>
+                    <optgroup label="Prescription">
+                        <option value="rx_topical">Prescription Topical</option>
+                        <option value="rx_oral">Prescription Oral</option>
+                    </optgroup>
+                    <optgroup label="Supplements">
+                        <option value="supplement_pill">Supplement (Pill)</option>
+                        <option value="supplement_powder">Supplement (Powder)</option>
+                        <option value="supplement_liquid">Supplement (Liquid)</option>
+                    </optgroup>
+                    <optgroup label="Other">
+                        <option value="other">Other</option>
+                    </optgroup>
                 </select>
             </div>
             <div class="editor-row">
@@ -1015,6 +1092,39 @@ let searchTimeout = null;
 //  DOM REFS
 // ═══════════════════════════════════════════════════════
 const $ = (id) => document.getElementById(id);
+
+// Category ID → Display Name mapping (mirrors app categories)
+const CATEGORY_NAMES = {
+    cleanser_oil: 'Oil Cleanser', cleanser_balm: 'Cleansing Balm', cleanser_micellar: 'Micellar Water',
+    cleanser_gel: 'Gel Cleanser', cleanser_foam: 'Foam Cleanser', cleanser_cream: 'Cream Cleanser',
+    cleanser_powder: 'Powder Cleanser', toner: 'Toner', essence: 'Essence',
+    exfoliating_toner: 'Exfoliating Toner', mist: 'Face Mist', serum: 'Serum', ampoule: 'Ampoule',
+    booster: 'Booster / Drops', retinoid: 'Retinoid / Retinol', vitamin_c: 'Vitamin C',
+    niacinamide: 'Niacinamide', aha: 'AHA', bha: 'BHA', pha: 'PHA',
+    azelaic_acid: 'Azelaic Acid', hyaluronic_acid: 'Hyaluronic Acid', peptides: 'Peptides',
+    spot_treatment: 'Spot Treatment', peel: 'Peel / Exfoliant',
+    moisturizer_gel: 'Gel Moisturizer', moisturizer_lotion: 'Lotion / Emulsion',
+    moisturizer_cream: 'Cream Moisturizer', moisturizer_balm: 'Balm / Ointment',
+    sleeping_mask: 'Sleeping Mask / Pack',
+    sunscreen_chemical: 'Chemical Sunscreen', sunscreen_mineral: 'Mineral Sunscreen',
+    sunscreen_hybrid: 'Hybrid Sunscreen', sunscreen_tinted: 'Tinted Sunscreen',
+    sunscreen_spray: 'Sunscreen Spray', sunscreen_stick: 'Sunscreen Stick', lip_spf: 'Lip SPF',
+    eye_cream: 'Eye Cream', eye_serum: 'Eye Serum', eye_patches: 'Eye Patches / Masks',
+    lip_balm: 'Lip Balm', lip_mask: 'Lip Mask', lip_scrub: 'Lip Scrub',
+    sheet_mask: 'Sheet Mask', clay_mask: 'Clay Mask', hydrating_mask: 'Hydrating Mask',
+    exfoliating_mask: 'Exfoliating Mask',
+    body_wash: 'Body Wash', body_scrub: 'Body Scrub', body_lotion: 'Body Lotion',
+    body_cream: 'Body Cream / Butter', body_oil: 'Body Oil', hand_cream: 'Hand Cream',
+    foot_cream: 'Foot Cream', deodorant: 'Deodorant',
+    shampoo: 'Shampoo', conditioner: 'Conditioner', hair_mask: 'Hair Mask',
+    hair_oil: 'Hair Oil / Serum', scalp_treatment: 'Scalp Treatment',
+    tool_cleansing: 'Cleansing Device', tool_led: 'LED Device', tool_microcurrent: 'Microcurrent Device',
+    tool_gua_sha: 'Gua Sha', tool_roller: 'Face Roller', tool_other: 'Other Tool',
+    rx_topical: 'Prescription Topical', rx_oral: 'Prescription Oral',
+    supplement_pill: 'Supplement (Pill)', supplement_powder: 'Supplement (Powder)',
+    supplement_liquid: 'Supplement (Liquid)', other: 'Other',
+};
+function getCategoryName(id) { return CATEGORY_NAMES[id] || id || '—'; }
 
 // ═══════════════════════════════════════════════════════
 //  AUTH
@@ -1298,7 +1408,7 @@ function openEditor(id) {
     // Read-only fields
     $('editorBrand').value = product.brand;
     $('editorNameOriginal').value = product.name;
-    $('editorCategoryDisplay').value = product.category || '—';
+    $('editorCategoryDisplay').value = getCategoryName(product.category);
     $('editorUserCount').textContent = `${product.user_count} user${product.user_count !== 1 ? 's' : ''}`;
     $('editorCreatedAt').textContent = `Added ${timeAgo(product.created_at)}`;
     $('editorCreatedAt').className = 'badge badge-users';
