@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <style>
         :root {
             --cream: #FAF8F5;
@@ -553,12 +553,11 @@
                 <label>Email</label>
                 <input type="email" id="loginEmail" required autocomplete="email">
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="loginPassword" required autocomplete="current-password">
-            </div>
-            <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
+            <button type="button" class="btn btn-primary" id="loginBtn">Send Magic Link</button>
             <div class="login-error" id="loginError"></div>
+            <div class="login-success" id="loginSuccess" style="display:none;color:var(--sage);font-size:13px;margin-top:12px;">
+                Check your email for the login link
+            </div>
         </form>
     </div>
 </div>
@@ -752,7 +751,7 @@ const SUPABASE_URL = 'https://mxxnqaqmsyxuwkwwzqrk.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14eG5xYXFtc3l4dXdrd3d6cXJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NTc3NjIsImV4cCI6MjA4NTAzMzc2Mn0.k6tedGBZLnbqzWHwaU1qWkb7zmXD3nwIiGPD7lhBIZk';
 const PAGE_SIZE = 30;
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ═══════════════════════════════════════════════════════
 //  STATE
@@ -772,38 +771,84 @@ const $ = (id) => document.getElementById(id);
 //  AUTH
 // ═══════════════════════════════════════════════════════
 async function init() {
-    const { data: { session } } = await supabase.auth.getSession();
+    // Handle magic link callback — Supabase puts tokens in the URL hash
+    const hash = window.location.hash;
+    if (hash && hash.includes('access_token')) {
+        // Let Supabase pick up the tokens from the URL
+        const { data: { session }, error } = await sb.auth.getSession();
+        if (session) {
+            // Clean up the URL
+            window.history.replaceState(null, '', window.location.pathname);
+            showApp(session.user);
+            return;
+        }
+    }
+
+    // Check for existing session
+    const { data: { session } } = await sb.auth.getSession();
     if (session) {
         showApp(session.user);
     }
+
+    // Listen for auth state changes (catches magic link redirects)
+    sb.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+            window.history.replaceState(null, '', window.location.pathname);
+            showApp(session.user);
+        }
+    });
 }
 
-$('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
+$('loginForm').addEventListener('submit', (e) => e.preventDefault());
+
+$('loginBtn').addEventListener('click', async () => {
     const email = $('loginEmail').value.trim();
-    const password = $('loginPassword').value;
-    $('loginBtn').textContent = 'Signing in...';
+    if (!email) return;
+
+    $('loginBtn').textContent = 'Sending...';
     $('loginBtn').disabled = true;
     $('loginError').style.display = 'none';
+    $('loginSuccess').style.display = 'none';
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    try {
+        const { error } = await sb.auth.signInWithOtp({
+            email,
+            options: {
+                emailRedirectTo: window.location.origin + window.location.pathname,
+            },
+        });
 
-    if (error) {
-        $('loginError').textContent = error.message;
+        if (error) {
+            $('loginError').textContent = error.message;
+            $('loginError').style.display = 'block';
+            $('loginBtn').textContent = 'Send Magic Link';
+            $('loginBtn').disabled = false;
+            return;
+        }
+
+        $('loginSuccess').style.display = 'block';
+        $('loginBtn').textContent = 'Link Sent — Check Email';
+        setTimeout(() => {
+            $('loginBtn').textContent = 'Send Magic Link';
+            $('loginBtn').disabled = false;
+        }, 10000);
+    } catch (err) {
+        $('loginError').textContent = 'Connection error: ' + err.message;
         $('loginError').style.display = 'block';
-        $('loginBtn').textContent = 'Sign In';
+        $('loginBtn').textContent = 'Send Magic Link';
         $('loginBtn').disabled = false;
-        return;
     }
+});
 
-    showApp(data.user);
+// Allow Enter key to trigger login
+$('loginEmail').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); $('loginBtn').click(); }
 });
 
 $('logoutBtn').addEventListener('click', async () => {
-    await supabase.auth.signOut();
+    await sb.auth.signOut();
     $('loginScreen').style.display = 'flex';
     $('appShell').style.display = 'none';
-    $('loginPassword').value = '';
 });
 
 function showApp(user) {
@@ -818,16 +863,16 @@ function showApp(user) {
 //  STATS
 // ═══════════════════════════════════════════════════════
 async function loadStats() {
-    const { data, error } = await supabase.rpc('catalogue_stats');
+    const { data, error } = await sb.rpc('catalogue_stats');
     if (error) {
         // Fallback: count manually
-        const { count: total } = await supabase.from('product_catalogue').select('*', { count: 'exact', head: true });
-        const { count: withIngredients } = await supabase.from('product_catalogue').select('*', { count: 'exact', head: true }).not('ingredients', 'is', null);
-        const { count: withInstructions } = await supabase.from('product_catalogue').select('*', { count: 'exact', head: true }).not('instructions', 'is', null);
-        const { count: withBoth } = await supabase.from('product_catalogue').select('*', { count: 'exact', head: true }).not('ingredients', 'is', null).not('instructions', 'is', null);
+        const { count: total } = await sb.from('product_catalogue').select('*', { count: 'exact', head: true });
+        const { count: withIngredients } = await sb.from('product_catalogue').select('*', { count: 'exact', head: true }).not('ingredients', 'is', null);
+        const { count: withInstructions } = await sb.from('product_catalogue').select('*', { count: 'exact', head: true }).not('instructions', 'is', null);
+        const { count: withBoth } = await sb.from('product_catalogue').select('*', { count: 'exact', head: true }).not('ingredients', 'is', null).not('instructions', 'is', null);
 
         // Distinct brands
-        const { data: brands } = await supabase.from('product_catalogue').select('brand_normalised');
+        const { data: brands } = await sb.from('product_catalogue').select('brand_normalised');
         const uniqueBrands = new Set(brands?.map(b => b.brand_normalised)).size;
 
         $('statTotal').textContent = total || 0;
@@ -860,7 +905,7 @@ async function loadProducts() {
     const sort = $('sortSelect').value;
     const search = $('searchInput').value.trim();
 
-    let query = supabase
+    let query = sb
         .from('product_catalogue')
         .select('*', { count: 'exact' });
 
@@ -1053,7 +1098,7 @@ $('editorSave').addEventListener('click', async () => {
         updated_at: new Date().toISOString(),
     };
 
-    const { error } = await supabase
+    const { error } = await sb
         .from('product_catalogue')
         .update(updates)
         .eq('id', editingProduct.id);
