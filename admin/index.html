@@ -727,6 +727,21 @@
             color: var(--stone);
         }
 
+        /* ── Link Search Results (inside editor) ── */
+        .link-result-item {
+            padding: 10px 14px;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .link-result-item .queue-item-brand {
+            font-size: 11px;
+        }
+
+        .link-result-item .queue-item-name {
+            font-size: 13px;
+        }
+
         /* ── Responsive ── */
         @media (max-width: 640px) {
             .main-content { padding: 16px; }
@@ -783,6 +798,10 @@
         <div class="tab-bar">
             <button class="tab-btn active" data-tab="products" onclick="switchTab('products')">
                 <i class="ph ph-package"></i> Products
+            </button>
+            <button class="tab-btn" data-tab="submissions" onclick="switchTab('submissions')">
+                <i class="ph ph-tray-arrow-down"></i> Submissions
+                <span class="tab-count" id="submissionsCount" style="display:none">0</span>
             </button>
             <button class="tab-btn" data-tab="duplicates" onclick="switchTab('duplicates')">
                 <i class="ph ph-copy"></i> Duplicates
@@ -852,6 +871,55 @@
         </div>
 
         </div><!-- /productsTab -->
+
+        <!-- ═══ SUBMISSIONS TAB ═══ -->
+        <div class="tab-panel" id="submissionsTab">
+            <p style="font-size:14px;color:var(--stone);margin-bottom:16px">
+                Products submitted by app users that aren't yet in the catalogue. Review, enrich, and approve them.
+            </p>
+
+            <!-- Stats -->
+            <div class="stats-bar" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">
+                <div class="stat-card">
+                    <div class="stat-value" id="statUnlinked">—</div>
+                    <div class="stat-label">Unlinked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statLinked">—</div>
+                    <div class="stat-label">Linked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statTotalSubmissions">—</div>
+                    <div class="stat-label">Total Products</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-bar">
+                <input type="text" class="search-input" id="submissionsSearch" placeholder="Search by brand or product name...">
+                <select class="filter-select" id="submissionsFilter">
+                    <option value="unlinked" selected>Unlinked</option>
+                    <option value="all">All</option>
+                    <option value="linked">Linked</option>
+                </select>
+                <select class="sort-select" id="submissionsSort">
+                    <option value="created_at">Newest</option>
+                    <option value="brand">Brand A-Z</option>
+                </select>
+            </div>
+
+            <!-- Submissions List -->
+            <div id="submissionsContainer">
+                <div class="loading-overlay"><div class="loading-spinner"></div></div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="submissionsPagination" style="display:none">
+                <button class="btn btn-secondary btn-small" id="submissionsPrevBtn">← Previous</button>
+                <span class="pagination-info" id="submissionsPaginationInfo"></span>
+                <button class="btn btn-secondary btn-small" id="submissionsNextBtn">Next →</button>
+            </div>
+        </div><!-- /submissionsTab -->
 
         <!-- ═══ DUPLICATES TAB ═══ -->
         <div class="tab-panel" id="duplicatesTab">
@@ -1056,12 +1124,29 @@
             </div>
         </div>
 
-        <!-- Footer Actions -->
-        <div class="editor-footer">
+        <!-- Link to Existing (submission review mode only) -->
+        <div class="editor-section" id="linkSearchSection" style="display:none">
+            <h3>Link to Existing Catalogue Entry</h3>
+            <div class="editor-row">
+                <input type="text" id="linkSearchInput" placeholder="Search catalogue by name or brand...">
+            </div>
+            <div id="linkSearchResults" style="max-height:260px;overflow-y:auto;margin-top:8px"></div>
+        </div>
+
+        <!-- Footer Actions: Catalogue Mode -->
+        <div class="editor-footer" id="editorFooterCatalogue">
             <button class="btn btn-save" id="editorSave" style="flex:1">
                 <i class="ph ph-check-circle"></i> Save Changes
             </button>
             <button class="btn btn-secondary" id="editorCancel">Cancel</button>
+        </div>
+
+        <!-- Footer Actions: Submission Review Mode -->
+        <div class="editor-footer" id="editorFooterSubmission" style="display:none">
+            <button class="btn btn-save" id="submissionApprove" style="flex:1">
+                <i class="ph ph-check-circle"></i> Approve to Catalogue
+            </button>
+            <button class="btn btn-secondary" id="submissionCancel">Cancel</button>
         </div>
     </div>
 </div>
@@ -1087,6 +1172,15 @@ let totalCount = 0;
 let currentProducts = [];
 let editingProduct = null;
 let searchTimeout = null;
+
+// Submissions state
+let submissionsPage = 0;
+let submissionsTotalCount = 0;
+let currentSubmissions = [];
+let reviewingSubmission = null;
+let submissionsSearchTimeout = null;
+let linkSearchTimeout = null;
+let linkSearchResults = [];
 
 // ═══════════════════════════════════════════════════════
 //  DOM REFS
@@ -1218,6 +1312,7 @@ function showApp(user) {
     loadProducts();
     loadFeedbackCount();
     loadDupeCount();
+    loadSubmissionsCount();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1397,6 +1492,13 @@ function openEditor(id) {
     const product = currentProducts.find(p => p.id === id);
     if (!product) return;
     editingProduct = product;
+    reviewingSubmission = null;
+
+    // Ensure catalogue mode
+    $('editorPanel').querySelector('h2').textContent = 'Edit Product';
+    $('editorFooterCatalogue').style.display = 'flex';
+    $('editorFooterSubmission').style.display = 'none';
+    $('linkSearchSection').style.display = 'none';
 
     // Lookup links
     const googleQuery = encodeURIComponent(`${product.brand} ${product.name}`);
@@ -1429,6 +1531,13 @@ function closeEditor() {
     $('editorOverlay').classList.remove('open');
     document.body.style.overflow = '';
     editingProduct = null;
+    reviewingSubmission = null;
+
+    // Reset editor to catalogue mode (default)
+    $('editorPanel').querySelector('h2').textContent = 'Edit Product';
+    $('editorFooterCatalogue').style.display = 'flex';
+    $('editorFooterSubmission').style.display = 'none';
+    $('linkSearchSection').style.display = 'none';
 }
 
 $('editorClose').addEventListener('click', closeEditor);
@@ -1561,6 +1670,7 @@ function switchTab(tab) {
     });
     if (tab === 'feedback') loadFeedback();
     if (tab === 'duplicates') loadDuplicates();
+    if (tab === 'submissions') { loadSubmissions(); loadSubmissionsStats(); }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1752,6 +1862,335 @@ async function mergeGroup(groupIndex) {
         loadStats();
     }
 }
+
+// ═══════════════════════════════════════════════════════
+//  SUBMISSIONS
+// ═══════════════════════════════════════════════════════
+
+async function loadSubmissionsCount() {
+    const { count, error } = await sb
+        .from('products')
+        .select('*', { count: 'exact', head: true })
+        .is('catalogue_id', null);
+
+    const badge = $('submissionsCount');
+    if (!error && count && count > 0) {
+        badge.textContent = count;
+        badge.style.display = 'inline';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+async function loadSubmissionsStats() {
+    const { count: unlinked } = await sb
+        .from('products')
+        .select('*', { count: 'exact', head: true })
+        .is('catalogue_id', null);
+
+    const { count: linked } = await sb
+        .from('products')
+        .select('*', { count: 'exact', head: true })
+        .not('catalogue_id', 'is', null);
+
+    $('statUnlinked').textContent = unlinked || 0;
+    $('statLinked').textContent = linked || 0;
+    $('statTotalSubmissions').textContent = (unlinked || 0) + (linked || 0);
+}
+
+async function loadSubmissions() {
+    const container = $('submissionsContainer');
+    container.innerHTML = '<div class="loading-overlay"><div class="loading-spinner"></div></div>';
+
+    const filter = $('submissionsFilter').value;
+    const sort = $('submissionsSort').value;
+    const search = $('submissionsSearch').value.trim();
+
+    let query = sb
+        .from('products')
+        .select('id, brand, name, category, ingredients, instructions, catalogue_id, user_id, created_at', { count: 'exact' });
+
+    // Filter
+    if (filter === 'unlinked') {
+        query = query.is('catalogue_id', null);
+    } else if (filter === 'linked') {
+        query = query.not('catalogue_id', 'is', null);
+    }
+
+    // Search
+    if (search) {
+        const s = search.toLowerCase();
+        query = query.or(`brand.ilike.%${s}%,name.ilike.%${s}%`);
+    }
+
+    // Sort
+    if (sort === 'brand') {
+        query = query.order('brand', { ascending: true });
+    } else {
+        query = query.order('created_at', { ascending: false });
+    }
+
+    // Pagination
+    const from = submissionsPage * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+
+    const { data, error, count } = await query;
+
+    if (error) {
+        container.innerHTML = `<div class="empty-state"><p>Error loading submissions: ${error.message}</p></div>`;
+        return;
+    }
+
+    submissionsTotalCount = count || 0;
+    currentSubmissions = data || [];
+
+    if (currentSubmissions.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="ph ph-tray"></i>
+                <p>${filter === 'unlinked' ? 'No unlinked submissions — all caught up!' : 'No submissions match this filter.'}</p>
+            </div>`;
+        $('submissionsPagination').style.display = 'none';
+        return;
+    }
+
+    renderSubmissions();
+    renderSubmissionsPagination();
+}
+
+function renderSubmissions() {
+    const container = $('submissionsContainer');
+    const html = currentSubmissions.map(s => {
+        const isLinked = s.catalogue_id !== null;
+        const hasIngredients = s.ingredients !== null && s.ingredients !== '';
+        const hasInstructions = s.instructions !== null && s.instructions !== '';
+
+        return `
+            <div class="queue-item" onclick="openSubmissionReview('${s.id}')">
+                <div class="queue-item-info">
+                    <div class="queue-item-brand">${escapeHtml(s.brand || 'Unknown Brand')}</div>
+                    <div class="queue-item-name">${escapeHtml(s.name || 'Unnamed Product')}</div>
+                    <div class="queue-item-meta">
+                        <span class="badge ${isLinked ? 'badge-has' : 'badge-missing'}">
+                            ${isLinked ? '✓ Linked' : '✗ Unlinked'}
+                        </span>
+                        ${s.category ? `<span class="badge badge-users">${getCategoryName(s.category)}</span>` : ''}
+                        <span class="badge badge-users">
+                            <i class="ph ph-clock"></i> ${timeAgo(s.created_at)}
+                        </span>
+                    </div>
+                </div>
+                <div class="queue-item-actions">
+                    <button class="icon-btn" title="Search Google" onclick="event.stopPropagation();searchSubmissionGoogle('${s.id}')">
+                        <i class="ph ph-magnifying-glass" style="font-size:16px"></i>
+                    </button>
+                </div>
+            </div>`;
+    }).join('');
+
+    container.innerHTML = `<div class="queue-list">${html}</div>`;
+}
+
+function renderSubmissionsPagination() {
+    const totalPages = Math.ceil(submissionsTotalCount / PAGE_SIZE);
+    if (totalPages <= 1) {
+        $('submissionsPagination').style.display = 'none';
+        return;
+    }
+    $('submissionsPagination').style.display = 'flex';
+    $('submissionsPaginationInfo').textContent = `Page ${submissionsPage + 1} of ${totalPages} (${submissionsTotalCount} submissions)`;
+    $('submissionsPrevBtn').disabled = submissionsPage === 0;
+    $('submissionsNextBtn').disabled = submissionsPage >= totalPages - 1;
+}
+
+function searchSubmissionGoogle(id) {
+    const s = currentSubmissions.find(p => p.id === id);
+    if (!s) return;
+    const query = encodeURIComponent(`${s.brand || ''} ${s.name || ''}`);
+    window.open(`https://www.google.com/search?q=${query}`, '_blank');
+}
+
+// ── Submission Review (Editor in review mode) ──
+
+function openSubmissionReview(id) {
+    const submission = currentSubmissions.find(s => s.id === id);
+    if (!submission) return;
+
+    reviewingSubmission = submission;
+    editingProduct = null;
+
+    // Set header text
+    $('editorPanel').querySelector('h2').textContent = 'Review Submission';
+
+    // Lookup links
+    const googleQuery = encodeURIComponent(`${submission.brand || ''} ${submission.name || ''}`);
+    $('searchGoogle').href = `https://www.google.com/search?q=${googleQuery}`;
+    const brandQuery = encodeURIComponent(`${submission.brand || ''} ${submission.name || ''} site:${guessBrandDomain(submission.brand || '')}`);
+    $('searchBrand').href = `https://www.google.com/search?q=${brandQuery}`;
+
+    // Read-only fields
+    $('editorBrand').value = submission.brand || '';
+    $('editorNameOriginal').value = submission.name || '';
+    $('editorCategoryDisplay').value = getCategoryName(submission.category);
+    $('editorUserCount').textContent = 'User submission';
+    $('editorCreatedAt').textContent = `Submitted ${timeAgo(submission.created_at)}`;
+    $('editorCreatedAt').className = 'badge badge-users';
+
+    // Pre-fill editable fields with what the user submitted
+    $('editorName').value = submission.name || '';
+    $('editorCategory').value = submission.category || '';
+    $('editorIngredients').value = submission.ingredients || '';
+    $('editorInstructions').value = submission.instructions || '';
+    $('editorDescription').value = '';
+
+    // Toggle footers
+    $('editorFooterCatalogue').style.display = 'none';
+    $('editorFooterSubmission').style.display = 'flex';
+
+    // Show link search section with auto-search
+    $('linkSearchSection').style.display = 'block';
+    $('linkSearchInput').value = `${submission.brand || ''} ${submission.name || ''}`.trim();
+    searchCatalogueForLink();
+
+    // Show panel
+    $('editorOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+// ── Approve: create new catalogue entry from submission ──
+
+$('submissionApprove').addEventListener('click', async () => {
+    if (!reviewingSubmission) return;
+
+    const btn = $('submissionApprove');
+    btn.innerHTML = '<div class="loading-spinner"></div> Approving...';
+    btn.disabled = true;
+
+    const brand = $('editorBrand').value.trim() || reviewingSubmission.brand;
+    const name = $('editorName').value.trim() || reviewingSubmission.name;
+
+    const { data, error } = await sb.rpc('approve_submission', {
+        p_product_id: reviewingSubmission.id,
+        p_brand: brand,
+        p_name: name,
+        p_category: $('editorCategory').value || null,
+        p_ingredients: $('editorIngredients').value.trim() || null,
+        p_instructions: $('editorInstructions').value.trim() || null,
+        p_description: $('editorDescription').value.trim() || null,
+    });
+
+    btn.innerHTML = '<i class="ph ph-check-circle"></i> Approve to Catalogue';
+    btn.disabled = false;
+
+    if (error) {
+        showToast('Error approving: ' + error.message, true);
+        return;
+    }
+
+    showToast('Approved and added to catalogue!');
+    closeEditor();
+    loadSubmissions();
+    loadSubmissionsStats();
+    loadSubmissionsCount();
+    loadStats();
+});
+
+// ── Link: connect submission to existing catalogue entry ──
+
+async function searchCatalogueForLink() {
+    const search = $('linkSearchInput').value.trim();
+    const resultsContainer = $('linkSearchResults');
+
+    if (!search) {
+        resultsContainer.innerHTML = '<p style="color:var(--stone);font-size:13px">Type to search the catalogue...</p>';
+        return;
+    }
+
+    const s = search.toLowerCase();
+    const { data, error } = await sb
+        .from('product_catalogue')
+        .select('id, brand, name, user_count, ingredients, instructions')
+        .or(`brand_normalised.ilike.%${s}%,name_normalised.ilike.%${s}%`)
+        .order('user_count', { ascending: false })
+        .limit(10);
+
+    if (error || !data || data.length === 0) {
+        resultsContainer.innerHTML = '<p style="color:var(--stone);font-size:13px">No matching catalogue entries found.</p>';
+        return;
+    }
+
+    linkSearchResults = data;
+
+    resultsContainer.innerHTML = data.map(entry => {
+        const hasIng = entry.ingredients !== null && entry.ingredients !== '';
+        const hasIns = entry.instructions !== null && entry.instructions !== '';
+        return `
+            <div class="queue-item link-result-item" onclick="confirmLinkToEntry('${entry.id}')">
+                <div class="queue-item-info">
+                    <div class="queue-item-brand">${escapeHtml(entry.brand)}</div>
+                    <div class="queue-item-name">${escapeHtml(entry.name)}</div>
+                    <div class="queue-item-meta">
+                        <span class="badge badge-users"><i class="ph ph-users"></i> ${entry.user_count}</span>
+                        <span class="badge ${hasIng ? 'badge-has' : 'badge-missing'}">${hasIng ? '✓' : '✗'} Ingredients</span>
+                        <span class="badge ${hasIns ? 'badge-has' : 'badge-missing'}">${hasIns ? '✓' : '✗'} Instructions</span>
+                    </div>
+                </div>
+                <button class="btn btn-save btn-small" onclick="event.stopPropagation();confirmLinkToEntry('${entry.id}')">
+                    <i class="ph ph-link"></i> Link
+                </button>
+            </div>`;
+    }).join('');
+}
+
+async function confirmLinkToEntry(catalogueId) {
+    if (!reviewingSubmission) return;
+
+    const entry = linkSearchResults.find(e => e.id === catalogueId);
+    const entryName = entry ? `${entry.brand} — ${entry.name}` : catalogueId;
+
+    if (!confirm(`Link this submission to "${entryName}"?\n\nThe product will be connected to this catalogue entry and the user count will increase.`)) {
+        return;
+    }
+
+    const { error } = await sb.rpc('link_submission', {
+        p_product_id: reviewingSubmission.id,
+        p_catalogue_id: catalogueId,
+    });
+
+    if (error) {
+        showToast('Error linking: ' + error.message, true);
+        return;
+    }
+
+    showToast('Linked to existing catalogue entry!');
+    closeEditor();
+    loadSubmissions();
+    loadSubmissionsStats();
+    loadSubmissionsCount();
+    loadStats();
+}
+
+// ── Submissions event listeners ──
+
+$('submissionsFilter').addEventListener('change', () => { submissionsPage = 0; loadSubmissions(); });
+$('submissionsSort').addEventListener('change', () => { submissionsPage = 0; loadSubmissions(); });
+$('submissionsSearch').addEventListener('input', () => {
+    clearTimeout(submissionsSearchTimeout);
+    submissionsSearchTimeout = setTimeout(() => { submissionsPage = 0; loadSubmissions(); }, 300);
+});
+$('submissionsPrevBtn').addEventListener('click', () => {
+    if (submissionsPage > 0) { submissionsPage--; loadSubmissions(); }
+});
+$('submissionsNextBtn').addEventListener('click', () => {
+    const totalPages = Math.ceil(submissionsTotalCount / PAGE_SIZE);
+    if (submissionsPage < totalPages - 1) { submissionsPage++; loadSubmissions(); }
+});
+$('linkSearchInput').addEventListener('input', () => {
+    clearTimeout(linkSearchTimeout);
+    linkSearchTimeout = setTimeout(searchCatalogueForLink, 300);
+});
+$('submissionCancel').addEventListener('click', closeEditor);
 
 // ═══════════════════════════════════════════════════════
 //  FEEDBACK
