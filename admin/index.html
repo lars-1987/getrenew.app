@@ -1868,14 +1868,10 @@ async function mergeGroup(groupIndex) {
 // ═══════════════════════════════════════════════════════
 
 async function loadSubmissionsCount() {
-    const { count, error } = await sb
-        .from('products')
-        .select('*', { count: 'exact', head: true })
-        .is('catalogue_id', null);
-
+    const { data, error } = await sb.rpc('admin_products_counts');
     const badge = $('submissionsCount');
-    if (!error && count && count > 0) {
-        badge.textContent = count;
+    if (!error && data && data.length > 0 && data[0].unlinked > 0) {
+        badge.textContent = data[0].unlinked;
         badge.style.display = 'inline';
     } else {
         badge.style.display = 'none';
@@ -1883,19 +1879,12 @@ async function loadSubmissionsCount() {
 }
 
 async function loadSubmissionsStats() {
-    const { count: unlinked } = await sb
-        .from('products')
-        .select('*', { count: 'exact', head: true })
-        .is('catalogue_id', null);
-
-    const { count: linked } = await sb
-        .from('products')
-        .select('*', { count: 'exact', head: true })
-        .not('catalogue_id', 'is', null);
-
-    $('statUnlinked').textContent = unlinked || 0;
-    $('statLinked').textContent = linked || 0;
-    $('statTotalSubmissions').textContent = (unlinked || 0) + (linked || 0);
+    const { data, error } = await sb.rpc('admin_products_counts');
+    if (!error && data && data.length > 0) {
+        $('statUnlinked').textContent = data[0].unlinked || 0;
+        $('statLinked').textContent = data[0].linked || 0;
+        $('statTotalSubmissions').textContent = data[0].total || 0;
+    }
 }
 
 async function loadSubmissions() {
@@ -1906,43 +1895,20 @@ async function loadSubmissions() {
     const sort = $('submissionsSort').value;
     const search = $('submissionsSearch').value.trim();
 
-    let query = sb
-        .from('products')
-        .select('id, brand, name, category, ingredients, instructions, catalogue_id, user_id, created_at', { count: 'exact' });
-
-    // Filter
-    if (filter === 'unlinked') {
-        query = query.is('catalogue_id', null);
-    } else if (filter === 'linked') {
-        query = query.not('catalogue_id', 'is', null);
-    }
-
-    // Search
-    if (search) {
-        const s = search.toLowerCase();
-        query = query.or(`brand.ilike.%${s}%,name.ilike.%${s}%`);
-    }
-
-    // Sort
-    if (sort === 'brand') {
-        query = query.order('brand', { ascending: true });
-    } else {
-        query = query.order('created_at', { ascending: false });
-    }
-
-    // Pagination
-    const from = submissionsPage * PAGE_SIZE;
-    const to = from + PAGE_SIZE - 1;
-    query = query.range(from, to);
-
-    const { data, error, count } = await query;
+    const { data, error } = await sb.rpc('admin_get_products', {
+        p_filter: filter,
+        p_search: search,
+        p_sort: sort,
+        p_offset: submissionsPage * PAGE_SIZE,
+        p_limit: PAGE_SIZE,
+    });
 
     if (error) {
         container.innerHTML = `<div class="empty-state"><p>Error loading submissions: ${error.message}</p></div>`;
         return;
     }
 
-    submissionsTotalCount = count || 0;
+    submissionsTotalCount = (data && data.length > 0) ? Number(data[0].total_count) : 0;
     currentSubmissions = data || [];
 
     if (currentSubmissions.length === 0) {
