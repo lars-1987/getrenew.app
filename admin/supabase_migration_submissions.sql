@@ -41,8 +41,25 @@ BEGIN
     updated_at = NOW()
   RETURNING id INTO new_id;
 
-  -- Link the user's product to the catalogue entry
-  UPDATE products SET catalogue_id = new_id WHERE id = p_product_id AND catalogue_id IS NULL;
+  -- Link the user's product and push catalogue data to it (fill gaps only)
+  UPDATE products SET
+    catalogue_id = new_id,
+    ingredients = COALESCE(products.ingredients, p_ingredients),
+    instructions = COALESCE(products.instructions, p_instructions),
+    category = COALESCE(products.category, p_category),
+    updated_at = NOW()
+  WHERE id = p_product_id AND catalogue_id IS NULL;
+
+  -- Also backfill any other products already linked to this catalogue entry
+  UPDATE products SET
+    ingredients = COALESCE(products.ingredients, p_ingredients),
+    instructions = COALESCE(products.instructions, p_instructions),
+    category = COALESCE(products.category, p_category),
+    updated_at = NOW()
+  FROM product_catalogue cat
+  WHERE products.catalogue_id = new_id
+    AND cat.id = new_id
+    AND (products.ingredients IS NULL OR products.instructions IS NULL OR products.category IS NULL);
 
   RETURN new_id;
 END;
@@ -62,28 +79,71 @@ CREATE OR REPLACE FUNCTION link_submission(
   p_catalogue_id UUID
 ) RETURNS VOID AS $$
 BEGIN
-  -- Only link if not already linked
-  UPDATE products SET catalogue_id = p_catalogue_id WHERE id = p_product_id AND catalogue_id IS NULL;
+  -- Link the product and push catalogue data to it (fill gaps only)
+  UPDATE products SET
+    catalogue_id = p_catalogue_id,
+    ingredients = COALESCE(products.ingredients, cat.ingredients),
+    instructions = COALESCE(products.instructions, cat.instructions),
+    category = COALESCE(products.category, cat.category),
+    updated_at = NOW()
+  FROM product_catalogue cat
+  WHERE products.id = p_product_id
+    AND products.catalogue_id IS NULL
+    AND cat.id = p_catalogue_id;
 
   -- Increment user count on the catalogue entry
   IF FOUND THEN
     UPDATE product_catalogue SET user_count = user_count + 1, updated_at = NOW() WHERE id = p_catalogue_id;
+
+    -- Also backfill any other products linked to this catalogue entry with empty fields
+    UPDATE products SET
+      ingredients = COALESCE(products.ingredients, cat.ingredients),
+      instructions = COALESCE(products.instructions, cat.instructions),
+      category = COALESCE(products.category, cat.category),
+      updated_at = NOW()
+    FROM product_catalogue cat
+    WHERE products.catalogue_id = p_catalogue_id
+      AND cat.id = p_catalogue_id
+      AND (products.ingredients IS NULL OR products.instructions IS NULL OR products.category IS NULL);
   END IF;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
 -- ============================================
--- 3. RLS POLICY (if needed)
+-- 3. IMPROVED DUPLICATE DETECTION
 -- ============================================
--- The admin dashboard uses the anon key with magic link auth.
--- The products table likely has RLS restricting SELECT to own products.
--- We need authenticated users (admin) to be able to read all products
--- for the submissions view. If your RLS blocks this, run:
+-- Uses pg_trgm trigram similarity for fuzzy name matching.
+-- This catches duplicates with different names like:
+--   "2% BHA Exfoliating Toner" vs "SKIN PERFECTING 2% BHA Liquid Exfoliant"
 --
--- CREATE POLICY "Admin can read all products for catalogue management"
---   ON products FOR SELECT
---   USING (auth.role() = 'authenticated');
---
--- NOTE: Only run this if the admin dashboard can't read the products table.
--- Your existing RLS may already allow authenticated reads.
+-- Run this to replace the existing view:
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+CREATE OR REPLACE VIEW catalogue_potential_duplicates AS
+SELECT
+  a.id AS entry_a_id,
+  a.brand AS entry_a_brand,
+  a.name AS entry_a_name,
+  a.user_count AS entry_a_users,
+  CASE WHEN a.ingredients IS NOT NULL THEN true ELSE false END AS entry_a_has_ingredients,
+  b.id AS entry_b_id,
+  b.brand AS entry_b_brand,
+  b.name AS entry_b_name,
+  b.user_count AS entry_b_users,
+  CASE WHEN b.ingredients IS NOT NULL THEN true ELSE false END AS entry_b_has_ingredients
+FROM product_catalogue a
+JOIN product_catalogue b
+  ON a.brand_normalised = b.brand_normalised
+  AND a.id < b.id
+  AND (
+    -- Same normalised product name
+    a.name_normalised = b.name_normalised
+    -- Or one name contains the other (catches partial matches)
+    OR a.name_normalised LIKE '%' || b.name_normalised || '%'
+    OR b.name_normalised LIKE '%' || a.name_normalised || '%'
+    -- Or fuzzy similarity (catches different phrasings of same product)
+    OR similarity(a.name_normalised, b.name_normalised) > 0.3
+  )
+ORDER BY a.brand_normalised, a.name_normalised;

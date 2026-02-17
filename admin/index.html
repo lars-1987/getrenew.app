@@ -727,6 +727,48 @@
             color: var(--stone);
         }
 
+        /* ── Merge Mode ── */
+        .merge-mode-active {
+            background: var(--terracotta-light) !important;
+            color: var(--terracotta) !important;
+            border-color: var(--terracotta) !important;
+        }
+
+        .merge-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            cursor: pointer;
+            accent-color: var(--deepOlive);
+        }
+
+        .queue-item.merge-selected {
+            border-color: var(--deepOlive);
+            background: var(--sage-light);
+        }
+
+        .merge-floating-bar {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            border: 1px solid var(--oat-dark);
+            border-radius: var(--radius);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+            margin-top: 16px;
+            z-index: 50;
+        }
+
+        #mergeSelectedInfo {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
         /* ── Link Search Results (inside editor) ── */
         .link-result-item {
             padding: 10px 14px;
@@ -856,6 +898,9 @@
                 <option value="created_at">Newest</option>
                 <option value="brand">Brand A-Z</option>
             </select>
+            <button class="btn btn-secondary btn-small" id="mergeModeBtn" onclick="toggleMergeMode()">
+                <i class="ph ph-git-merge"></i> Merge
+            </button>
         </div>
 
         <!-- Product Queue -->
@@ -868,6 +913,17 @@
             <button class="btn btn-secondary btn-small" id="prevBtn">← Previous</button>
             <span class="pagination-info" id="paginationInfo"></span>
             <button class="btn btn-secondary btn-small" id="nextBtn">Next →</button>
+        </div>
+
+        <!-- Merge Bar (floating, hidden by default) -->
+        <div class="merge-floating-bar" id="mergeFloatingBar" style="display:none">
+            <span id="mergeSelectedInfo">0 selected</span>
+            <div style="display:flex;gap:8px;align-items:center">
+                <button class="btn btn-secondary btn-small" onclick="toggleMergeMode()">Cancel</button>
+                <button class="btn btn-save btn-small" id="mergeExecuteBtn" onclick="executeMerge()" disabled>
+                    <i class="ph ph-git-merge"></i> Merge Selected
+                </button>
+            </div>
         </div>
 
         </div><!-- /productsTab -->
@@ -1173,6 +1229,10 @@ let currentProducts = [];
 let editingProduct = null;
 let searchTimeout = null;
 
+// Merge mode state
+let mergeMode = false;
+let mergeSelected = new Set();
+
 // Submissions state
 let submissionsPage = 0;
 let submissionsTotalCount = 0;
@@ -1427,6 +1487,29 @@ function renderQueue() {
     const html = currentProducts.map(p => {
         const hasIngredients = p.ingredients !== null && p.ingredients !== '';
         const hasInstructions = p.instructions !== null && p.instructions !== '';
+        const isSelected = mergeSelected.has(p.id);
+
+        if (mergeMode) {
+            return `
+                <div class="queue-item ${isSelected ? 'merge-selected' : ''}" data-id="${p.id}" onclick="toggleMergeSelect('${p.id}')">
+                    <input type="checkbox" class="merge-checkbox" ${isSelected ? 'checked' : ''} onclick="event.stopPropagation();toggleMergeSelect('${p.id}')">
+                    <div class="queue-item-info">
+                        <div class="queue-item-brand">${escapeHtml(p.brand)}</div>
+                        <div class="queue-item-name">${escapeHtml(p.name)}</div>
+                        <div class="queue-item-meta">
+                            <span class="badge ${hasIngredients ? 'badge-has' : 'badge-missing'}">
+                                ${hasIngredients ? '✓' : '✗'} Ingredients
+                            </span>
+                            <span class="badge ${hasInstructions ? 'badge-has' : 'badge-missing'}">
+                                ${hasInstructions ? '✓' : '✗'} Instructions
+                            </span>
+                            <span class="badge badge-users">
+                                <i class="ph ph-users"></i> ${p.user_count}
+                            </span>
+                        </div>
+                    </div>
+                </div>`;
+        }
 
         return `
             <div class="queue-item" data-id="${p.id}" onclick="openEditor('${p.id}')">
@@ -1586,6 +1669,97 @@ $('editorSave').addEventListener('click', async () => {
     loadProducts();
     loadStats();
 });
+
+// ═══════════════════════════════════════════════════════
+//  MERGE MODE
+// ═══════════════════════════════════════════════════════
+
+function toggleMergeMode() {
+    mergeMode = !mergeMode;
+    mergeSelected.clear();
+
+    const btn = $('mergeModeBtn');
+    if (mergeMode) {
+        btn.innerHTML = '<i class="ph ph-x"></i> Cancel Merge';
+        btn.classList.add('merge-mode-active');
+        $('mergeFloatingBar').style.display = 'flex';
+    } else {
+        btn.innerHTML = '<i class="ph ph-git-merge"></i> Merge';
+        btn.classList.remove('merge-mode-active');
+        $('mergeFloatingBar').style.display = 'none';
+    }
+
+    updateMergeBar();
+    renderQueue();
+}
+
+function toggleMergeSelect(id) {
+    if (mergeSelected.has(id)) {
+        mergeSelected.delete(id);
+    } else {
+        mergeSelected.add(id);
+    }
+    updateMergeBar();
+    renderQueue();
+}
+
+function updateMergeBar() {
+    const count = mergeSelected.size;
+    $('mergeSelectedInfo').textContent = `${count} selected`;
+    $('mergeExecuteBtn').disabled = count < 2;
+}
+
+async function executeMerge() {
+    if (mergeSelected.size < 2) return;
+
+    // Get selected products, sorted by user_count desc (winner = highest)
+    const selected = currentProducts
+        .filter(p => mergeSelected.has(p.id))
+        .sort((a, b) => {
+            // Prefer entries with ingredients, then highest user_count
+            const aHas = (a.ingredients !== null && a.ingredients !== '') ? 1 : 0;
+            const bHas = (b.ingredients !== null && b.ingredients !== '') ? 1 : 0;
+            if (bHas !== aHas) return bHas - aHas;
+            return b.user_count - a.user_count;
+        });
+
+    const winner = selected[0];
+    const losers = selected.slice(1);
+    const loserNames = losers.map(l => `"${l.name}"`).join(', ');
+
+    if (!confirm(`Merge ${losers.length} product(s) into "${winner.name}"?\n\nWinner (keep): ${winner.brand} — ${winner.name} (${winner.user_count} users)\nMerging: ${loserNames}\n\nThis will:\n• Move all user products to the winner\n• Combine user counts\n• Fill any data gaps\n• Delete the duplicate entries\n\nThis cannot be undone.`)) {
+        return;
+    }
+
+    const btn = $('mergeExecuteBtn');
+    btn.innerHTML = '<div class="loading-spinner"></div> Merging...';
+    btn.disabled = true;
+
+    let successCount = 0;
+    for (const loser of losers) {
+        const { error } = await sb.rpc('merge_catalogue_entries', {
+            winner_id: winner.id,
+            loser_id: loser.id,
+        });
+
+        if (error) {
+            showToast(`Error merging "${loser.name}": ${error.message}`, true);
+        } else {
+            successCount++;
+        }
+    }
+
+    btn.innerHTML = '<i class="ph ph-git-merge"></i> Merge Selected';
+    btn.disabled = false;
+
+    if (successCount > 0) {
+        showToast(`Merged ${successCount} product${successCount > 1 ? 's' : ''} into "${winner.name}"`);
+        toggleMergeMode();
+        loadProducts();
+        loadStats();
+        loadDupeCount();
+    }
+}
 
 // ═══════════════════════════════════════════════════════
 //  HELPERS
