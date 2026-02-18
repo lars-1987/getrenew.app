@@ -1037,7 +1037,7 @@
             <h3>Current Data (User Entered)</h3>
             <div class="editor-row">
                 <label>Brand</label>
-                <input type="text" id="editorBrand" readonly style="background:var(--oat);cursor:default">
+                <input type="text" id="editorBrand">
             </div>
             <div class="editor-row">
                 <label>Product Name (as entered)</label>
@@ -1642,7 +1642,10 @@ $('editorSave').addEventListener('click', async () => {
     saveBtn.innerHTML = '<div class="loading-spinner"></div> Saving...';
     saveBtn.disabled = true;
 
+    const newBrand = $('editorBrand').value.trim() || editingProduct.brand;
     const updates = {
+        brand: newBrand,
+        brand_normalised: newBrand.toLowerCase().trim(),
         name: $('editorName').value.trim() || editingProduct.name,
         category: $('editorCategory').value || null,
         ingredients: $('editorIngredients').value.trim() || null,
