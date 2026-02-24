@@ -166,6 +166,24 @@
             margin-bottom: 0.5rem;
         }
 
+        .legal-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .legal-body th, .legal-body td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-oat);
+        }
+
+        .legal-body th {
+            background: var(--color-oat);
+            font-weight: 600;
+        }
+
         .legal-body strong {
             font-weight: 600;
         }
@@ -221,6 +239,14 @@
             .legal-body h2 {
                 font-size: 1.3rem;
             }
+
+            .legal-body table {
+                font-size: 0.85rem;
+            }
+
+            .legal-body th, .legal-body td {
+                padding: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -243,12 +269,12 @@
     <main class="legal-content">
         <header class="legal-header">
             <h1>Terms of Service</h1>
-            <p>Last updated: January 2026</p>
+            <p>Last updated: February 2026</p>
         </header>
 
         <div class="legal-body">
             <h2>Agreement to Terms</h2>
-            <p>These Terms of Service ("Terms") govern your use of the Renew mobile application ("the App") operated by getrenewapp ("we", "our", "us"), a sole trader registered in Australia.</p>
+            <p>These Terms of Service ("Terms") govern your use of the Renew mobile application ("the App") operated by RenewPro ("we", "our", "us"), a sole trader registered in Australia.</p>
             <p><strong>By downloading, installing, or using Renew, you agree to these Terms.</strong> If you do not agree, do not use the App.</p>
 
             <h2>Description of Service</h2>
@@ -258,6 +284,8 @@
                 <li>Create and manage daily routines</li>
                 <li>Build consistency through streaks and reminders</li>
                 <li>View UV index information for your location</li>
+                <li>Track your skin journey with photo journals</li>
+                <li>Use AI to quickly add products from URLs or photos</li>
             </ul>
             <p>Renew is a <strong>tracking and organisational tool only</strong>. We do not provide medical advice, diagnose skin conditions, or recommend treatments.</p>
 
@@ -338,10 +366,63 @@
             <p>You retain ownership of any content you upload to Renew, including:</p>
             <ul>
                 <li>Product photos</li>
+                <li>Profile photos</li>
+                <li>Skin journal photos</li>
                 <li>Product names and notes</li>
                 <li>Routine configurations</li>
             </ul>
             <p>By uploading content, you grant us a limited licence to store, display, and process that content solely to provide the App's services. We will not use your content for other purposes without your consent.</p>
+
+            <h3>Skin Journal Photos</h3>
+            <p>The skin journal feature allows you to photograph your skin to track changes over time. By using this feature:</p>
+            <ul>
+                <li>You consent to storing these photos according to your subscription tier (local only for Free, local + cloud for Pro)</li>
+                <li>You understand these photos are private and only visible to you</li>
+                <li>You acknowledge that Renew does not analyse, diagnose, or provide feedback on your skin</li>
+                <li>You can delete any journal photo at any time</li>
+            </ul>
+            <p><strong>Important:</strong> Skin journal photos are never sent to AI services or shared with third parties.</p>
+
+            <h3>AI-Powered Features</h3>
+            <p>Renew uses artificial intelligence to help you add products:</p>
+            <p><strong>Ingredient extraction from URLs:</strong> When you paste a product URL, our AI may analyse the webpage to extract product name, brand, and ingredients.</p>
+            <p><strong>Product photo analysis:</strong> When you photograph a product (not your skin), our AI may identify the product and extract details.</p>
+            <p>By using these features, you agree that:</p>
+            <ul>
+                <li>Product URLs you submit may be fetched and processed by AI</li>
+                <li>Product photos you take may be processed by AI</li>
+                <li>AI-extracted information should be reviewed for accuracy before saving</li>
+                <li>We use Google Gemini API for processing</li>
+            </ul>
+            <p><strong>What AI does NOT do:</strong></p>
+            <ul>
+                <li>Analyse your skin or face photos</li>
+                <li>Diagnose skin conditions</li>
+                <li>Recommend products or treatments</li>
+                <li>Store or learn from your personal data</li>
+            </ul>
+
+            <h3>Photo Storage by Subscription</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subscription</th>
+                        <th>How Photos Are Stored</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Free</strong></td>
+                        <td>Photos are stored locally on your device only. Renew does not upload, access, or store your photos on any server.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pro</strong></td>
+                        <td>Photos are stored locally on your device AND uploaded to secure cloud storage to enable sync across your devices.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>When you upgrade to Pro:</strong> Your existing local photos will be automatically uploaded to cloud storage to enable sync functionality.</p>
+            <p><strong>When you downgrade to Free:</strong> Your cloud-stored photos will remain accessible for 30 days. After this period, cloud copies will be deleted. You should ensure any photos you wish to keep are saved to your device before downgrading.</p>
 
             <h3>Content Restrictions</h3>
             <p>You agree not to upload content that:</p>
@@ -354,16 +435,17 @@
             <p>We may remove content that violates these Terms without notice.</p>
 
             <h3>Content Backup</h3>
-            <p>You are responsible for maintaining backups of your important data. While we take reasonable measures to protect your data, we do not guarantee against data loss.</p>
+            <p><strong>Free users:</strong> You are solely responsible for maintaining backups of your photos and data. Since photos are stored only on your device, deleting the app or losing your device will result in loss of your photos.</p>
+            <p><strong>Pro users:</strong> Your photos are backed up to cloud storage automatically. However, we still recommend maintaining your own backups for important content. While we take reasonable measures to protect your data, we do not guarantee against data loss.</p>
 
             <h2>Intellectual Property</h2>
 
             <h3>Our Property</h3>
-            <p>The App, including its design, features, code, graphics, and branding, is owned by getrenewapp and protected by intellectual property laws.</p>
+            <p>The App, including its design, features, code, graphics, and branding, is owned by RenewPro and protected by intellectual property laws.</p>
             <p>You may not copy, modify, distribute, or create derivative works from the App without our written permission.</p>
 
             <h3>Trademarks</h3>
-            <p>"Renew", "getrenewapp", and associated logos are trademarks of getrenewapp. You may not use these without permission.</p>
+            <p>"Renew", "RenewPro", and associated logos are trademarks of RenewPro. You may not use these without permission.</p>
 
             <h3>Feedback</h3>
             <p>If you provide suggestions, ideas, or feedback about the App, you grant us the right to use that feedback without compensation or attribution.</p>
@@ -374,8 +456,18 @@
                 <li><strong>UV index data</strong> — Provided by third-party weather APIs</li>
                 <li><strong>Payment processing</strong> — Handled by Apple/Google</li>
                 <li><strong>Affiliate links</strong> — May direct you to third-party retailers</li>
+                <li><strong>AI processing</strong> — Google Gemini API for product extraction</li>
             </ul>
             <p>We are not responsible for third-party services, their content, or their privacy practices. Your use of third-party services is at your own risk.</p>
+
+            <h3>AI Service Limitations</h3>
+            <p>AI-powered features rely on Google Gemini API. We do not guarantee:</p>
+            <ul>
+                <li>Accuracy of AI-extracted product information</li>
+                <li>Availability of AI features at all times</li>
+                <li>That AI will correctly identify all products</li>
+            </ul>
+            <p>Always review AI-extracted information before saving. Incorrect ingredients or product details are your responsibility to verify.</p>
 
             <h2>Disclaimers</h2>
 
@@ -386,8 +478,19 @@
                 <li>Recommend treatments</li>
                 <li>Provide medical advice</li>
                 <li>Replace professional dermatological care</li>
+                <li>Analyse your skin photos for medical purposes</li>
             </ul>
-            <p>Always consult a qualified healthcare professional for medical concerns.</p>
+            <p>The skin journal feature is for your personal tracking only. Changes you observe in your photos are not medical assessments. Always consult a qualified healthcare professional for medical concerns.</p>
+
+            <h3>AI Limitations</h3>
+            <p>AI-powered features are provided for convenience only. We do not guarantee:</p>
+            <ul>
+                <li>Accuracy of extracted product information</li>
+                <li>Completeness of ingredient lists</li>
+                <li>Correct identification of products from photos</li>
+                <li>Availability of AI services</li>
+            </ul>
+            <p>You are responsible for verifying AI-extracted information before relying on it.</p>
 
             <h3>"As Is" Service</h3>
             <p>The App is provided "as is" and "as available" without warranties of any kind, express or implied, including:</p>
@@ -420,7 +523,7 @@
             <p>If you are an Australian consumer, you have guarantees under the Australian Consumer Law that cannot be excluded. Nothing in these Terms limits those rights.</p>
 
             <h2>Indemnification</h2>
-            <p>You agree to indemnify and hold harmless getrenewapp from any claims, damages, losses, or expenses (including legal fees) arising from:</p>
+            <p>You agree to indemnify and hold harmless RenewPro from any claims, damages, losses, or expenses (including legal fees) arising from:</p>
             <ul>
                 <li>Your use of the App</li>
                 <li>Your violation of these Terms</li>
@@ -458,7 +561,7 @@
             <h2>General Provisions</h2>
 
             <h3>Entire Agreement</h3>
-            <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and getrenewapp regarding the App.</p>
+            <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and RenewPro regarding the App.</p>
 
             <h3>Severability</h3>
             <p>If any provision of these Terms is found invalid or unenforceable, the remaining provisions remain in effect.</p>
@@ -475,12 +578,12 @@
             <h2>Contact Us</h2>
             <p>If you have questions about these Terms, contact us at:</p>
             <p>
-                <strong>Email:</strong> <a href="mailto:hello@getrenew.app">hello@getrenew.app</a><br>
-                <strong>Business:</strong> getrenewapp<br>
+                <strong>Email:</strong> <a href="mailto:support@renewpro.app">support@renewpro.app</a><br>
+                <strong>Business:</strong> RenewPro<br>
                 <strong>Location:</strong> Melbourne, Australia
             </p>
 
-            <p><em>These Terms of Service are effective as of January 2026.</em></p>
+            <p><em>These Terms of Service are effective as of February 2026.</em></p>
         </div>
     </main>
 
@@ -494,7 +597,7 @@
             <a href="index.html">Home</a>
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
-            <a href="mailto:hello@getrenew.app">Contact</a>
+            <a href="mailto:support@renewpro.app">Contact</a>
         </div>
     </footer>
 </body>

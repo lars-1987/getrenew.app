@@ -269,12 +269,12 @@
     <main class="legal-content">
         <header class="legal-header">
             <h1>Privacy Policy</h1>
-            <p>Last updated: January 2026</p>
+            <p>Last updated: February 2026</p>
         </header>
 
         <div class="legal-body">
             <h2>Overview</h2>
-            <p>Renew ("we", "our", "us") is operated by getrenewapp, a sole trader registered in Australia. We respect your privacy and are committed to protecting your personal data.</p>
+            <p>Renew ("we", "our", "us") is operated by RenewPro, a sole trader registered in Australia. We respect your privacy and are committed to protecting your personal data.</p>
             <p>This Privacy Policy explains how we collect, use, and protect your information when you use the Renew mobile application ("the App").</p>
             <p><strong>By using Renew, you agree to this Privacy Policy.</strong> If you do not agree, please do not use the App.</p>
 
@@ -312,7 +312,7 @@
                     </tr>
                     <tr>
                         <td><strong>Photos</strong></td>
-                        <td>Product photos you upload</td>
+                        <td>Product photos and profile photos you upload</td>
                         <td>No</td>
                     </tr>
                     <tr>
@@ -322,6 +322,33 @@
                     </tr>
                 </tbody>
             </table>
+
+            <h3>How Your Photos Are Stored</h3>
+            <p>Your photo storage depends on your subscription tier:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subscription</th>
+                        <th>Storage Location</th>
+                        <th>Sync Across Devices</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Free</strong></td>
+                        <td>Your device only (local storage)</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pro</strong></td>
+                        <td>Your device + secure cloud storage</td>
+                        <td>Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Free users:</strong> Photos are stored only on your device. If you delete the app or switch devices, your photos will not be available on the new device.</p>
+            <p><strong>Pro users:</strong> Photos are automatically uploaded to secure cloud storage (Supabase) and can sync across all your devices. When you upgrade to Pro, any existing photos on your device will be uploaded to the cloud.</p>
+            <p>Photos are compressed before storage to optimise performance and storage space.</p>
 
             <h3>Information Collected Automatically</h3>
             <table>
@@ -347,12 +374,81 @@
                 </tbody>
             </table>
 
+            <h3>Skin Journal Photos</h3>
+            <p>Renew includes an optional photo journal feature for tracking your skin over time. If you choose to use this feature:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>How We Handle It</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>What you upload</strong></td>
+                        <td>Photos of your face/skin that you choose to take</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage</strong></td>
+                        <td>Same as product photos (Free: local only, Pro: local + cloud)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Access</strong></td>
+                        <td>Only you can see your journal photos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI processing</strong></td>
+                        <td>Journal photos are NOT sent to any AI service</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Biometric data</strong></td>
+                        <td>We do not extract or store biometric identifiers from your photos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deletion</strong></td>
+                        <td>You can delete any journal photo at any time</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Important:</strong> Skin journal photos are entirely optional. The app functions fully without them.</p>
+
+            <h3>AI-Powered Features</h3>
+            <p>Renew uses artificial intelligence to help you add products more easily:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>How It Works</th>
+                        <th>Data Sent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ingredient extraction from URLs</strong></td>
+                        <td>When you paste a product URL, we may fetch the page and use AI to extract product details</td>
+                        <td>The product webpage content (not your personal data)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Product photo analysis</strong></td>
+                        <td>When you photograph a product, AI can identify the product name, brand, and ingredients</td>
+                        <td>The product photo only (not journal photos)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>AI Service Provider:</strong> We use Google Gemini API for AI processing.</p>
+            <p><strong>What we send:</strong> Only product-related content (URLs, product photos). We never send your personal information, journal photos, or skin photos to AI services.</p>
+            <p><strong>What we don't do:</strong></p>
+            <ul>
+                <li>Use AI to analyse your skin or face</li>
+                <li>Store AI-processed data beyond what you save to your profile</li>
+                <li>Use your data to train AI models</li>
+                <li>Share your product data with third parties for AI training</li>
+            </ul>
+
             <h3>Information We Do NOT Collect</h3>
             <ul>
-                <li>Health or medical information</li>
-                <li>Skin condition diagnoses</li>
-                <li>Biometric data</li>
-                <li>Photos of your face or skin</li>
+                <li>Health or medical diagnoses</li>
+                <li>Biometric identifiers (facial recognition data, fingerprints)</li>
                 <li>Precise GPS location</li>
                 <li>Contacts or address book</li>
                 <li>Payment card details (handled by Apple/Google)</li>
@@ -375,6 +471,7 @@
                     <tr>
                         <th>Service</th>
                         <th>Purpose</th>
+                        <th>Data Shared</th>
                         <th>Privacy Policy</th>
                     </tr>
                 </thead>
@@ -382,25 +479,36 @@
                     <tr>
                         <td><strong>Supabase</strong></td>
                         <td>Database, authentication, file storage</td>
+                        <td>Account data, product data, photos</td>
                         <td><a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a></td>
                     </tr>
                     <tr>
                         <td><strong>RevenueCat</strong></td>
                         <td>Subscription management</td>
+                        <td>Purchase receipts, subscription status</td>
                         <td><a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Gemini API</strong></td>
+                        <td>AI product extraction</td>
+                        <td>Product URLs, product photos</td>
+                        <td><a href="https://ai.google.dev/terms" target="_blank" rel="noopener">ai.google.dev/terms</a></td>
                     </tr>
                     <tr>
                         <td><strong>Apple App Store</strong></td>
                         <td>Payments (iOS)</td>
+                        <td>Payment handled by Apple</td>
                         <td><a href="https://www.apple.com/privacy/" target="_blank" rel="noopener">apple.com/privacy</a></td>
                     </tr>
                     <tr>
                         <td><strong>Google Play</strong></td>
                         <td>Payments (Android)</td>
+                        <td>Payment handled by Google</td>
                         <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></td>
                     </tr>
                 </tbody>
             </table>
+            <p><strong>Note on AI processing:</strong> Product information sent to Google Gemini API is processed to extract details and is not used to train AI models under our API agreement.</p>
             <p>We may add analytics and crash reporting services in the future. This policy will be updated accordingly.</p>
 
             <h2>Data Storage & Security</h2>
@@ -430,8 +538,24 @@
                         <td>Until you delete your account</td>
                     </tr>
                     <tr>
-                        <td><strong>Photos</strong></td>
+                        <td><strong>Product photos (Free users)</strong></td>
+                        <td>Stored on your device only; we do not have access</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Product photos (Pro users)</strong></td>
                         <td>Until you delete them or your account</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Journal photos (Free users)</strong></td>
+                        <td>Stored on your device only; we do not have access</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Journal photos (Pro users)</strong></td>
+                        <td>Until you delete them or your account</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI-extracted product data</strong></td>
+                        <td>Only saved if you confirm and add the product</td>
                     </tr>
                     <tr>
                         <td><strong>Crash reports</strong></td>
@@ -439,6 +563,7 @@
                     </tr>
                 </tbody>
             </table>
+            <p><strong>Note for Pro users who downgrade:</strong> If you downgrade from Pro to Free, your cloud-stored photos (both product and journal) will remain accessible for 30 days. After this period, cloud copies will be deleted. Local copies on your device will remain unaffected.</p>
             <p>When you delete your account, we will delete your personal data within 30 days, except where we are required to retain it for legal purposes.</p>
 
             <h2>Your Rights</h2>
@@ -490,13 +615,13 @@
             <h2>Contact Us</h2>
             <p>If you have questions about this Privacy Policy or want to exercise your rights, contact us at:</p>
             <p>
-                <strong>Email:</strong> <a href="mailto:hello@getrenew.app">hello@getrenew.app</a><br>
-                <strong>Business:</strong> getrenewapp<br>
+                <strong>Email:</strong> <a href="mailto:privacy@renewpro.app">privacy@renewpro.app</a><br>
+                <strong>Business:</strong> RenewPro<br>
                 <strong>Location:</strong> Melbourne, Australia
             </p>
             <p>We aim to respond to all requests within 30 days.</p>
 
-            <p><em>This Privacy Policy is effective as of January 2026.</em></p>
+            <p><em>This Privacy Policy is effective as of February 2026.</em></p>
         </div>
     </main>
 
@@ -510,7 +635,7 @@
             <a href="index.html">Home</a>
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
-            <a href="mailto:hello@getrenew.app">Contact</a>
+            <a href="mailto:privacy@renewpro.app">Contact</a>
         </div>
     </footer>
 </body>
