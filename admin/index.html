@@ -1364,7 +1364,15 @@ $('logoutBtn').addEventListener('click', async () => {
     $('appShell').style.display = 'none';
 });
 
+const ADMIN_EMAILS = ['larsholmstrom@icloud.com'];
+
 function showApp(user) {
+    if (!ADMIN_EMAILS.includes(user.email.toLowerCase())) {
+        sb.auth.signOut();
+        $('loginError').textContent = 'Access denied. This dashboard is restricted to authorised administrators.';
+        $('loginError').style.display = 'block';
+        return;
+    }
     $('loginScreen').style.display = 'none';
     $('appShell').style.display = 'block';
     $('userEmail').textContent = user.email;
