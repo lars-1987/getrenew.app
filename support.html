@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Renew Support - Get help with your skincare tracking app.">
+    <meta name="theme-color" content="#4A5240">
+    <title>Support - Renew</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Prevent flash of wrong theme -->
+    <script>
+        (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.setAttribute('data-theme','dark');})();
+    </script>
+
+    <style>
+        :root {
+            --color-cream: #FAF8F5;
+            --color-charcoal: #2C2C2C;
+            --color-olive: #4A5240;
+            --color-olive-hover: #3d4435;
+            --color-oat: #F0EBE3;
+            --color-oat-dark: #E5DFD5;
+            --color-sage: #8a9a7b;
+            --font-heading: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-medium: 0 8px 30px rgba(0,0,0,0.08);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --transition: 0.3s ease;
+            --ease-out-expo: cubic-bezier(0.16,1,0.3,1);
+            --ease-out-back: cubic-bezier(0.34,1.56,0.64,1);
+            --duration-reveal: 0.9s;
+            --glass-bg: rgba(250,248,245,0.55);
+            --glass-border: rgba(255,255,255,0.4);
+            --glass-blur: 16px;
+            --glass-shadow: 0 8px 32px rgba(74,82,64,0.08);
+        }
+
+        /* ── Dark Theme ── */
+        [data-theme="dark"] {
+            --color-cream: #1a1a1a;
+            --color-charcoal: #e8e4df;
+            --color-olive: #8a9a7b;
+            --color-olive-hover: #9dae8e;
+            --color-oat: #222222;
+            --color-oat-dark: #333333;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.2);
+            --shadow-medium: 0 8px 30px rgba(0,0,0,0.25);
+            --glass-bg: rgba(30,30,30,0.6);
+            --glass-border: rgba(255,255,255,0.08);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        [data-theme="dark"] body::after { opacity: 0.015; }
+        [data-theme="dark"] .navbar {
+            background: rgba(26,26,26,0.7);
+            border-bottom-color: rgba(255,255,255,0.06);
+        }
+        [data-theme="dark"] .navbar.scrolled {
+            background: rgba(26,26,26,0.92);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+        [data-theme="dark"] .menu-toggle span { background: var(--color-charcoal); }
+        [data-theme="dark"] .deco-circle { background: radial-gradient(circle, rgba(138,154,123,0.1) 0%, transparent 70%); }
+        [data-theme="dark"] .deco-ring { border-color: rgba(138,154,123,0.12); }
+        [data-theme="dark"] .deco-dot { background: rgba(138,154,123,0.2); }
+        [data-theme="dark"] .deco-leaf { background: rgba(138,154,123,0.08); }
+
+        [data-theme="dark"] .form-group input,
+        [data-theme="dark"] .form-group select,
+        [data-theme="dark"] .form-group textarea {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.12);
+            color: var(--color-charcoal);
+        }
+        [data-theme="dark"] .form-group input::placeholder,
+        [data-theme="dark"] .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+        [data-theme="dark"] .form-group input:focus,
+        [data-theme="dark"] .form-group select:focus,
+        [data-theme="dark"] .form-group textarea:focus {
+            border-color: var(--color-olive);
+            box-shadow: 0 0 0 3px rgba(138,154,123,0.15);
+        }
+        [data-theme="dark"] .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 256 256'%3E%3Cpath d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z' fill='%23e8e4df'/%3E%3C/svg%3E");
+        }
+        [data-theme="dark"] .btn-submit:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        [data-theme="dark"] .footer {
+            background: #111;
+            border-top-color: rgba(255,255,255,0.04);
+        }
+        [data-theme="dark"] .mobile-overlay { background: rgba(0,0,0,0.7); }
+        @media (max-width: 768px) {
+            [data-theme="dark"] .navbar-links {
+                background: var(--color-cream);
+                box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+            }
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: none; border: 1.5px solid var(--color-oat-dark);
+            cursor: pointer; color: var(--color-charcoal);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        .theme-toggle:hover {
+            background: var(--color-oat);
+            transform: rotate(15deg);
+        }
+        .theme-toggle i { font-size: 18px; transition: transform 0.4s var(--ease-out-back); }
+        .theme-toggle .icon-moon { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+        [data-theme="dark"] .theme-toggle {
+            border-color: rgba(255,255,255,0.15);
+        }
+        [data-theme="dark"] .theme-toggle:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Grain texture overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+        }
+
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+        a { color: var(--color-olive); text-decoration: none; transition: color var(--transition); }
+        a:hover { color: var(--color-olive-hover); }
+
+        /* ── Scroll Reveal ── */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity var(--duration-reveal) var(--ease-out-expo), transform var(--duration-reveal) var(--ease-out-expo);
+        }
+        .reveal.revealed { opacity: 1; transform: translateY(0); }
+
+        /* ── Navbar ── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(250,248,245,0.7);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0; transition: all var(--transition);
+        }
+        .navbar.scrolled {
+            padding: 0.75rem 0;
+            background: rgba(250,248,245,0.92);
+            box-shadow: 0 4px 30px rgba(74,82,64,0.08);
+            border-bottom-color: transparent;
+        }
+        .navbar-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .navbar-logo {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: var(--color-charcoal);
+        }
+        .navbar-logo img { width: 28px; height: 28px; border-radius: 6px; transition: transform 0.4s var(--ease-out-back); }
+        .navbar-logo:hover img { transform: rotate(-15deg) scale(1.1); }
+
+        .navbar-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .navbar-links a { color: var(--color-charcoal); font-weight: 500; font-size: 0.95rem; position: relative; }
+        .navbar-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 2px;
+            background: var(--color-olive);
+            transition: width 0.3s var(--ease-out-expo), left 0.3s var(--ease-out-expo);
+        }
+        .navbar-links a:hover::after { width: 100%; left: 0; }
+        .navbar-links .btn-download {
+            background: var(--color-olive); color: white; padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-sm); font-weight: 600;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        .navbar-links .btn-download:hover {
+            background: var(--color-olive-hover); color: white;
+            box-shadow: 0 4px 20px rgba(74,82,64,0.25); transform: translateY(-1px);
+        }
+        .navbar-links .btn-download::after { display: none; }
+
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+        .menu-toggle span { width: 24px; height: 2px; background: var(--color-charcoal); transition: all var(--transition); }
+
+        /* ── Page Content ── */
+        .page-content {
+            flex: 1;
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-oat) 50%, var(--color-cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 3rem;
+        }
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 0.75rem;
+        }
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        /* ── Support Form Card ── */
+        .form-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-charcoal);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--color-charcoal);
+            background: rgba(255,255,255,0.7);
+            border: 1.5px solid var(--color-oat-dark);
+            border-radius: var(--radius-md);
+            outline: none;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--color-olive);
+            box-shadow: 0 0 0 3px rgba(74,82,64,0.1);
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(44,44,44,0.35);
+        }
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 256 256'%3E%3Cpath d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z' fill='%232C2C2C'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+            line-height: 1.6;
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
+            padding: 1rem 2rem;
+            background: var(--color-olive);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        .btn-submit:hover {
+            background: var(--color-olive-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74,82,64,0.25);
+        }
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+        .btn-submit i {
+            font-size: 20px;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 1.25rem;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ── Decorative Elements ── */
+        .deco { position: absolute; pointer-events: none; z-index: 0; }
+        .deco-circle { border-radius: 50%; background: radial-gradient(circle, rgba(74,82,64,0.08) 0%, transparent 70%); }
+        .deco-ring { border-radius: 50%; border: 2px solid rgba(74,82,64,0.1); background: transparent; }
+        .deco-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(74,82,64,0.15); }
+        .deco-leaf { width: 40px; height: 40px; background: rgba(74,82,64,0.06); border-radius: 0 50% 50% 50%; transform: rotate(45deg); }
+
+        @keyframes float-y {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes float-xy {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(8px, -10px) rotate(2deg); }
+            66% { transform: translate(-5px, -6px) rotate(-1deg); }
+        }
+        @keyframes float-rotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(8deg) scale(1.05); }
+        }
+        @keyframes dot-drift {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+        }
+
+        .floating { animation: float-y 6s ease-in-out infinite; will-change: transform; }
+        .floating-slow { animation: float-xy 8s ease-in-out infinite; will-change: transform; }
+        .floating-rotate { animation: float-rotate 7s ease-in-out infinite; will-change: transform; }
+
+        /* ── Footer ── */
+        .footer {
+            background: var(--color-charcoal); color: rgba(255,255,255,0.8);
+            padding: 3rem 2rem; text-align: center; position: relative;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-logo {
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;
+        }
+        .footer-logo img { width: 32px; height: 32px; border-radius: 7px; transition: transform 0.4s var(--ease-out-back); }
+        .footer-logo:hover img { transform: rotate(-15deg) scale(1.1); }
+        .footer-tagline { margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+        .footer-social { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .footer-social a {
+            display: flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.08);
+            border-radius: 50%; color: rgba(255,255,255,0.8);
+            transition: all 0.3s var(--ease-out-back);
+        }
+        .footer-social a:hover {
+            background: rgba(255,255,255,0.15); color: white;
+            transform: translateY(-3px) scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .footer-social i { font-size: 20px; }
+
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: rgba(255,255,255,0.6); font-size: 0.9rem; transition: color var(--transition); }
+        .footer-links a:hover { color: white; }
+        .footer-copyright { font-size: 0.8rem; opacity: 0.5; }
+
+        /* ── Mobile ── */
+        .mobile-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+            transition: all var(--transition); z-index: 999;
+        }
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        @media (max-width: 768px) {
+            .navbar-container { padding: 0 1.25rem; }
+            .navbar-links {
+                position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
+                background: var(--color-cream); flex-direction: column; justify-content: center; gap: 2rem;
+                transition: right var(--transition); box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            }
+            .navbar-links.active { right: 0; }
+            .navbar-links a { font-size: 1.25rem; }
+            .navbar-links .btn-download { margin-top: 1rem; }
+            .menu-toggle { display: flex; z-index: 1001; }
+            .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .menu-toggle.active span:nth-child(2) { opacity: 0; }
+            .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+            .page-content { padding: 6rem 1.25rem 3rem; }
+            .form-card { padding: 1.5rem; }
+            .footer-links { gap: 1.5rem; }
+
+            .floating, .floating-slow, .floating-rotate { animation-duration: 0s !important; }
+            .deco { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+            .reveal { opacity: 1; transform: none; }
+            .floating, .floating-slow, .floating-rotate { animation: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo"><img src="renew-icon.png" alt="Renew"> Renew</a>
+            <ul class="navbar-links">
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="ph ph-sun icon-sun"></i>
+                        <i class="ph ph-moon icon-moon"></i>
+                    </button>
+                </li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="index.html#download" class="btn-download">Download</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-overlay"></div>
+
+    <main class="page-content">
+        <div class="deco deco-circle floating-slow" style="width:250px;height:250px;top:5%;left:-5%;opacity:0.4;"></div>
+        <div class="deco deco-ring floating-rotate" style="width:60px;height:60px;top:18%;right:10%;opacity:0.35;"></div>
+        <div class="deco deco-leaf floating" style="bottom:15%;right:8%;opacity:0.3;animation-delay:-1s;"></div>
+        <div class="deco deco-dot" style="top:40%;left:12%;animation:dot-drift 6s ease-in-out infinite;"></div>
+        <div class="deco deco-dot" style="bottom:30%;right:18%;animation:dot-drift 7s ease-in-out infinite 2s;"></div>
+
+        <div class="page-header reveal">
+            <h1>Get in touch</h1>
+            <p>Have a question, found a bug, or just want to say hello? Fill out the form below and we'll get back to you.</p>
+        </div>
+
+        <div class="form-card reveal" style="transition-delay: 150ms;">
+            <form id="supportForm" novalidate>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject" name="subject" required>
+                        <option value="" disabled selected>Choose a topic</option>
+                        <option value="Bug Report">Bug Report</option>
+                        <option value="Feature Request">Feature Request</option>
+                        <option value="Account Issue">Account Issue</option>
+                        <option value="Subscription">Subscription</option>
+                        <option value="General Question">General Question</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="ph ph-paper-plane-tilt"></i>
+                    Send Message
+                </button>
+            </form>
+            <p class="form-note">This will open your email client to send the message.</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-logo reveal"><img src="renew-icon.png" alt="Renew"> Renew</div>
+        <p class="footer-tagline reveal">Made with <i class="ph ph-coffee"></i> in Melbourne, Australia</p>
+        <div class="footer-social reveal">
+            <a href="https://x.com/renewapp" target="_blank" rel="noopener" aria-label="Follow us on X"><i class="ph ph-x-logo"></i></a>
+            <a href="https://instagram.com/renewapp" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <div class="footer-links reveal">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="support.html">Support</a>
+        </div>
+        <p class="footer-copyright reveal">&copy; 2026 Renew. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // Navbar scroll
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.navbar-links');
+        const mobileOverlay = document.querySelector('.mobile-overlay');
+
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            menuToggle.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+        }
+        menuToggle.addEventListener('click', toggleMenu);
+        mobileOverlay.addEventListener('click', toggleMenu);
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => { if (navLinks.classList.contains('active')) toggleMenu(); });
+        });
+
+        // Scroll reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('revealed'); revealObserver.unobserve(entry.target); }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Form → mailto
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !subject || !message) return;
+
+            const body = `Hi Renew team,\n\n${message}\n\n---\nFrom: ${name}\nEmail: ${email}`;
+            const mailto = `mailto:support@renewpro.app?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            window.location.href = mailto;
+        });
+    </script>
+</body>
+</html>

@@ -22,10 +22,12 @@
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+    <!-- Prevent flash of wrong theme -->
+    <script>
+        (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.setAttribute('data-theme','dark');})();
+    </script>
+
     <style>
-        /* ============================================
-           CSS Variables - Brand Colors & Animation
-           ============================================ */
         :root {
             --color-cream: #FAF8F5;
             --color-charcoal: #2C2C2C;
@@ -33,49 +35,166 @@
             --color-olive-hover: #3d4435;
             --color-oat: #F0EBE3;
             --color-oat-dark: #E5DFD5;
+            --color-sage: #8a9a7b;
             --font-heading: 'Fraunces', Georgia, serif;
             --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.06);
-            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-medium: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-heavy: 0 25px 60px rgba(44,44,44,0.18);
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 24px;
+            --radius-2xl: 32px;
             --transition: 0.3s ease;
-
-            /* Animation timing */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-out-expo: cubic-bezier(0.16,1,0.3,1);
+            --ease-out-back: cubic-bezier(0.34,1.56,0.64,1);
             --duration-reveal: 0.9s;
-
-            /* Glassmorphism */
-            --glass-bg: rgba(250, 248, 245, 0.55);
-            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-bg: rgba(250,248,245,0.55);
+            --glass-border: rgba(255,255,255,0.4);
             --glass-blur: 16px;
-            --glass-shadow: 0 8px 32px rgba(74, 82, 64, 0.08);
-
-            /* Gradients */
+            --glass-shadow: 0 8px 32px rgba(74,82,64,0.08);
             --gradient-olive: linear-gradient(135deg, #4A5240 0%, #6b7a5c 100%);
-            --gradient-hero-orb: radial-gradient(circle, rgba(74, 82, 64, 0.08) 0%, transparent 70%);
-
-            /* Floating */
+            --gradient-hero-orb: radial-gradient(circle, rgba(74,82,64,0.08) 0%, transparent 70%);
             --float-duration: 6s;
             --float-distance: 12px;
         }
 
-        /* ============================================
-           Reset & Base Styles
-           ============================================ */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        /* ── Dark Theme ── */
+        [data-theme="dark"] {
+            --color-cream: #1a1a1a;
+            --color-charcoal: #e8e4df;
+            --color-olive: #8a9a7b;
+            --color-olive-hover: #9dae8e;
+            --color-oat: #222222;
+            --color-oat-dark: #333333;
+            --color-sage: #8a9a7b;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.2);
+            --shadow-medium: 0 8px 30px rgba(0,0,0,0.25);
+            --shadow-heavy: 0 25px 60px rgba(0,0,0,0.4);
+            --glass-bg: rgba(30,30,30,0.6);
+            --glass-border: rgba(255,255,255,0.08);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            --gradient-olive: linear-gradient(135deg, #8a9a7b 0%, #6b7a5c 100%);
+            --gradient-hero-orb: radial-gradient(circle, rgba(138,154,123,0.1) 0%, transparent 70%);
         }
 
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
+        [data-theme="dark"] body::after { opacity: 0.015; }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(26,26,26,0.7);
+            border-bottom-color: rgba(255,255,255,0.06);
         }
+        [data-theme="dark"] .navbar.scrolled {
+            background: rgba(26,26,26,0.92);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+        [data-theme="dark"] .menu-toggle span { background: var(--color-charcoal); }
+
+        [data-theme="dark"] .hero-subheadline { color: #999; }
+        [data-theme="dark"] .hero-stat-label { color: #777; }
+        [data-theme="dark"] .store-badge { filter: invert(1) brightness(1.8); }
+        [data-theme="dark"] .store-badge:hover { filter: invert(1) brightness(2); }
+
+        [data-theme="dark"] .carousel-device {
+            background: #111;
+            box-shadow: var(--shadow-heavy), 0 0 0 1px rgba(255,255,255,0.05) inset;
+        }
+        [data-theme="dark"] .carousel-notch { background: #111; }
+        [data-theme="dark"] .carousel-screen { background: var(--color-oat); }
+        [data-theme="dark"] .carousel-dot { background: rgba(255,255,255,0.2); }
+        [data-theme="dark"] .carousel-dot.active { background: var(--color-olive); }
+        [data-theme="dark"] .carousel-arrow {
+            border-color: rgba(255,255,255,0.15);
+            color: var(--color-charcoal);
+        }
+        [data-theme="dark"] .carousel-arrow:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        [data-theme="dark"] .deco-circle { background: var(--gradient-hero-orb); }
+        [data-theme="dark"] .deco-ring { border-color: rgba(138,154,123,0.12); }
+        [data-theme="dark"] .deco-dot { background: rgba(138,154,123,0.2); }
+        [data-theme="dark"] .deco-leaf { background: rgba(138,154,123,0.08); }
+
+        [data-theme="dark"] #features::before {
+            background-image: radial-gradient(circle, rgba(138,154,123,0.06) 1px, transparent 1px);
+        }
+        [data-theme="dark"] .feature-card p { color: #999; }
+        [data-theme="dark"] .section-subtitle { color: #777; }
+
+        [data-theme="dark"] .pricing-card {
+            background: rgba(30,30,30,0.7);
+        }
+        [data-theme="dark"] .pricing-card.featured {
+            border-color: var(--color-olive);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(138,154,123,0.15);
+        }
+        [data-theme="dark"] .pricing-card.featured:hover {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(138,154,123,0.2);
+        }
+        [data-theme="dark"] .pricing-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        [data-theme="dark"] .pricing-price span { color: #999; }
+        [data-theme="dark"] .pricing-period { color: #999; }
+        [data-theme="dark"] .feature-card:hover {
+            box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+            border-color: rgba(138,154,123,0.2);
+        }
+        [data-theme="dark"] .pricing-note { color: #777; }
+        [data-theme="dark"] .savings-badge { background: rgba(46,125,50,0.15); color: #6fcf6f; }
+
+        [data-theme="dark"] #download {
+            background: #111;
+        }
+        [data-theme="dark"] #download .store-badge { filter: none; }
+        [data-theme="dark"] #download .store-badge:hover { filter: brightness(1.1); }
+        [data-theme="dark"] #download::before {
+            background: radial-gradient(circle, rgba(138,154,123,0.2) 0%, transparent 70%);
+        }
+        [data-theme="dark"] #download::after {
+            background: radial-gradient(circle, rgba(138,154,123,0.12) 0%, transparent 70%);
+        }
+
+        [data-theme="dark"] .footer {
+            background: #111;
+            border-top-color: rgba(255,255,255,0.04);
+        }
+
+        [data-theme="dark"] .mobile-overlay { background: rgba(0,0,0,0.7); }
+
+        @media (max-width: 768px) {
+            [data-theme="dark"] .navbar-links {
+                background: var(--color-cream);
+                box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+            }
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: none; border: 1.5px solid var(--color-oat-dark);
+            cursor: pointer; color: var(--color-charcoal);
+            transition: all 0.3s var(--ease-out-expo);
+            position: relative;
+        }
+        .theme-toggle:hover {
+            background: var(--color-oat);
+            transform: rotate(15deg);
+        }
+        .theme-toggle i { font-size: 18px; transition: transform 0.4s var(--ease-out-back); }
+        .theme-toggle .icon-moon { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+        [data-theme="dark"] .theme-toggle {
+            border-color: rgba(255,255,255,0.15);
+        }
+        [data-theme="dark"] .theme-toggle:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
 
         body {
             font-family: var(--font-body);
@@ -86,146 +205,86 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-            font-weight: 600;
-            line-height: 1.2;
+        /* Grain texture overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
         }
 
-        a {
-            color: var(--color-olive);
-            text-decoration: none;
-            transition: color var(--transition);
-        }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+        a { color: var(--color-olive); text-decoration: none; transition: color var(--transition); }
+        a:hover { color: var(--color-olive-hover); }
+        img { max-width: 100%; height: auto; display: block; }
 
-        a:hover {
-            color: var(--color-olive-hover);
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* ============================================
-           Keyframe Animations
-           ============================================ */
+        /* ── Keyframes ── */
         @keyframes float-y {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(calc(var(--float-distance) * -1)); }
         }
-
         @keyframes float-xy {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
             33% { transform: translate(8px, -10px) rotate(2deg); }
             66% { transform: translate(-5px, -6px) rotate(-1deg); }
         }
-
         @keyframes float-rotate {
             0%, 100% { transform: rotate(0deg) scale(1); }
             50% { transform: rotate(8deg) scale(1.05); }
         }
-
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.08); }
-        }
-
         @keyframes dot-drift {
             0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
             50% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
         }
-
         @keyframes hero-fade-up {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        @keyframes hero-fade-right {
+            from { opacity: 0; transform: translateX(60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
         @keyframes hero-scale-in {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
         }
-
         @keyframes check-pop {
             0% { transform: scale(0); opacity: 0; }
             60% { transform: scale(1.2); }
             100% { transform: scale(1); opacity: 1; }
         }
-
-        @keyframes phone-float {
+        @keyframes carousel-float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            50% { transform: translateY(-10px); }
         }
 
-        /* Floating classes */
         .floating { animation: float-y var(--float-duration) ease-in-out infinite; will-change: transform; }
         .floating-slow { animation: float-xy 8s ease-in-out infinite; will-change: transform; }
         .floating-rotate { animation: float-rotate 7s ease-in-out infinite; will-change: transform; }
 
-        /* ============================================
-           Decorative Elements
-           ============================================ */
-        .deco {
-            position: absolute;
-            pointer-events: none;
-            z-index: 0;
-        }
+        /* ── Decorative Elements ── */
+        .deco { position: absolute; pointer-events: none; z-index: 0; }
+        .deco-circle { border-radius: 50%; background: var(--gradient-hero-orb); }
+        .deco-ring { border-radius: 50%; border: 2px solid rgba(74,82,64,0.1); background: transparent; }
+        .deco-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(74,82,64,0.15); }
+        .deco-leaf { width: 40px; height: 40px; background: rgba(74,82,64,0.06); border-radius: 0 50% 50% 50%; transform: rotate(45deg); }
 
-        .deco-circle {
-            border-radius: 50%;
-            background: var(--gradient-hero-orb);
-        }
-
-        .deco-ring {
-            border-radius: 50%;
-            border: 2px solid rgba(74, 82, 64, 0.1);
-            background: transparent;
-        }
-
-        .deco-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(74, 82, 64, 0.15);
-        }
-
-        .deco-leaf {
-            width: 40px;
-            height: 40px;
-            background: rgba(74, 82, 64, 0.06);
-            border-radius: 0 50% 50% 50%;
-            transform: rotate(45deg);
-        }
-
-        /* ============================================
-           Scroll Reveal System
-           ============================================ */
+        /* ── Scroll Reveal ── */
         .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity var(--duration-reveal) var(--ease-out-expo),
-                        transform var(--duration-reveal) var(--ease-out-expo);
+            opacity: 0; transform: translateY(30px);
+            transition: opacity var(--duration-reveal) var(--ease-out-expo), transform var(--duration-reveal) var(--ease-out-expo);
         }
-
-        .reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .reveal.revealed { opacity: 1; transform: translateY(0); }
         .reveal-scale {
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity var(--duration-reveal) var(--ease-out-expo),
-                        transform var(--duration-reveal) var(--ease-out-expo);
+            opacity: 0; transform: scale(0.9);
+            transition: opacity var(--duration-reveal) var(--ease-out-expo), transform var(--duration-reveal) var(--ease-out-expo);
         }
-
-        .reveal-scale.revealed {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Stagger delays for grids */
+        .reveal-scale.revealed { opacity: 1; transform: scale(1); }
         .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
         .reveal-stagger > .reveal:nth-child(2) { transition-delay: 100ms; }
         .reveal-stagger > .reveal:nth-child(3) { transition-delay: 200ms; }
@@ -233,597 +292,277 @@
         .reveal-stagger > .reveal:nth-child(5) { transition-delay: 400ms; }
         .reveal-stagger > .reveal:nth-child(6) { transition-delay: 500ms; }
 
-        /* ============================================
-           Navbar
-           ============================================ */
+        /* ── Navbar ── */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(250, 248, 245, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(250,248,245,0.7);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
-            padding: 1rem 0;
-            transition: all var(--transition);
+            padding: 1rem 0; transition: all var(--transition);
         }
-
         .navbar.scrolled {
             padding: 0.75rem 0;
-            background: rgba(250, 248, 245, 0.92);
-            box-shadow: 0 4px 30px rgba(74, 82, 64, 0.08);
+            background: rgba(250,248,245,0.92);
+            box-shadow: 0 4px 30px rgba(74,82,64,0.08);
             border-bottom-color: transparent;
         }
-
         .navbar-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
         .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--color-charcoal);
+            display: flex; align-items: center; gap: 0.5rem;
+            font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: var(--color-charcoal);
         }
+        .navbar-logo img { width: 28px; height: 28px; border-radius: 6px; transition: transform 0.4s var(--ease-out-back); }
+        .navbar-logo:hover img { transform: rotate(-15deg) scale(1.1); }
 
-        .navbar-logo i {
-            font-size: 28px;
-            transition: transform 0.4s var(--ease-out-back);
-        }
-
-        .navbar-logo:hover i {
-            transform: rotate(-15deg) scale(1.1);
-        }
-
-        .navbar-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .navbar-links a {
-            color: var(--color-charcoal);
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-        }
-
+        .navbar-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .navbar-links a { color: var(--color-charcoal); font-weight: 500; font-size: 0.95rem; position: relative; }
         .navbar-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            width: 0;
-            height: 2px;
+            content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 2px;
             background: var(--color-olive);
             transition: width 0.3s var(--ease-out-expo), left 0.3s var(--ease-out-expo);
         }
-
-        .navbar-links a:hover::after {
-            width: 100%;
-            left: 0;
-        }
-
+        .navbar-links a:hover::after { width: 100%; left: 0; }
         .navbar-links .btn-download {
-            background: var(--color-olive);
-            color: white;
-            padding: 0.6rem 1.25rem;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
+            background: var(--color-olive); color: white; padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-sm); font-weight: 600;
             transition: all 0.3s var(--ease-out-expo);
-            box-shadow: 0 0 0 0 rgba(74, 82, 64, 0);
         }
-
         .navbar-links .btn-download:hover {
-            background: var(--color-olive-hover);
-            color: white;
-            box-shadow: 0 4px 20px rgba(74, 82, 64, 0.25);
-            transform: translateY(-1px);
+            background: var(--color-olive-hover); color: white;
+            box-shadow: 0 4px 20px rgba(74,82,64,0.25); transform: translateY(-1px);
         }
+        .navbar-links .btn-download::after { display: none; }
 
-        .navbar-links .btn-download::after {
-            display: none;
-        }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+        .menu-toggle span { width: 24px; height: 2px; background: var(--color-charcoal); transition: all var(--transition); }
 
-        /* Mobile menu toggle */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 0.5rem;
-            background: none;
-            border: none;
-        }
-
-        .menu-toggle span {
-            width: 24px;
-            height: 2px;
-            background: var(--color-charcoal);
-            transition: all var(--transition);
-        }
-
-        /* ============================================
-           Hero Section
-           ============================================ */
+        /* ── Hero ── */
         .hero {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 8rem 1.5rem 4rem;
+            display: flex; align-items: center; justify-content: center;
+            padding: 7rem 2rem 4rem;
             background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-oat) 100%);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
+        }
+        .hero > *:not(.deco):not(.parallax-layer) { position: relative; z-index: 1; }
+        .parallax-layer { position: absolute; inset: 0; pointer-events: none; z-index: 0; will-change: transform; }
+
+        .hero-inner {
+            max-width: 1200px; width: 100%; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
         }
 
-        .hero > *:not(.deco):not(.parallax-layer) {
-            position: relative;
-            z-index: 1;
-        }
+        .hero-content { text-align: left; }
 
-        .parallax-layer {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            will-change: transform;
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--color-olive); margin-bottom: 1.5rem;
+            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.2s both;
         }
-
-        .hero-icon {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 1.5rem;
-            border-radius: 28px;
-            box-shadow: var(--shadow-medium);
-            background: var(--gradient-olive);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: hero-scale-in 0.8s var(--ease-out-back) 0.2s both;
-            transition: transform 0.4s var(--ease-out-back), box-shadow 0.4s ease;
-            cursor: default;
-        }
-
-        .hero-icon:hover {
-            transform: scale(1.05) rotate(-5deg);
-            box-shadow: 0 12px 40px rgba(74, 82, 64, 0.2);
-        }
-
-        .hero-icon i {
-            font-size: 60px;
-            color: white;
+        .hero-eyebrow::before {
+            content: ''; width: 24px; height: 2px; background: var(--color-olive); border-radius: 1px;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.4s both;
-        }
-
-        .hero-tagline {
-            font-size: clamp(1.25rem, 3vw, 1.75rem);
-            color: var(--color-olive);
-            margin-bottom: 1rem;
-            font-weight: 500;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.55s both;
+            font-size: clamp(2.75rem, 5vw, 4.25rem);
+            margin-bottom: 1rem; letter-spacing: -0.03em; line-height: 1.08;
+            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.35s both;
         }
 
         .hero-subheadline {
-            font-size: 1.125rem;
-            max-width: 500px;
-            color: #666;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.7s both;
+            font-size: 1.15rem; max-width: 460px; color: #666; margin-bottom: 2.5rem; line-height: 1.7;
+            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.5s both;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 3rem;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.85s both;
+        .hero-actions {
+            display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.65s both;
         }
 
-        .store-badge {
-            height: 52px;
-            transition: transform 0.3s var(--ease-out-expo), filter 0.3s ease;
+        .store-badge { height: 52px; transition: transform 0.3s var(--ease-out-expo), filter 0.3s ease; }
+        .store-badge:hover { transform: translateY(-4px) scale(1.02); filter: brightness(1.05); }
+
+        .hero-stats {
+            display: flex; gap: 2rem; margin-top: 3rem;
+            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.8s both;
+        }
+        .hero-stat-number {
+            font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700; color: var(--color-olive);
+            line-height: 1;
+        }
+        .hero-stat-label { font-size: 0.8rem; color: #888; margin-top: 0.25rem; }
+
+        /* ── Carousel ── */
+        .hero-carousel-wrapper {
+            animation: hero-fade-right 1s var(--ease-out-expo) 0.6s both;
         }
 
-        .store-badge:hover {
-            transform: translateY(-4px) scale(1.02);
-            filter: brightness(1.05);
+        .carousel-device {
+            position: relative; width: 300px; margin: 0 auto;
+            background: var(--color-charcoal); border-radius: 44px; padding: 14px;
+            box-shadow: var(--shadow-heavy), 0 0 0 1px rgba(255,255,255,0.08) inset;
+        }
+        .carousel-device.floating-active { animation: carousel-float var(--float-duration) ease-in-out infinite; }
+
+        .carousel-notch {
+            position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 26px; background: var(--color-charcoal);
+            border-radius: 0 0 14px 14px; z-index: 3;
         }
 
-        /* ============================================
-           Phone Mockup
-           ============================================ */
-        .phone-mockup {
-            position: relative;
-            width: 280px;
-            height: 580px;
-            background: var(--color-charcoal);
-            border-radius: 40px;
-            padding: 12px;
-            box-shadow:
-                0 25px 60px rgba(44, 44, 44, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-            animation: hero-fade-up 1s var(--ease-out-expo) 1s both;
+        .carousel-screen {
+            width: 100%; aspect-ratio: 9/19.5; border-radius: 32px; overflow: hidden;
+            background: var(--color-oat); position: relative;
         }
 
-        .phone-mockup.floating-active {
-            animation: phone-float var(--float-duration) ease-in-out infinite;
+        .carousel-track {
+            display: flex; height: 100%; transition: transform 0.6s var(--ease-out-expo);
         }
 
-        .phone-notch {
-            position: absolute;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 28px;
-            background: var(--color-charcoal);
-            border-radius: 0 0 16px 16px;
-            z-index: 2;
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: var(--color-cream);
-            border-radius: 30px;
-            overflow: hidden;
-            padding: 40px 20px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .phone-status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--color-charcoal);
-            padding: 0 4px;
-        }
-
-        .phone-status-icons {
-            display: flex;
-            gap: 4px;
-            font-size: 14px;
-        }
-
-        .phone-app-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--color-olive);
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--color-oat);
-        }
-
-        .phone-app-header i {
-            font-size: 20px;
-        }
-
-        .phone-checklist {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            flex: 1;
-        }
-
-        .phone-checklist-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: var(--color-charcoal);
-            padding: 8px 10px;
+        .carousel-slide {
+            min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
             background: var(--color-oat);
-            border-radius: 10px;
         }
 
-        .phone-checklist-item.checked {
-            color: #999;
+        .carousel-slide img {
+            width: 100%; height: 100%; object-fit: cover; object-position: top;
         }
 
-        .phone-checklist-item.checked span {
-            text-decoration: line-through;
-            opacity: 0.6;
+        .carousel-dots {
+            display: flex; justify-content: center; gap: 8px; margin-top: 1.25rem;
+        }
+        .carousel-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--color-oat-dark); border: none; cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo); padding: 0;
+        }
+        .carousel-dot.active {
+            background: var(--color-olive); width: 24px; border-radius: 4px;
         }
 
-        .phone-check i {
-            font-size: 20px;
-            color: var(--color-olive);
+        .carousel-arrows {
+            display: flex; justify-content: center; gap: 0.75rem; margin-top: 0.75rem;
+        }
+        .carousel-arrow {
+            width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--color-oat-dark);
+            background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            color: var(--color-charcoal); font-size: 16px;
+            transition: all 0.25s var(--ease-out-expo);
+        }
+        .carousel-arrow:hover {
+            background: var(--color-olive); color: white; border-color: var(--color-olive);
+            transform: scale(1.05);
         }
 
-        .phone-streak {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: var(--gradient-olive);
-            color: white;
-            padding: 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .phone-streak i {
-            font-size: 18px;
-            color: #f0a040;
-        }
-
-        /* ============================================
-           Section Base Styles
-           ============================================ */
-        .section {
-            padding: 5rem 1.5rem;
-        }
-
-        .section-container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
+        /* ── Sections ── */
+        .section { padding: 6rem 2rem; }
+        .section-container { max-width: 1100px; margin: 0 auto; }
         .section-title {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            text-align: center;
-            margin-bottom: 3rem;
+            font-size: clamp(2rem, 4vw, 2.75rem); text-align: center;
+            margin-bottom: 1rem; letter-spacing: -0.02em;
+        }
+        .section-subtitle {
+            text-align: center; color: #888; font-size: 1.05rem; max-width: 500px;
+            margin: 0 auto 3.5rem; line-height: 1.6;
         }
 
-        /* ============================================
-           Features Section
-           ============================================ */
+        /* ── Features ── */
         #features {
-            background: linear-gradient(180deg, var(--color-oat) 0%, var(--color-cream) 15%, var(--color-cream) 100%);
+            background: linear-gradient(180deg, var(--color-oat) 0%, var(--color-cream) 12%, var(--color-cream) 100%);
             position: relative;
         }
-
         #features::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(circle, rgba(74, 82, 64, 0.06) 1px, transparent 1px);
-            background-size: 30px 30px;
-            pointer-events: none;
-            z-index: 0;
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(74,82,64,0.05) 1px, transparent 1px);
+            background-size: 32px 32px; pointer-events: none; z-index: 0;
         }
-
-        #features .section-container {
-            position: relative;
-            z-index: 1;
-        }
+        #features .section-container { position: relative; z-index: 1; }
 
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem; margin-top: 2rem;
         }
 
         .feature-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
+            backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border);
-            padding: 2rem;
-            border-radius: var(--radius-lg);
+            padding: 2rem 1.75rem; border-radius: var(--radius-xl);
             box-shadow: var(--glass-shadow);
-            transition: transform 0.4s var(--ease-out-expo),
-                        box-shadow 0.4s var(--ease-out-expo),
-                        border-color 0.4s ease;
+            transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo), border-color 0.4s ease;
         }
-
         .feature-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 16px 48px rgba(74, 82, 64, 0.12);
-            border-color: rgba(74, 82, 64, 0.15);
+            box-shadow: 0 16px 48px rgba(74,82,64,0.12); border-color: rgba(74,82,64,0.15);
         }
 
         .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--color-olive);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
+            width: 48px; height: 48px; background: var(--color-olive);
+            border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.25rem;
             transition: transform 0.4s var(--ease-out-back), background 0.3s ease;
         }
+        .feature-card:hover .feature-icon { transform: scale(1.1) rotate(-5deg); background: var(--gradient-olive); }
+        .feature-icon i { font-size: 24px; color: white; }
 
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(-5deg);
-            background: var(--gradient-olive);
-        }
-
-        .feature-icon i {
-            font-size: 24px;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .feature-card p {
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
+        .feature-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .feature-card p { color: #777; font-size: 0.9rem; line-height: 1.6; }
 
         .feature-badge {
-            display: inline-block;
-            background: var(--color-olive);
-            color: white;
-            font-family: var(--font-body);
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: inline-block; background: var(--color-olive); color: white;
+            font-family: var(--font-body); font-size: 0.6rem; font-weight: 700;
+            padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
-        /* ============================================
-           Pricing Section
-           ============================================ */
+        /* ── Pricing ── */
         #pricing {
-            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-oat) 15%, var(--color-oat) 85%, var(--color-cream) 100%);
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-oat) 12%, var(--color-oat) 88%, var(--color-cream) 100%);
         }
 
         .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            max-width: 900px;
-            margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem; max-width: 960px; margin: 0 auto;
         }
 
         .pricing-card {
-            background: rgba(250, 248, 245, 0.7);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
+            background: rgba(250,248,245,0.7);
+            backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border);
-            padding: 2.5rem 2rem;
-            border-radius: var(--radius-xl);
-            box-shadow: var(--glass-shadow);
-            position: relative;
-            transition: transform 0.4s var(--ease-out-expo),
-                        box-shadow 0.4s var(--ease-out-expo);
+            padding: 2.5rem 2rem; border-radius: var(--radius-2xl);
+            box-shadow: var(--glass-shadow); position: relative;
+            transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
         }
-
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(74, 82, 64, 0.12);
-        }
+        .pricing-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(74,82,64,0.12); }
 
         .pricing-card.featured {
             border: 2px solid var(--color-olive);
-            box-shadow: 0 8px 32px rgba(74, 82, 64, 0.12),
-                        0 0 0 1px rgba(74, 82, 64, 0.1);
+            box-shadow: 0 8px 32px rgba(74,82,64,0.12), 0 0 0 1px rgba(74,82,64,0.1);
         }
-
         .pricing-card.featured:hover {
-            box-shadow: 0 20px 50px rgba(74, 82, 64, 0.18),
-                        0 0 0 1px rgba(74, 82, 64, 0.15);
+            box-shadow: 0 20px 50px rgba(74,82,64,0.18), 0 0 0 1px rgba(74,82,64,0.15);
         }
-
         .pricing-card.featured::before {
-            content: 'Most Popular';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--color-olive);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--color-olive); color: white; padding: 0.3rem 1rem;
+            border-radius: 20px; font-size: 0.75rem; font-weight: 600;
         }
 
-        .pricing-tier {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+        .pricing-tier { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .pricing-price { font-size: 2.5rem; font-weight: 700; color: var(--color-olive); margin-bottom: 0.25rem; }
+        .pricing-price span { font-size: 1rem; font-weight: 400; color: #666; }
+        .pricing-period { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .pricing-yearly { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .savings-badge { background: #E8F5E9; color: #2E7D32; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 4px; }
 
-        .pricing-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--color-olive);
-            margin-bottom: 0.25rem;
-        }
+        .pricing-features { list-style: none; margin-bottom: 2rem; }
+        .pricing-features li { padding: 0.4rem 0; display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; }
+        .pricing-features li i { color: var(--color-olive); font-size: 18px; flex-shrink: 0; margin-top: 2px; opacity: 0; transform: scale(0); }
 
-        .pricing-price span {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #666;
-        }
-
-        .pricing-period {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .pricing-yearly {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-yearly-price {
-            font-size: 1rem;
-            color: #666;
-        }
-
-        .savings-badge {
-            background: #E8F5E9;
-            color: #2E7D32;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-features li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .pricing-features li i {
-            color: var(--color-olive);
-            font-size: 18px;
-            flex-shrink: 0;
-            margin-top: 2px;
-            opacity: 0;
-            transform: scale(0);
-        }
-
-        .pricing-card.revealed .pricing-features li i {
-            animation: check-pop 0.4s var(--ease-out-back) both;
-        }
-
+        .pricing-card.revealed .pricing-features li i { animation: check-pop 0.4s var(--ease-out-back) both; }
         .pricing-card.revealed .pricing-features li:nth-child(1) i { animation-delay: 0.1s; }
         .pricing-card.revealed .pricing-features li:nth-child(2) i { animation-delay: 0.15s; }
         .pricing-card.revealed .pricing-features li:nth-child(3) i { animation-delay: 0.2s; }
@@ -834,478 +573,254 @@
         .pricing-card.revealed .pricing-features li:nth-child(8) i { animation-delay: 0.45s; }
 
         .btn {
-            display: inline-block;
-            width: 100%;
-            padding: 1rem 2rem;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.3s var(--ease-out-expo);
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
+            display: inline-block; width: 100%; padding: 0.9rem 2rem;
+            border-radius: var(--radius-sm); font-weight: 600; text-align: center;
+            transition: all 0.3s var(--ease-out-expo); cursor: pointer; border: none; font-size: 0.95rem;
         }
+        .btn-primary { background: var(--color-olive); color: white; }
+        .btn-primary:hover { background: var(--color-olive-hover); color: white; box-shadow: 0 6px 24px rgba(74,82,64,0.3); transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: var(--color-olive); border: 2px solid var(--color-olive); }
+        .btn-secondary:hover { background: var(--color-olive); color: white; box-shadow: 0 6px 24px rgba(74,82,64,0.15); transform: translateY(-2px); }
 
-        .btn-primary {
-            background: var(--color-olive);
-            color: white;
-        }
+        .pricing-note { text-align: center; margin-top: 2rem; color: #888; font-size: 0.9rem; }
 
-        .btn-primary:hover {
-            background: var(--color-olive-hover);
-            color: white;
-            box-shadow: 0 6px 24px rgba(74, 82, 64, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--color-olive);
-            border: 2px solid var(--color-olive);
-        }
-
-        .btn-secondary:hover {
-            background: var(--color-olive);
-            color: white;
-            box-shadow: 0 6px 24px rgba(74, 82, 64, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .pricing-note {
-            text-align: center;
-            margin-top: 2rem;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* ============================================
-           CTA Section
-           ============================================ */
+        /* ── CTA ── */
         #download {
-            background: linear-gradient(135deg, var(--color-oat) 0%, var(--color-cream) 50%, var(--color-oat) 100%);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            background: var(--color-charcoal); text-align: center;
+            position: relative; overflow: hidden; color: white;
+        }
+        #download .section-container { max-width: 640px; position: relative; z-index: 1; }
+        #download .section-title { color: white; }
+        #download p { color: rgba(255,255,255,0.7); font-size: 1.1rem; margin-bottom: 2rem; }
+        #download .store-badge { filter: invert(1) brightness(2); }
+        #download .store-badge:hover { filter: invert(1) brightness(2.2); }
+
+        /* Olive glow orbs in CTA */
+        #download::before {
+            content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(74,82,64,0.3) 0%, transparent 70%);
+            top: -150px; right: -100px; pointer-events: none;
+        }
+        #download::after {
+            content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(107,122,92,0.2) 0%, transparent 70%);
+            bottom: -100px; left: -80px; pointer-events: none;
         }
 
-        #download .section-container {
-            max-width: 600px;
-            position: relative;
-            z-index: 1;
-        }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-        #download p {
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* ============================================
-           Footer
-           ============================================ */
+        /* ── Footer ── */
         .footer {
-            background: var(--color-charcoal);
-            color: rgba(255, 255, 255, 0.8);
-            padding: 3rem 1.5rem;
-            text-align: center;
-            position: relative;
+            background: var(--color-charcoal); color: rgba(255,255,255,0.8);
+            padding: 3rem 2rem; text-align: center; position: relative;
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                var(--color-olive) 20%,
-                #6b7a5c 50%,
-                var(--color-olive) 80%,
-                transparent 100%);
-            opacity: 0.4;
-        }
-
         .footer-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 1rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;
         }
+        .footer-logo img { width: 32px; height: 32px; border-radius: 7px; transition: transform 0.4s var(--ease-out-back); }
+        .footer-logo:hover img { transform: rotate(-15deg) scale(1.1); }
+        .footer-tagline { margin-bottom: 1.5rem; font-size: 0.95rem; }
 
-        .footer-logo i {
-            font-size: 32px;
-            transition: transform 0.4s var(--ease-out-back);
-        }
-
-        .footer-logo:hover i {
-            transform: rotate(-15deg) scale(1.1);
-        }
-
-        .footer-tagline {
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
+        .footer-social { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
         .footer-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: rgba(255, 255, 255, 0.8);
+            display: flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.08);
+            border-radius: 50%; color: rgba(255,255,255,0.8);
             transition: all 0.3s var(--ease-out-back);
         }
-
         .footer-social a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(255,255,255,0.15); color: white;
+            transform: translateY(-3px) scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
+        .footer-social i { font-size: 20px; }
 
-        .footer-social i {
-            font-size: 20px;
-        }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: rgba(255,255,255,0.6); font-size: 0.9rem; transition: color var(--transition); }
+        .footer-links a:hover { color: white; }
+        .footer-copyright { font-size: 0.8rem; opacity: 0.5; }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            transition: color var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-copyright {
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-
-        /* ============================================
-           Mobile Responsive
-           ============================================ */
+        /* ── Mobile ── */
         @media (max-width: 768px) {
+            .navbar-container { padding: 0 1.25rem; }
             .navbar-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background: var(--color-cream);
-                flex-direction: column;
-                justify-content: center;
-                gap: 2rem;
-                transition: right var(--transition);
-                box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+                position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
+                background: var(--color-cream); flex-direction: column; justify-content: center; gap: 2rem;
+                transition: right var(--transition); box-shadow: -4px 0 20px rgba(0,0,0,0.1);
             }
+            .navbar-links.active { right: 0; }
+            .navbar-links a { font-size: 1.25rem; }
+            .navbar-links .btn-download { margin-top: 1rem; }
+            .menu-toggle { display: flex; z-index: 1001; }
+            .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .menu-toggle.active span:nth-child(2) { opacity: 0; }
+            .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-            .navbar-links.active {
-                right: 0;
-            }
+            .hero { padding: 6rem 1.25rem 3rem; }
+            .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+            .hero-content { text-align: center; }
+            .hero-eyebrow { justify-content: center; }
+            .hero-subheadline { max-width: 100%; margin-left: auto; margin-right: auto; }
+            .hero-actions { justify-content: center; }
+            .hero-stats { justify-content: center; }
 
-            .navbar-links a {
-                font-size: 1.25rem;
-            }
+            .carousel-device { width: 260px; }
 
-            .navbar-links .btn-download {
-                margin-top: 1rem;
-            }
+            .section { padding: 3.5rem 1.25rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .store-badge { height: 44px; }
+            .footer-links { gap: 1.5rem; }
 
-            .menu-toggle {
-                display: flex;
-                z-index: 1001;
-            }
-
-            .menu-toggle.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .menu-toggle.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .menu-toggle.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-
-            .hero {
-                padding: 6rem 1rem 3rem;
-            }
-
-            .hero-icon {
-                width: 100px;
-                height: 100px;
-                border-radius: 24px;
-            }
-
-            .hero-icon i {
-                font-size: 50px;
-            }
-
-            .section {
-                padding: 3rem 1rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .store-badge {
-                height: 44px;
-            }
-
-            .phone-mockup {
-                width: 240px;
-                height: 500px;
-                border-radius: 36px;
-                padding: 10px;
-            }
-
-            .phone-screen {
-                border-radius: 26px;
-                padding: 36px 16px 16px;
-            }
-
-            .footer-links {
-                gap: 1.5rem;
-            }
-
-            /* Disable heavy animations on mobile */
-            .floating, .floating-slow, .floating-rotate {
-                animation-duration: 0s !important;
-            }
-            .parallax-layer {
-                transform: none !important;
-            }
-            .deco {
-                display: none;
-            }
+            .floating, .floating-slow, .floating-rotate { animation-duration: 0s !important; }
+            .parallax-layer { transform: none !important; }
+            .deco { display: none; }
         }
 
-        /* Mobile overlay */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero-inner { gap: 2rem; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
         .mobile-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: all var(--transition);
-            z-index: 999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+            transition: all var(--transition); z-index: 999;
         }
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
 
-        .mobile-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* ============================================
-           Accessibility: Reduced Motion
-           ============================================ */
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            .reveal, .reveal-scale {
-                opacity: 1;
-                transform: none;
-            }
-            .pricing-features li i {
-                opacity: 1;
-                transform: none;
-            }
-            .floating, .floating-slow, .floating-rotate {
-                animation: none !important;
-            }
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+            .reveal, .reveal-scale { opacity: 1; transform: none; }
+            .pricing-features li i { opacity: 1; transform: none; }
+            .floating, .floating-slow, .floating-rotate { animation: none !important; }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="navbar-container">
-            <a href="#" class="navbar-logo">
-                <i class="ph ph-leaf"></i>
-                Renew
-            </a>
+            <a href="#" class="navbar-logo"><img src="renew-icon.png" alt="Renew"> Renew</a>
             <ul class="navbar-links">
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="ph ph-sun icon-sun"></i>
+                        <i class="ph ph-moon icon-moon"></i>
+                    </button>
+                </li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#download" class="btn-download">Download</a></li>
             </ul>
             <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Overlay -->
     <div class="mobile-overlay"></div>
 
-    <!-- Hero Section -->
     <section class="hero" id="hero">
-        <!-- Parallax floating decorative elements -->
         <div class="parallax-layer">
-            <div class="deco deco-circle floating-slow" style="width: 300px; height: 300px; top: 10%; left: -5%; opacity: 0.5;"></div>
-            <div class="deco deco-circle floating" style="width: 200px; height: 200px; bottom: 15%; right: -3%; opacity: 0.4; animation-delay: -2s;"></div>
+            <div class="deco deco-circle floating-slow" style="width:300px;height:300px;top:8%;left:-6%;opacity:0.5;"></div>
+            <div class="deco deco-circle floating" style="width:200px;height:200px;bottom:12%;right:-4%;opacity:0.35;animation-delay:-2s;"></div>
         </div>
+        <div class="deco deco-ring floating-rotate" style="width:70px;height:70px;top:22%;right:8%;opacity:0.4;"></div>
+        <div class="deco deco-ring floating-slow" style="width:45px;height:45px;bottom:28%;left:6%;animation-delay:-3s;"></div>
+        <div class="deco deco-leaf floating" style="top:12%;right:22%;opacity:0.35;animation-delay:-1s;"></div>
+        <div class="deco deco-dot" style="top:35%;left:18%;animation:dot-drift 5s ease-in-out infinite;"></div>
+        <div class="deco deco-dot" style="top:55%;right:15%;animation:dot-drift 7s ease-in-out infinite 1s;"></div>
 
-        <!-- Non-parallax floating decorations -->
-        <div class="deco deco-ring floating-rotate" style="width: 80px; height: 80px; top: 25%; right: 10%; opacity: 0.5;"></div>
-        <div class="deco deco-ring floating-slow" style="width: 50px; height: 50px; bottom: 30%; left: 8%; animation-delay: -3s;"></div>
-        <div class="deco deco-leaf floating" style="top: 15%; right: 15%; opacity: 0.4; animation-delay: -1s;"></div>
-        <div class="deco deco-leaf floating-rotate" style="bottom: 20%; left: 12%; width: 30px; height: 30px; opacity: 0.3; animation-delay: -4s;"></div>
-        <div class="deco deco-dot" style="top: 30%; left: 20%; animation: dot-drift 5s ease-in-out infinite;"></div>
-        <div class="deco deco-dot" style="top: 50%; right: 18%; animation: dot-drift 7s ease-in-out infinite 1s;"></div>
-        <div class="deco deco-dot" style="bottom: 25%; left: 30%; animation: dot-drift 6s ease-in-out infinite 2s;"></div>
-
-        <div class="hero-icon">
-            <i class="ph ph-leaf"></i>
-        </div>
-        <h1>Renew</h1>
-        <p class="hero-tagline">Track your skincare journey</p>
-        <p class="hero-subheadline">Build consistent routines. Know what's working. Finally bring calm to your skincare shelf.</p>
-
-        <div class="hero-buttons">
-            <a href="#" aria-label="Download on the App Store">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" class="store-badge">
-            </a>
-            <a href="#" aria-label="Get it on Google Play">
-                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" class="store-badge" style="height: 78px; margin-top: -13px;">
-            </a>
-        </div>
-
-        <div class="phone-mockup" id="phoneMockup">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-                <div class="phone-status-bar">
-                    <span>9:41</span>
-                    <span class="phone-status-icons">
-                        <i class="ph ph-wifi-high"></i>
-                        <i class="ph ph-battery-full"></i>
-                    </span>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-eyebrow">Skincare tracking app</div>
+                <h1>Build the routine your skin deserves</h1>
+                <p class="hero-subheadline">Track products, build consistent habits, and finally know what's working. Renew brings calm to your skincare shelf.</p>
+                <div class="hero-actions">
+                    <a href="#" aria-label="Download on the App Store">
+                        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" class="store-badge">
+                    </a>
                 </div>
-                <div class="phone-app-header">
-                    <i class="ph ph-leaf"></i>
-                    <span>Evening Routine</span>
-                </div>
-                <div class="phone-checklist">
-                    <div class="phone-checklist-item checked">
-                        <div class="phone-check"><i class="ph-fill ph-check-circle"></i></div>
-                        <span>Oil Cleanser</span>
+                <div class="hero-stats">
+                    <div>
+                        <div class="hero-stat-number">1k+</div>
+                        <div class="hero-stat-label">Products in Database</div>
                     </div>
-                    <div class="phone-checklist-item checked">
-                        <div class="phone-check"><i class="ph-fill ph-check-circle"></i></div>
-                        <span>Gentle Cleanser</span>
+                    <div>
+                        <div class="hero-stat-number">AI</div>
+                        <div class="hero-stat-label">Product Scanner</div>
                     </div>
-                    <div class="phone-checklist-item">
-                        <div class="phone-check"><i class="ph ph-circle"></i></div>
-                        <span>Hyaluronic Acid Serum</span>
-                    </div>
-                    <div class="phone-checklist-item">
-                        <div class="phone-check"><i class="ph ph-circle"></i></div>
-                        <span>Retinol Treatment</span>
-                    </div>
-                    <div class="phone-checklist-item">
-                        <div class="phone-check"><i class="ph ph-circle"></i></div>
-                        <span>Night Moisturiser</span>
+                    <div>
+                        <div class="hero-stat-number">Free</div>
+                        <div class="hero-stat-label">To Get Started</div>
                     </div>
                 </div>
-                <div class="phone-streak">
-                    <i class="ph-fill ph-fire"></i>
-                    <span>12 day streak</span>
+            </div>
+
+            <div class="hero-carousel-wrapper">
+                <div class="carousel-device" id="carouselDevice">
+                    <div class="carousel-notch"></div>
+                    <div class="carousel-screen">
+                        <div class="carousel-track" id="carouselTrack">
+                            <div class="carousel-slide"><img src="Screenshots/IMG_2656_CA.png" alt="Home screen with UV index and routines"></div>
+                            <div class="carousel-slide"><img src="Screenshots/IMG_2657.PNG" alt="Your product shelf"></div>
+                            <div class="carousel-slide"><img src="Screenshots/IMG_2658.PNG" alt="Evening routine tracker"></div>
+                            <div class="carousel-slide"><img src="Screenshots/IMG_2659.PNG" alt="Skin score insights"></div>
+                            <div class="carousel-slide"><img src="Screenshots/IMG_2661.PNG" alt="Journal calendar view"></div>
+                            <div class="carousel-slide"><img src="Screenshots/IMG_2660.PNG" alt="Photo capture for products"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carouselDots">
+                    <button class="carousel-dot active" data-slide="0"></button>
+                    <button class="carousel-dot" data-slide="1"></button>
+                    <button class="carousel-dot" data-slide="2"></button>
+                    <button class="carousel-dot" data-slide="3"></button>
+                    <button class="carousel-dot" data-slide="4"></button>
+                    <button class="carousel-dot" data-slide="5"></button>
+                </div>
+                <div class="carousel-arrows">
+                    <button class="carousel-arrow" id="carouselPrev" aria-label="Previous screenshot"><i class="ph ph-caret-left"></i></button>
+                    <button class="carousel-arrow" id="carouselNext" aria-label="Next screenshot"><i class="ph ph-caret-right"></i></button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="section" id="features">
         <div class="section-container">
             <h2 class="section-title reveal">Skincare tracking, simplified.</h2>
+            <p class="section-subtitle reveal">Everything you need to build better habits and understand your routine.</p>
             <div class="features-grid reveal-stagger">
                 <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="ph ph-package"></i>
-                    </div>
+                    <div class="feature-icon"><i class="ph ph-package"></i></div>
                     <h3>Track Products</h3>
                     <p>Add your entire skincare collection. Know what you have, what's running low.</p>
                 </div>
                 <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="ph ph-sparkle"></i>
-                    </div>
+                    <div class="feature-icon"><i class="ph ph-sparkle"></i></div>
                     <h3>Build Routines</h3>
                     <p>Create AM and PM routines. Check off products as you go.</p>
                 </div>
                 <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="ph ph-sun"></i>
-                    </div>
+                    <div class="feature-icon"><i class="ph ph-sun"></i></div>
                     <h3>UV Index</h3>
                     <p>Real-time UV for your location. Know when to apply (and reapply) SPF.</p>
                 </div>
                 <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="ph ph-fire"></i>
-                    </div>
+                    <div class="feature-icon"><i class="ph ph-fire"></i></div>
                     <h3>Streaks</h3>
                     <p>Build consistency with daily streaks. Small habits, big results.</p>
                 </div>
                 <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="ph ph-bell-ringing"></i>
-                    </div>
+                    <div class="feature-icon"><i class="ph ph-bell-ringing"></i></div>
                     <h3>Smart Reminders <span class="feature-badge">Pro</span></h3>
                     <p>Gentle nudges to complete your routine. Never forget your retinol again.</p>
                 </div>
                 <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="ph ph-trophy"></i>
-                    </div>
+                    <div class="feature-icon"><i class="ph ph-trophy"></i></div>
                     <h3>Achievements <span class="feature-badge">Pro</span></h3>
                     <p>Unlock badges as you build your skincare habits. Celebrate the wins.</p>
                 </div>
@@ -1313,10 +828,10 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
     <section class="section" id="pricing">
         <div class="section-container">
             <h2 class="section-title reveal">Simple pricing. No surprises.</h2>
+            <p class="section-subtitle reveal">Start for free, upgrade when you're ready.</p>
             <div class="pricing-grid reveal-stagger">
                 <div class="pricing-card reveal">
                     <div class="pricing-tier">Free</div>
@@ -1352,9 +867,7 @@
                     <div class="pricing-tier">Pro Yearly</div>
                     <div class="pricing-price">$39.99<span>/yr</span></div>
                     <div class="pricing-period">Billed annually</div>
-                    <div class="pricing-yearly">
-                        <span class="savings-badge">Save 33%</span>
-                    </div>
+                    <div class="pricing-yearly"><span class="savings-badge">Save 33%</span></div>
                     <ul class="pricing-features">
                         <li><i class="ph ph-check-circle"></i> Everything in Free, plus:</li>
                         <li><i class="ph ph-check-circle"></i> Unlimited products</li>
@@ -1372,13 +885,7 @@
         </div>
     </section>
 
-    <!-- Download CTA Section -->
     <section class="section" id="download">
-        <!-- Floating decorative elements -->
-        <div class="deco deco-circle floating" style="width: 150px; height: 150px; top: -30px; right: -40px; opacity: 0.3;"></div>
-        <div class="deco deco-ring floating-slow" style="width: 60px; height: 60px; bottom: 20%; left: 5%; opacity: 0.3; animation-delay: -2s;"></div>
-        <div class="deco deco-leaf floating-rotate" style="top: 20%; right: 10%; opacity: 0.2; animation-delay: -3s;"></div>
-
         <div class="section-container">
             <h2 class="section-title reveal">Ready to start your skincare journey?</h2>
             <p class="reveal">Download Renew for free and build the routine your skin deserves.</p>
@@ -1386,53 +893,56 @@
                 <a href="#" aria-label="Download on the App Store">
                     <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" class="store-badge">
                 </a>
-                <a href="#" aria-label="Get it on Google Play">
-                    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" class="store-badge" style="height: 78px; margin-top: -13px;">
-                </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-logo reveal">
-            <i class="ph ph-leaf"></i>
-            Renew
-        </div>
+        <div class="footer-logo reveal"><img src="renew-icon.png" alt="Renew"> Renew</div>
         <p class="footer-tagline reveal">Made with <i class="ph ph-coffee"></i> in Melbourne, Australia</p>
         <div class="footer-social reveal">
-            <a href="https://x.com/renewapp" target="_blank" rel="noopener" aria-label="Follow us on X">
-                <i class="ph ph-x-logo"></i>
-            </a>
-            <a href="https://instagram.com/renewapp" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
-                <i class="ph ph-instagram-logo"></i>
-            </a>
+            <a href="https://x.com/renewapp" target="_blank" rel="noopener" aria-label="Follow us on X"><i class="ph ph-x-logo"></i></a>
+            <a href="https://instagram.com/renewapp" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="ph ph-instagram-logo"></i></a>
         </div>
         <div class="footer-links reveal">
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
-            <a href="mailto:hello@getrenew.app">Contact</a>
+            <a href="support.html">Support</a>
         </div>
         <p class="footer-copyright reveal">&copy; 2026 Renew. All rights reserved.</p>
     </footer>
 
     <script>
-        // ============================================
-        // Navbar scroll effect
-        // ============================================
-        const navbar = document.querySelector('.navbar');
+        // Theme
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved) {
+                document.documentElement.setAttribute('data-theme', saved);
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
             }
         });
 
-        // ============================================
-        // Mobile menu toggle
-        // ============================================
+        // Navbar scroll
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.navbar-links');
         const mobileOverlay = document.querySelector('.mobile-overlay');
@@ -1444,21 +954,13 @@
             document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
             menuToggle.setAttribute('aria-expanded', navLinks.classList.contains('active'));
         }
-
         menuToggle.addEventListener('click', toggleMenu);
         mobileOverlay.addEventListener('click', toggleMenu);
-
         navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navLinks.classList.contains('active')) {
-                    toggleMenu();
-                }
-            });
+            link.addEventListener('click', () => { if (navLinks.classList.contains('active')) toggleMenu(); });
         });
 
-        // ============================================
-        // Smooth scroll for anchor links
-        // ============================================
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -1466,72 +968,63 @@
                     const target = document.querySelector(href);
                     if (target) {
                         e.preventDefault();
-                        const navHeight = navbar.offsetHeight;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
-
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
+                        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - navbar.offsetHeight - 20, behavior: 'smooth' });
                     }
                 }
             });
         });
 
-        // ============================================
-        // Scroll Reveal - Intersection Observer
-        // ============================================
-        const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
-
+        // Scroll reveal
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                    revealObserver.unobserve(entry.target);
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('revealed'); revealObserver.unobserve(entry.target); }
             });
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -60px 0px'
-        });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal, .reveal-scale').forEach(el => revealObserver.observe(el));
 
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // ============================================
-        // Phone mockup floating (starts after entrance)
-        // ============================================
-        const phoneMockup = document.getElementById('phoneMockup');
-        if (phoneMockup) {
-            setTimeout(() => {
-                phoneMockup.classList.add('floating-active');
-            }, 2000);
-        }
-
-        // ============================================
-        // Parallax on Hero Decorative Elements
-        // ============================================
+        // Parallax
         const parallaxLayer = document.querySelector('.parallax-layer');
         const heroSection = document.querySelector('.hero');
-
         let ticking = false;
-        function handleParallax() {
-            const scrolled = window.pageYOffset;
-            const heroHeight = heroSection.offsetHeight;
-
-            if (scrolled < heroHeight && parallaxLayer) {
-                parallaxLayer.style.transform = `translateY(${scrolled * 0.3}px)`;
-            }
-        }
-
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
-                    handleParallax();
+                    const scrolled = window.pageYOffset;
+                    if (scrolled < heroSection.offsetHeight && parallaxLayer) {
+                        parallaxLayer.style.transform = `translateY(${scrolled * 0.3}px)`;
+                    }
                     ticking = false;
                 });
                 ticking = true;
             }
         });
+
+        // Carousel
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const device = document.getElementById('carouselDevice');
+        let currentSlide = 0;
+        const totalSlides = 5;
+        let autoplayInterval;
+
+        function goToSlide(n) {
+            currentSlide = ((n % totalSlides) + totalSlides) % totalSlides;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+        }
+
+        dots.forEach(dot => dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide))));
+        document.getElementById('carouselPrev').addEventListener('click', () => { goToSlide(currentSlide - 1); resetAutoplay(); });
+        document.getElementById('carouselNext').addEventListener('click', () => { goToSlide(currentSlide + 1); resetAutoplay(); });
+
+        function resetAutoplay() {
+            clearInterval(autoplayInterval);
+            autoplayInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
+        }
+        autoplayInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
+
+        // Device float after load
+        setTimeout(() => { if (device) device.classList.add('floating-active'); }, 1600);
     </script>
 </body>
 </html>
