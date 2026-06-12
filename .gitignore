@@ -23,3 +23,6 @@ build/
 
 # Old build guide (not needed for deployment)
 CARRD_BUILD_GUIDE.md
+
+# Claude Code (local only)
+.claude/
