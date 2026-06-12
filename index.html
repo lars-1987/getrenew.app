@@ -107,12 +107,6 @@
         [data-theme="dark"] .store-badge { filter: invert(1) brightness(1.8); }
         [data-theme="dark"] .store-badge:hover { filter: invert(1) brightness(2); }
 
-        [data-theme="dark"] .carousel-device {
-            background: #111;
-            box-shadow: var(--shadow-heavy), 0 0 0 1px rgba(255,255,255,0.05) inset;
-        }
-        [data-theme="dark"] .carousel-notch { background: #111; }
-        [data-theme="dark"] .carousel-screen { background: var(--color-oat); }
         [data-theme="dark"] .carousel-dot { background: rgba(255,255,255,0.2); }
         [data-theme="dark"] .carousel-dot.active { background: var(--color-olive); }
         [data-theme="dark"] .carousel-arrow {
@@ -414,20 +408,11 @@
 
         .carousel-device {
             position: relative; width: 300px; margin: 0 auto;
-            background: var(--color-charcoal); border-radius: 44px; padding: 14px;
-            box-shadow: var(--shadow-heavy), 0 0 0 1px rgba(255,255,255,0.08) inset;
         }
         .carousel-device.floating-active { animation: carousel-float var(--float-duration) ease-in-out infinite; }
 
-        .carousel-notch {
-            position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-            width: 100px; height: 26px; background: var(--color-charcoal);
-            border-radius: 0 0 14px 14px; z-index: 3;
-        }
-
         .carousel-screen {
-            width: 100%; aspect-ratio: 9/19.5; border-radius: 32px; overflow: hidden;
-            background: var(--color-oat); position: relative;
+            width: 100%; overflow: hidden; position: relative;
         }
 
         .carousel-track {
@@ -435,12 +420,12 @@
         }
 
         .carousel-slide {
-            min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-            background: var(--color-oat);
+            min-width: 100%; display: flex; align-items: center; justify-content: center;
         }
 
         .carousel-slide img {
-            width: 100%; height: 100%; object-fit: cover; object-position: top;
+            width: 100%; height: auto; display: block;
+            filter: drop-shadow(0 24px 40px rgba(44,44,44,0.20));
         }
 
         .carousel-dots {
@@ -766,6 +751,14 @@
         <div class="deco deco-leaf floating" style="top:12%;right:22%;opacity:0.35;animation-delay:-1s;"></div>
         <div class="deco deco-dot" style="top:35%;left:18%;animation:dot-drift 5s ease-in-out infinite;"></div>
         <div class="deco deco-dot" style="top:55%;right:15%;animation:dot-drift 7s ease-in-out infinite 1s;"></div>
+        <div class="deco deco-dot" style="top:18%;left:42%;animation:dot-drift 6s ease-in-out infinite 0.5s;"></div>
+        <div class="deco deco-dot" style="top:72%;left:30%;animation:dot-drift 8s ease-in-out infinite 1.5s;"></div>
+        <div class="deco deco-dot" style="top:42%;right:6%;animation:dot-drift 6.5s ease-in-out infinite 2s;"></div>
+        <div class="deco deco-dot" style="top:82%;right:30%;animation:dot-drift 7.5s ease-in-out infinite 0.8s;"></div>
+        <div class="deco deco-dot" style="top:28%;left:8%;animation:dot-drift 5.5s ease-in-out infinite 1.2s;"></div>
+        <div class="deco deco-dot" style="top:64%;left:46%;animation:dot-drift 9s ease-in-out infinite 2.5s;"></div>
+        <div class="deco deco-ring floating" style="width:30px;height:30px;top:48%;left:3%;opacity:0.3;animation-delay:-1.5s;"></div>
+        <div class="deco deco-leaf floating-slow" style="top:70%;right:9%;width:28px;height:28px;opacity:0.25;animation-delay:-2.5s;"></div>
 
         <div class="hero-inner">
             <div class="hero-content">
@@ -783,8 +776,8 @@
                         <div class="hero-stat-label">Products in Database</div>
                     </div>
                     <div>
-                        <div class="hero-stat-number">AI</div>
-                        <div class="hero-stat-label">Product Scanner</div>
+                        <div class="hero-stat-number">Scan</div>
+                        <div class="hero-stat-label">Any Product</div>
                     </div>
                     <div>
                         <div class="hero-stat-number">Free</div>
@@ -795,25 +788,26 @@
 
             <div class="hero-carousel-wrapper">
                 <div class="carousel-device" id="carouselDevice">
-                    <div class="carousel-notch"></div>
                     <div class="carousel-screen">
                         <div class="carousel-track" id="carouselTrack">
-                            <div class="carousel-slide"><img src="Screenshots/IMG_2656_CA.png" alt="Home screen with UV index and routines"></div>
-                            <div class="carousel-slide"><img src="Screenshots/IMG_2657.PNG" alt="Your product shelf" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/IMG_2658.PNG" alt="Evening routine tracker" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/IMG_2659.PNG" alt="Skin score insights" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/IMG_2661.PNG" alt="Journal calendar view" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/IMG_2660.PNG" alt="Photo capture for products" loading="lazy"></div>
+                            <div class="carousel-slide"><img src="Screenshots/renew-1.webp" alt="Home screen with evening greeting, UV index, and today's routines"></div>
+                            <div class="carousel-slide"><img src="Screenshots/renew-2.webp" alt="Stepping through the Retinol Nights routine, checking off each product" loading="lazy"></div>
+                            <div class="carousel-slide"><img src="Screenshots/renew-3.webp" alt="Your shelf, with products organized by category" loading="lazy"></div>
+                            <div class="carousel-slide"><img src="Screenshots/renew-4.webp" alt="Journal calendar showing logged entries and completed routines" loading="lazy"></div>
+                            <div class="carousel-slide"><img src="Screenshots/renew-5.webp" alt="Insights with the skin score trend chart" loading="lazy"></div>
+                            <div class="carousel-slide"><img src="Screenshots/renew-6.webp" alt="Product insights with before and after analysis" loading="lazy"></div>
+                            <div class="carousel-slide"><img src="Screenshots/renew-7.webp" alt="Home screen in dark mode" loading="lazy"></div>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-dots" id="carouselDots">
-                    <button class="carousel-dot active" data-slide="0"></button>
-                    <button class="carousel-dot" data-slide="1"></button>
-                    <button class="carousel-dot" data-slide="2"></button>
-                    <button class="carousel-dot" data-slide="3"></button>
-                    <button class="carousel-dot" data-slide="4"></button>
-                    <button class="carousel-dot" data-slide="5"></button>
+                    <button class="carousel-dot active" data-slide="0" aria-label="Go to screenshot 1"></button>
+                    <button class="carousel-dot" data-slide="1" aria-label="Go to screenshot 2"></button>
+                    <button class="carousel-dot" data-slide="2" aria-label="Go to screenshot 3"></button>
+                    <button class="carousel-dot" data-slide="3" aria-label="Go to screenshot 4"></button>
+                    <button class="carousel-dot" data-slide="4" aria-label="Go to screenshot 5"></button>
+                    <button class="carousel-dot" data-slide="5" aria-label="Go to screenshot 6"></button>
+                    <button class="carousel-dot" data-slide="6" aria-label="Go to screenshot 7"></button>
                 </div>
                 <div class="carousel-arrows">
                     <button class="carousel-arrow" id="carouselPrev" aria-label="Previous screenshot"><i class="ph ph-caret-left"></i></button>
@@ -1038,7 +1032,7 @@
         const dots = document.querySelectorAll('.carousel-dot');
         const device = document.getElementById('carouselDevice');
         let currentSlide = 0;
-        const totalSlides = 5;
+        const totalSlides = 7;
         let autoplayInterval;
 
         function goToSlide(n) {
