@@ -26,3 +26,6 @@ CARRD_BUILD_GUIDE.md
 
 # Claude Code (local only)
 .claude/
+
+# Image masters (compressed versions live in img/)
+refs/

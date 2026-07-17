@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Renew - Track your skincare journey. Build consistent routines. Know what's working. Free on the App Store.">
-    <meta name="theme-color" content="#4A5240">
+    <meta name="description" content="Renew keeps your products, your routines, and your progress. The unhurried way to better skin. Free on iOS.">
+    <meta name="theme-color" content="#FAF8F5">
     <link rel="canonical" href="https://getrenew.app/">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="renew-icon.png">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Renew - Track Your Skincare Journey">
-    <meta property="og:description" content="Build consistent routines. Know what's working. Finally bring calm to your skincare shelf.">
+    <meta property="og:title" content="Renew - The unhurried way to better skin">
+    <meta property="og:description" content="Renew keeps your products, your routines, and your progress. Free on iOS.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://getrenew.app/">
     <meta property="og:image" content="https://getrenew.app/renew-icon.png">
@@ -19,681 +19,18 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Renew - Track Your Skincare Journey">
-    <meta name="twitter:description" content="Build consistent routines. Know what's working. Finally bring calm to your skincare shelf.">
+    <meta name="twitter:title" content="Renew - The unhurried way to better skin">
+    <meta name="twitter:description" content="Renew keeps your products, your routines, and your progress. Free on iOS.">
     <meta name="twitter:image" content="https://getrenew.app/renew-icon.png">
 
-    <title>Renew - Track Your Skincare Journey</title>
+    <title>Renew - The unhurried way to better skin</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:opsz,wght,SOFT,WONK@9..144,600,0,1&display=swap" rel="stylesheet">
 
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <!-- Prevent flash of wrong theme -->
-    <script>
-        (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.setAttribute('data-theme','dark');})();
-    </script>
-
-    <style>
-        :root {
-            --color-cream: #FAF8F5;
-            --color-charcoal: #2C2C2C;
-            --color-olive: #4A5240;
-            --color-olive-hover: #3d4435;
-            --color-oat: #F0EBE3;
-            --color-oat-dark: #E5DFD5;
-            --color-sage: #8a9a7b;
-            --font-heading: 'Fraunces', Georgia, serif;
-            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
-            --shadow-medium: 0 8px 30px rgba(0,0,0,0.08);
-            --shadow-heavy: 0 25px 60px rgba(44,44,44,0.18);
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-            --radius-2xl: 32px;
-            --transition: 0.3s ease;
-            --ease-out-expo: cubic-bezier(0.16,1,0.3,1);
-            --ease-out-back: cubic-bezier(0.34,1.56,0.64,1);
-            --duration-reveal: 0.9s;
-            --glass-bg: rgba(250,248,245,0.55);
-            --glass-border: rgba(255,255,255,0.4);
-            --glass-blur: 16px;
-            --glass-shadow: 0 8px 32px rgba(74,82,64,0.08);
-            --gradient-olive: linear-gradient(135deg, #4A5240 0%, #6b7a5c 100%);
-            --gradient-hero-orb: radial-gradient(circle, rgba(74,82,64,0.08) 0%, transparent 70%);
-            --float-duration: 6s;
-            --float-distance: 12px;
-        }
-
-        /* ── Dark Theme ── */
-        [data-theme="dark"] {
-            --color-cream: #1a1a1a;
-            --color-charcoal: #e8e4df;
-            --color-olive: #8a9a7b;
-            --color-olive-hover: #9dae8e;
-            --color-oat: #222222;
-            --color-oat-dark: #333333;
-            --color-sage: #8a9a7b;
-            --shadow-soft: 0 4px 20px rgba(0,0,0,0.2);
-            --shadow-medium: 0 8px 30px rgba(0,0,0,0.25);
-            --shadow-heavy: 0 25px 60px rgba(0,0,0,0.4);
-            --glass-bg: rgba(30,30,30,0.6);
-            --glass-border: rgba(255,255,255,0.08);
-            --glass-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            --gradient-olive: linear-gradient(135deg, #8a9a7b 0%, #6b7a5c 100%);
-            --gradient-hero-orb: radial-gradient(circle, rgba(138,154,123,0.1) 0%, transparent 70%);
-        }
-
-        [data-theme="dark"] body::after { opacity: 0.015; }
-
-        [data-theme="dark"] .navbar {
-            background: rgba(26,26,26,0.7);
-            border-bottom-color: rgba(255,255,255,0.06);
-        }
-        [data-theme="dark"] .navbar.scrolled {
-            background: rgba(26,26,26,0.92);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-        }
-        [data-theme="dark"] .menu-toggle span { background: var(--color-charcoal); }
-
-        [data-theme="dark"] .hero-subheadline { color: #999; }
-        [data-theme="dark"] .hero-stat-label { color: #777; }
-        [data-theme="dark"] .store-badge { filter: invert(1) brightness(1.8); }
-        [data-theme="dark"] .store-badge:hover { filter: invert(1) brightness(2); }
-
-        [data-theme="dark"] .carousel-dot { background: rgba(255,255,255,0.2); }
-        [data-theme="dark"] .carousel-dot.active { background: var(--color-olive); }
-        [data-theme="dark"] .carousel-arrow {
-            border-color: rgba(255,255,255,0.15);
-            color: var(--color-charcoal);
-        }
-        [data-theme="dark"] .carousel-arrow:hover {
-            background: rgba(255,255,255,0.08);
-        }
-
-        [data-theme="dark"] .deco-circle { background: var(--gradient-hero-orb); }
-        [data-theme="dark"] .deco-ring { border-color: rgba(138,154,123,0.12); }
-        [data-theme="dark"] .deco-dot { background: rgba(138,154,123,0.2); }
-        [data-theme="dark"] .deco-leaf { background: rgba(138,154,123,0.08); }
-
-        [data-theme="dark"] #features::before {
-            background-image: radial-gradient(circle, rgba(138,154,123,0.06) 1px, transparent 1px);
-        }
-        [data-theme="dark"] .feature-card p { color: #999; }
-        [data-theme="dark"] .section-subtitle { color: #777; }
-
-        [data-theme="dark"] .pricing-card {
-            background: rgba(30,30,30,0.7);
-        }
-        [data-theme="dark"] .pricing-card.featured {
-            border-color: var(--color-olive);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(138,154,123,0.15);
-        }
-        [data-theme="dark"] .pricing-card.featured:hover {
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(138,154,123,0.2);
-        }
-        [data-theme="dark"] .pricing-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        [data-theme="dark"] .pricing-price span { color: #999; }
-        [data-theme="dark"] .pricing-period { color: #999; }
-        [data-theme="dark"] .feature-card:hover {
-            box-shadow: 0 16px 48px rgba(0,0,0,0.25);
-            border-color: rgba(138,154,123,0.2);
-        }
-        [data-theme="dark"] .pricing-note { color: #777; }
-        [data-theme="dark"] .savings-badge { background: rgba(46,125,50,0.15); color: #6fcf6f; }
-
-        [data-theme="dark"] #download {
-            background: #111;
-        }
-        [data-theme="dark"] #download .store-badge { filter: none; }
-        [data-theme="dark"] #download .store-badge:hover { filter: brightness(1.1); }
-        [data-theme="dark"] #download::before {
-            background: radial-gradient(circle, rgba(138,154,123,0.2) 0%, transparent 70%);
-        }
-        [data-theme="dark"] #download::after {
-            background: radial-gradient(circle, rgba(138,154,123,0.12) 0%, transparent 70%);
-        }
-
-        [data-theme="dark"] .footer {
-            background: #111;
-            border-top-color: rgba(255,255,255,0.04);
-        }
-
-        [data-theme="dark"] .mobile-overlay { background: rgba(0,0,0,0.7); }
-
-        @media (max-width: 768px) {
-            [data-theme="dark"] .navbar-links {
-                background: var(--color-cream);
-                box-shadow: -4px 0 20px rgba(0,0,0,0.3);
-            }
-        }
-
-        /* Theme toggle */
-        .theme-toggle {
-            display: flex; align-items: center; justify-content: center;
-            width: 36px; height: 36px; border-radius: 50%;
-            background: none; border: 1.5px solid var(--color-oat-dark);
-            cursor: pointer; color: var(--color-charcoal);
-            transition: all 0.3s var(--ease-out-expo);
-            position: relative;
-        }
-        .theme-toggle:hover {
-            background: var(--color-oat);
-            transform: rotate(15deg);
-        }
-        .theme-toggle i { font-size: 18px; transition: transform 0.4s var(--ease-out-back); }
-        .theme-toggle .icon-moon { display: none; }
-        [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
-        [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
-        [data-theme="dark"] .theme-toggle {
-            border-color: rgba(255,255,255,0.15);
-        }
-        [data-theme="dark"] .theme-toggle:hover {
-            background: rgba(255,255,255,0.08);
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; font-size: 16px; }
-
-        body {
-            font-family: var(--font-body);
-            background-color: var(--color-cream);
-            color: var(--color-charcoal);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Grain texture overlay */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 256px 256px;
-        }
-
-        h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
-        a { color: var(--color-olive); text-decoration: none; transition: color var(--transition); }
-        a:hover { color: var(--color-olive-hover); }
-        img { max-width: 100%; height: auto; display: block; }
-
-        /* ── Keyframes ── */
-        @keyframes float-y {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(calc(var(--float-distance) * -1)); }
-        }
-        @keyframes float-xy {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(8px, -10px) rotate(2deg); }
-            66% { transform: translate(-5px, -6px) rotate(-1deg); }
-        }
-        @keyframes float-rotate {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(8deg) scale(1.05); }
-        }
-        @keyframes dot-drift {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
-            50% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
-        }
-        @keyframes hero-fade-up {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes hero-fade-right {
-            from { opacity: 0; transform: translateX(60px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes hero-scale-in {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes check-pop {
-            0% { transform: scale(0); opacity: 0; }
-            60% { transform: scale(1.2); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        @keyframes carousel-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .floating { animation: float-y var(--float-duration) ease-in-out infinite; will-change: transform; }
-        .floating-slow { animation: float-xy 8s ease-in-out infinite; will-change: transform; }
-        .floating-rotate { animation: float-rotate 7s ease-in-out infinite; will-change: transform; }
-
-        /* ── Decorative Elements ── */
-        .deco { position: absolute; pointer-events: none; z-index: 0; }
-        .deco-circle { border-radius: 50%; background: var(--gradient-hero-orb); }
-        .deco-ring { border-radius: 50%; border: 2px solid rgba(74,82,64,0.1); background: transparent; }
-        .deco-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(74,82,64,0.15); }
-        .deco-leaf { width: 40px; height: 40px; background: rgba(74,82,64,0.06); border-radius: 0 50% 50% 50%; transform: rotate(45deg); }
-
-        /* ── Scroll Reveal ── */
-        .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity var(--duration-reveal) var(--ease-out-expo), transform var(--duration-reveal) var(--ease-out-expo);
-        }
-        .reveal.revealed { opacity: 1; transform: translateY(0); }
-        .reveal-scale {
-            opacity: 0; transform: scale(0.9);
-            transition: opacity var(--duration-reveal) var(--ease-out-expo), transform var(--duration-reveal) var(--ease-out-expo);
-        }
-        .reveal-scale.revealed { opacity: 1; transform: scale(1); }
-        .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
-        .reveal-stagger > .reveal:nth-child(2) { transition-delay: 100ms; }
-        .reveal-stagger > .reveal:nth-child(3) { transition-delay: 200ms; }
-        .reveal-stagger > .reveal:nth-child(4) { transition-delay: 300ms; }
-        .reveal-stagger > .reveal:nth-child(5) { transition-delay: 400ms; }
-        .reveal-stagger > .reveal:nth-child(6) { transition-delay: 500ms; }
-
-        /* ── Navbar ── */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background: rgba(250,248,245,0.7);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 1rem 0; transition: all var(--transition);
-        }
-        .navbar.scrolled {
-            padding: 0.75rem 0;
-            background: rgba(250,248,245,0.92);
-            box-shadow: 0 4px 30px rgba(74,82,64,0.08);
-            border-bottom-color: transparent;
-        }
-        .navbar-container {
-            max-width: 1200px; margin: 0 auto; padding: 0 2rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .navbar-logo {
-            display: flex; align-items: center; gap: 0.5rem;
-            font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: var(--color-charcoal);
-        }
-        .navbar-logo img { width: 28px; height: 28px; border-radius: 6px; transition: transform 0.4s var(--ease-out-back); }
-        .navbar-logo:hover img { transform: rotate(-15deg) scale(1.1); }
-
-        .navbar-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-        .navbar-links a { color: var(--color-charcoal); font-weight: 500; font-size: 0.95rem; position: relative; }
-        .navbar-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 2px;
-            background: var(--color-olive);
-            transition: width 0.3s var(--ease-out-expo), left 0.3s var(--ease-out-expo);
-        }
-        .navbar-links a:hover::after { width: 100%; left: 0; }
-        .navbar-links .btn-download {
-            background: var(--color-olive); color: white; padding: 0.6rem 1.25rem;
-            border-radius: var(--radius-sm); font-weight: 600;
-            transition: all 0.3s var(--ease-out-expo);
-        }
-        .navbar-links .btn-download:hover {
-            background: var(--color-olive-hover); color: white;
-            box-shadow: 0 4px 20px rgba(74,82,64,0.25); transform: translateY(-1px);
-        }
-        .navbar-links .btn-download::after { display: none; }
-
-        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
-        .menu-toggle span { width: 24px; height: 2px; background: var(--color-charcoal); transition: all var(--transition); }
-
-        /* ── Hero ── */
-        .hero {
-            min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            padding: 7rem 2rem 4rem;
-            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-oat) 100%);
-            position: relative; overflow: hidden;
-        }
-        .hero > *:not(.deco):not(.parallax-layer) { position: relative; z-index: 1; }
-        .parallax-layer { position: absolute; inset: 0; pointer-events: none; z-index: 0; will-change: transform; }
-
-        .hero-inner {
-            max-width: 1200px; width: 100%; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-        }
-
-        .hero-content { text-align: left; }
-
-        .hero-eyebrow {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-            color: var(--color-olive); margin-bottom: 1.5rem;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.2s both;
-        }
-        .hero-eyebrow::before {
-            content: ''; width: 24px; height: 2px; background: var(--color-olive); border-radius: 1px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.75rem, 5vw, 4.25rem);
-            margin-bottom: 1rem; letter-spacing: -0.03em; line-height: 1.08;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.35s both;
-        }
-
-        .hero-subheadline {
-            font-size: 1.15rem; max-width: 460px; color: #666; margin-bottom: 2.5rem; line-height: 1.7;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.5s both;
-        }
-
-        .hero-actions {
-            display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.65s both;
-        }
-
-        .store-badge { height: 52px; transition: transform 0.3s var(--ease-out-expo), filter 0.3s ease; }
-        .store-badge:hover { transform: translateY(-4px) scale(1.02); filter: brightness(1.05); }
-
-        .hero-stats {
-            display: flex; gap: 2rem; margin-top: 3rem;
-            animation: hero-fade-up 0.8s var(--ease-out-expo) 0.8s both;
-        }
-        .hero-stat-number {
-            font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700; color: var(--color-olive);
-            line-height: 1;
-        }
-        .hero-stat-label { font-size: 0.8rem; color: #888; margin-top: 0.25rem; }
-
-        /* ── Carousel ── */
-        .hero-carousel-wrapper {
-            animation: hero-fade-right 1s var(--ease-out-expo) 0.6s both;
-        }
-
-        .carousel-device {
-            position: relative; width: 300px; margin: 0 auto;
-        }
-        .carousel-device.floating-active { animation: carousel-float var(--float-duration) ease-in-out infinite; }
-
-        .carousel-screen {
-            width: 100%; overflow: hidden; position: relative;
-        }
-
-        .carousel-track {
-            display: flex; height: 100%; transition: transform 0.6s var(--ease-out-expo);
-        }
-
-        .carousel-slide {
-            min-width: 100%; display: flex; align-items: center; justify-content: center;
-        }
-
-        .carousel-slide img {
-            width: 100%; height: auto; display: block;
-            filter: drop-shadow(0 24px 40px rgba(44,44,44,0.20));
-        }
-
-        .carousel-dots {
-            display: flex; justify-content: center; gap: 8px; margin-top: 1.25rem;
-        }
-        .carousel-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--color-oat-dark); border: none; cursor: pointer;
-            transition: all 0.3s var(--ease-out-expo); padding: 0;
-        }
-        .carousel-dot.active {
-            background: var(--color-olive); width: 24px; border-radius: 4px;
-        }
-
-        .carousel-arrows {
-            display: flex; justify-content: center; gap: 0.75rem; margin-top: 0.75rem;
-        }
-        .carousel-arrow {
-            width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--color-oat-dark);
-            background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            color: var(--color-charcoal); font-size: 16px;
-            transition: all 0.25s var(--ease-out-expo);
-        }
-        .carousel-arrow:hover {
-            background: var(--color-olive); color: white; border-color: var(--color-olive);
-            transform: scale(1.05);
-        }
-
-        /* ── Sections ── */
-        .section { padding: 6rem 2rem; }
-        .section-container { max-width: 1100px; margin: 0 auto; }
-        .section-title {
-            font-size: clamp(2rem, 4vw, 2.75rem); text-align: center;
-            margin-bottom: 1rem; letter-spacing: -0.02em;
-        }
-        .section-subtitle {
-            text-align: center; color: #888; font-size: 1.05rem; max-width: 500px;
-            margin: 0 auto 3.5rem; line-height: 1.6;
-        }
-
-        /* ── Features ── */
-        #features {
-            background: linear-gradient(180deg, var(--color-oat) 0%, var(--color-cream) 12%, var(--color-cream) 100%);
-            position: relative;
-        }
-        #features::before {
-            content: ''; position: absolute; inset: 0;
-            background-image: radial-gradient(circle, rgba(74,82,64,0.05) 1px, transparent 1px);
-            background-size: 32px 32px; pointer-events: none; z-index: 0;
-        }
-        #features .section-container { position: relative; z-index: 1; }
-
-        .features-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem; margin-top: 2rem;
-        }
-
-        .feature-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            padding: 2rem 1.75rem; border-radius: var(--radius-xl);
-            box-shadow: var(--glass-shadow);
-            transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo), border-color 0.4s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 48px rgba(74,82,64,0.12); border-color: rgba(74,82,64,0.15);
-        }
-
-        .feature-icon {
-            width: 48px; height: 48px; background: var(--color-olive);
-            border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
-            margin-bottom: 1.25rem;
-            transition: transform 0.4s var(--ease-out-back), background 0.3s ease;
-        }
-        .feature-card:hover .feature-icon { transform: scale(1.1) rotate(-5deg); background: var(--gradient-olive); }
-        .feature-icon i { font-size: 24px; color: white; }
-
-        .feature-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        .feature-card p { color: #777; font-size: 0.9rem; line-height: 1.6; }
-
-        .feature-badge {
-            display: inline-block; background: var(--color-olive); color: white;
-            font-family: var(--font-body); font-size: 0.6rem; font-weight: 700;
-            padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;
-        }
-
-        /* ── Pricing ── */
-        #pricing {
-            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-oat) 12%, var(--color-oat) 88%, var(--color-cream) 100%);
-        }
-
-        .pricing-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem; max-width: 960px; margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: rgba(250,248,245,0.7);
-            backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            padding: 2.5rem 2rem; border-radius: var(--radius-2xl);
-            box-shadow: var(--glass-shadow); position: relative;
-            transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
-        }
-        .pricing-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(74,82,64,0.12); }
-
-        .pricing-card.featured {
-            border: 2px solid var(--color-olive);
-            box-shadow: 0 8px 32px rgba(74,82,64,0.12), 0 0 0 1px rgba(74,82,64,0.1);
-        }
-        .pricing-card.featured:hover {
-            box-shadow: 0 20px 50px rgba(74,82,64,0.18), 0 0 0 1px rgba(74,82,64,0.15);
-        }
-        .pricing-card.featured::before {
-            content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-            background: var(--color-olive); color: white; padding: 0.3rem 1rem;
-            border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-        }
-
-        .pricing-tier { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .pricing-price { font-size: 2.5rem; font-weight: 700; color: var(--color-olive); margin-bottom: 0.25rem; }
-        .pricing-price span { font-size: 1rem; font-weight: 400; color: #666; }
-        .pricing-period { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
-        .pricing-yearly { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .savings-badge { background: #E8F5E9; color: #2E7D32; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 4px; }
-
-        .pricing-features { list-style: none; margin-bottom: 2rem; }
-        .pricing-features li { padding: 0.4rem 0; display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; }
-        .pricing-features li i { color: var(--color-olive); font-size: 18px; flex-shrink: 0; margin-top: 2px; opacity: 0; transform: scale(0); }
-
-        .pricing-card.revealed .pricing-features li i { animation: check-pop 0.4s var(--ease-out-back) both; }
-        .pricing-card.revealed .pricing-features li:nth-child(1) i { animation-delay: 0.1s; }
-        .pricing-card.revealed .pricing-features li:nth-child(2) i { animation-delay: 0.15s; }
-        .pricing-card.revealed .pricing-features li:nth-child(3) i { animation-delay: 0.2s; }
-        .pricing-card.revealed .pricing-features li:nth-child(4) i { animation-delay: 0.25s; }
-        .pricing-card.revealed .pricing-features li:nth-child(5) i { animation-delay: 0.3s; }
-        .pricing-card.revealed .pricing-features li:nth-child(6) i { animation-delay: 0.35s; }
-        .pricing-card.revealed .pricing-features li:nth-child(7) i { animation-delay: 0.4s; }
-        .pricing-card.revealed .pricing-features li:nth-child(8) i { animation-delay: 0.45s; }
-
-        .btn {
-            display: inline-block; width: 100%; padding: 0.9rem 2rem;
-            border-radius: var(--radius-sm); font-weight: 600; text-align: center;
-            transition: all 0.3s var(--ease-out-expo); cursor: pointer; border: none; font-size: 0.95rem;
-        }
-        .btn-primary { background: var(--color-olive); color: white; }
-        .btn-primary:hover { background: var(--color-olive-hover); color: white; box-shadow: 0 6px 24px rgba(74,82,64,0.3); transform: translateY(-2px); }
-        .btn-secondary { background: transparent; color: var(--color-olive); border: 2px solid var(--color-olive); }
-        .btn-secondary:hover { background: var(--color-olive); color: white; box-shadow: 0 6px 24px rgba(74,82,64,0.15); transform: translateY(-2px); }
-
-        .pricing-note { text-align: center; margin-top: 2rem; color: #888; font-size: 0.9rem; }
-
-        /* ── CTA ── */
-        #download {
-            background: var(--color-charcoal); text-align: center;
-            position: relative; overflow: hidden; color: white;
-        }
-        #download .section-container { max-width: 640px; position: relative; z-index: 1; }
-        #download .section-title { color: white; }
-        #download p { color: rgba(255,255,255,0.7); font-size: 1.1rem; margin-bottom: 2rem; }
-        #download .store-badge { filter: invert(1) brightness(2); }
-        #download .store-badge:hover { filter: invert(1) brightness(2.2); }
-
-        /* Olive glow orbs in CTA */
-        #download::before {
-            content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(74,82,64,0.3) 0%, transparent 70%);
-            top: -150px; right: -100px; pointer-events: none;
-        }
-        #download::after {
-            content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(107,122,92,0.2) 0%, transparent 70%);
-            bottom: -100px; left: -80px; pointer-events: none;
-        }
-
-        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-        /* ── Footer ── */
-        .footer {
-            background: var(--color-charcoal); color: rgba(255,255,255,0.8);
-            padding: 3rem 2rem; text-align: center; position: relative;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .footer-logo {
-            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-            font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;
-        }
-        .footer-logo img { width: 32px; height: 32px; border-radius: 7px; transition: transform 0.4s var(--ease-out-back); }
-        .footer-logo:hover img { transform: rotate(-15deg) scale(1.1); }
-        .footer-tagline { margin-bottom: 1.5rem; font-size: 0.95rem; }
-
-        .footer-social { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .footer-social a {
-            display: flex; align-items: center; justify-content: center;
-            width: 40px; height: 40px; background: rgba(255,255,255,0.08);
-            border-radius: 50%; color: rgba(255,255,255,0.8);
-            transition: all 0.3s var(--ease-out-back);
-        }
-        .footer-social a:hover {
-            background: rgba(255,255,255,0.15); color: white;
-            transform: translateY(-3px) scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .footer-social i { font-size: 20px; }
-
-        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .footer-links a { color: rgba(255,255,255,0.6); font-size: 0.9rem; transition: color var(--transition); }
-        .footer-links a:hover { color: white; }
-        .footer-copyright { font-size: 0.8rem; opacity: 0.5; }
-
-        /* ── Mobile ── */
-        @media (max-width: 768px) {
-            .navbar-container { padding: 0 1.25rem; }
-            .navbar-links {
-                position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
-                background: var(--color-cream); flex-direction: column; justify-content: center; gap: 2rem;
-                transition: right var(--transition); box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-            }
-            .navbar-links.active { right: 0; }
-            .navbar-links a { font-size: 1.25rem; }
-            .navbar-links .btn-download { margin-top: 1rem; }
-            .menu-toggle { display: flex; z-index: 1001; }
-            .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-            .menu-toggle.active span:nth-child(2) { opacity: 0; }
-            .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-            .hero { padding: 6rem 1.25rem 3rem; }
-            .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
-            .hero-content { text-align: center; }
-            .hero-eyebrow { justify-content: center; }
-            .hero-subheadline { max-width: 100%; margin-left: auto; margin-right: auto; }
-            .hero-actions { justify-content: center; }
-            .hero-stats { justify-content: center; }
-
-            .carousel-device { width: 260px; }
-
-            .section { padding: 3.5rem 1.25rem; }
-            .features-grid { grid-template-columns: 1fr; }
-            .pricing-grid { grid-template-columns: 1fr; }
-            .store-badge { height: 44px; }
-            .footer-links { gap: 1.5rem; }
-
-            .floating, .floating-slow, .floating-rotate { animation-duration: 0s !important; }
-            .parallax-layer { transform: none !important; }
-            .deco { display: none; }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .hero-inner { gap: 2rem; }
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
-            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        .mobile-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
-            transition: all var(--transition); z-index: 999;
-        }
-        .mobile-overlay.active { opacity: 1; visibility: visible; }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-            .reveal, .reveal-scale { opacity: 1; transform: none; }
-            .pricing-features li i { opacity: 1; transform: none; }
-            .floating, .floating-slow, .floating-rotate { animation: none !important; }
-        }
-    </style>
+    <link rel="preload" as="image" href="img/hero-morning-shelf.webp" imagesrcset="img/hero-morning-shelf-1000.webp 1000w, img/hero-morning-shelf.webp 2000w" imagesizes="100vw">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -716,343 +53,661 @@
         }
     }
     </script>
+
+    <style>
+        :root {
+            --cream: #FAF8F5;
+            --charcoal: #2C2C2C;
+            --olive: #4A5240;
+            --oat: #F0EBE3;
+            --ink: #262625;
+            --muted: #706E66;
+            --muted-warm: #66635C;
+            --font-heading: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --gutter: clamp(24px, 9.7vw, 140px);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--charcoal);
+            font-family: var(--font-body);
+            font-variation-settings: "opsz" 14;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, p { margin: 0; }
+
+        a { color: inherit; text-decoration: none; }
+
+        img { display: block; max-width: 100%; height: auto; }
+
+        .serif {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-variation-settings: "SOFT" 0, "WONK" 1;
+        }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px;
+            padding: 0; margin: -1px; overflow: hidden;
+            clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+        }
+
+        /* --- App Store badge --- */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            background: #121212;
+            border-radius: 10px;
+            padding: 9px 20px 9px 18px;
+            color: #fff;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .badge:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.22); }
+        .badge svg { width: 24px; height: 30px; flex: none; }
+        .badge-text { display: flex; flex-direction: column; line-height: 1.15; }
+        .badge-text small { font-size: 10.5px; letter-spacing: 0.21px; }
+        .badge-text strong { font-size: 20px; font-weight: 600; }
+
+        /* --- Nav --- */
+        .nav {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            height: 78px;
+            padding: 0 clamp(20px, 4.2vw, 60px);
+        }
+        /* The bar is a transparent overlay on the hero photo, as designed; the
+           frost fades in on its own layer once the page leaves the top. */
+        .nav::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: 0;
+            background: rgba(250, 248, 245, 0.72);
+            border-bottom: 1px solid rgba(44, 44, 44, 0.07);
+            backdrop-filter: blur(14px) saturate(1.3);
+            -webkit-backdrop-filter: blur(14px) saturate(1.3);
+            transition: opacity 0.32s ease;
+        }
+        .nav.frosted::before { opacity: 1; }
+        /* Without backdrop-filter the tint alone is too sheer to read against
+           the photography, so fall back to a more opaque bar. */
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+            .nav::before { background: rgba(250, 248, 245, 0.94); }
+        }
+        /* Watched by the observer that frosts the nav; sits just below the
+           bar so the frost appears the moment the hero starts moving. */
+        .nav-sentinel {
+            position: absolute;
+            top: 90px;
+            height: 1px;
+            width: 1px;
+        }
+
+        /* Keep anchor targets clear of the fixed bar. */
+        section[id] { scroll-margin-top: 78px; }
+
+        .nav-logo { display: flex; align-items: center; gap: 9px; }
+        .nav-logo img { width: 28px; height: 28px; border-radius: 7px; }
+        .nav-logo span { font-size: 22px; }
+        .nav-links { display: flex; align-items: center; gap: 34px; }
+        .nav-links a { font-size: 14.5px; font-weight: 500; }
+        .nav-links a:not(.nav-cta):hover { opacity: 0.62; }
+        .nav-cta {
+            background: var(--charcoal);
+            color: var(--cream);
+            border-radius: 22px;
+            padding: 10px 20px;
+            font-size: 13.5px;
+            font-weight: 600;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .nav-cta:hover { background: #1a1a1a; transform: translateY(-1px); }
+
+        /* --- Hero --- */
+        .hero {
+            position: relative;
+            height: 900px;
+            max-height: 100svh;
+            min-height: 720px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            padding: clamp(120px, 19%, 172px) var(--gutter) 0;
+        }
+        /* Full-bleed background images sit behind their section and never
+           participate in its grid/flex layout. */
+        .bleed {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+        .bleed img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .line { display: block; }
+
+        .hero h1 {
+            font-size: clamp(40px, 5.8vw, 84px);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            text-wrap: balance;
+        }
+        .hero-sub {
+            margin-top: clamp(18px, 2.4vw, 30px);
+            font-size: clamp(14.5px, 1.2vw, 17px);
+            opacity: 0.75;
+            max-width: 30ch;
+            text-wrap: balance;
+        }
+        .hero .badge { margin-top: clamp(24px, 3vw, 34px); }
+
+        /* --- Marquee --- */
+        .marquee {
+            background: var(--olive);
+            color: var(--cream);
+            padding: 19px 0;
+            overflow: hidden;
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 38s linear infinite;
+        }
+        .marquee-track span {
+            padding-right: 3.5em;
+            font-size: clamp(10.5px, 0.85vw, 12px);
+            font-weight: 600;
+            letter-spacing: 0.26em;
+            white-space: nowrap;
+        }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* --- Manifesto --- */
+        .manifesto {
+            padding: clamp(72px, 10.4vw, 150px) var(--gutter);
+            text-align: center;
+        }
+        .manifesto p {
+            margin-inline: auto;
+            max-width: 1060px;
+            font-size: clamp(24px, 3.2vw, 46px);
+            line-height: 1.38;
+            letter-spacing: -0.01em;
+            text-wrap: pretty;
+        }
+
+        /* --- App tiles --- */
+        .tiles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            padding: 0 var(--gutter) clamp(80px, 9vw, 130px);
+        }
+        .tile-frame {
+            position: relative;
+            background: var(--oat);
+            border-radius: 24px;
+            aspect-ratio: 371 / 440;
+            overflow: hidden;
+        }
+        .tile-frame img {
+            position: absolute;
+            left: 16.2%;
+            top: 10.9%;
+            width: 67.9%;
+            box-shadow: 0 20px 40px -10px rgba(33,33,28,0.18);
+        }
+        .tile h3 {
+            margin-top: 18px;
+            font-size: 15.5px;
+            font-weight: 600;
+        }
+        .tile p {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* --- Texture divider --- */
+        .divider {
+            height: clamp(200px, 29vw, 420px);
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Insights --- */
+        .insights {
+            display: grid;
+            grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+            align-items: center;
+            gap: clamp(40px, 6vw, 90px);
+            padding: clamp(72px, 9vw, 130px) var(--gutter);
+        }
+        .insights h2 {
+            font-size: clamp(34px, 3.9vw, 56px);
+            line-height: 1.12;
+            letter-spacing: -0.015em;
+        }
+        .insights-body {
+            margin-top: clamp(18px, 1.8vw, 26px);
+            max-width: 44ch;
+            color: var(--muted);
+            font-size: clamp(15px, 1.2vw, 17px);
+            line-height: 1.72;
+        }
+        .insights-note {
+            margin-top: clamp(18px, 1.7vw, 24px);
+            color: var(--muted-warm);
+            font-size: clamp(12.5px, 1vw, 14px);
+            font-weight: 500;
+        }
+        .insights-phone {
+            justify-self: center;
+            width: min(330px, 100%);
+            border-radius: 12px;
+            box-shadow: 0 26px 52px -12px rgba(33,33,28,0.2);
+        }
+
+        /* --- Evening --- */
+        .evening {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+            align-items: center;
+            gap: clamp(40px, 6vw, 90px);
+            min-height: 780px;
+            padding: clamp(64px, 7vw, 100px) var(--gutter);
+            overflow: hidden;
+            color: var(--cream);
+        }
+        .evening h2 {
+            font-size: clamp(32px, 3.8vw, 54px);
+            line-height: 1.14;
+            letter-spacing: -0.015em;
+        }
+        .evening p {
+            margin-top: clamp(16px, 1.7vw, 24px);
+            max-width: 42ch;
+            font-size: clamp(14.5px, 1.15vw, 16.5px);
+            line-height: 1.7;
+            opacity: 0.82;
+        }
+        .evening-phone {
+            justify-self: center;
+            width: min(260px, 72%);
+            border-radius: 12px;
+            box-shadow: 0 30px 60px -8px rgba(0,0,0,0.5);
+        }
+
+        /* --- Pricing --- */
+        .pricing {
+            position: relative;
+            padding: clamp(64px, 6.7vw, 96px) var(--gutter) clamp(56px, 6vw, 88px);
+            overflow: hidden;
+        }
+        .pricing h2 {
+            font-size: clamp(34px, 3.6vw, 52px);
+            letter-spacing: -0.015em;
+            text-align: center;
+        }
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(40px, 5.6vw, 80px);
+            margin-top: clamp(40px, 5vw, 74px);
+        }
+        .plan { border-top: 2px solid var(--charcoal); }
+        .plan-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px 0 8px;
+        }
+        .plan-head h3 { font-size: clamp(22px, 1.8vw, 26px); }
+        .plan-price { text-align: right; }
+        .plan-price .amount {
+            display: block;
+            color: var(--olive);
+            font-size: clamp(22px, 1.8vw, 26px);
+        }
+        .plan-price small {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted-warm);
+            font-size: clamp(12px, 0.9vw, 13px);
+        }
+        .plan ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid rgba(44,44,44,0.18);
+        }
+        .plan li {
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(44,44,44,0.18);
+            font-size: clamp(14px, 1.1vw, 15.5px);
+            opacity: 0.9;
+        }
+        .pricing-note {
+            margin-top: clamp(36px, 4vw, 56px);
+            color: var(--muted-warm);
+            font-size: clamp(12.5px, 1vw, 14px);
+            text-align: center;
+            text-wrap: balance;
+        }
+
+        /* --- CTA --- */
+        .cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(20px, 2.1vw, 30px);
+            background: var(--olive);
+            color: var(--cream);
+            padding: clamp(72px, 7.2vw, 104px) var(--gutter) clamp(80px, 7.8vw, 112px);
+            text-align: center;
+        }
+        .cta h2 {
+            font-size: clamp(40px, 5vw, 72px);
+            letter-spacing: -0.02em;
+        }
+        .cta p {
+            font-size: clamp(14.5px, 1.15vw, 16.5px);
+            line-height: 1.6;
+            opacity: 0.75;
+            text-wrap: balance;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            position: relative;
+            background: var(--ink);
+            color: var(--cream);
+            padding: 56px var(--gutter) 0;
+            overflow: hidden;
+        }
+        .footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: clamp(12.5px, 1vw, 13.5px);
+        }
+        .footer-row .copy { opacity: 0.55; }
+        .footer-links { display: flex; gap: 28px; font-weight: 500; }
+        .footer-links a { opacity: 0.8; transition: opacity 0.2s ease; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-social { font-weight: 500; opacity: 0.55; transition: opacity 0.2s ease; }
+        .footer-social:hover { opacity: 1; }
+        .footer-wordmark {
+            display: block;
+            margin: clamp(40px, 6vw, 76px) 0 -0.24em;
+            font-size: clamp(96px, 23vw, 330px);
+            line-height: 0.78;
+            text-align: center;
+            user-select: none;
+        }
+
+        /* --- Reveal --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.revealed { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-track { animation: none; }
+            .nav::before { transition: none; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+            * { scroll-behavior: auto !important; }
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .insights, .evening {
+                grid-template-columns: minmax(0, 1fr);
+                text-align: left;
+            }
+            .insights-phone, .evening-phone { margin-top: 28px; }
+            .evening { min-height: 0; }
+            .plans { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+        }
+
+        @media (max-width: 760px) {
+            .nav { height: 60px; padding: 0 20px; }
+            section[id] { scroll-margin-top: 60px; }
+            .nav-links a:not(.nav-cta) { display: none; }
+            .nav-cta { padding: 9px 16px; font-size: 12.5px; }
+            .nav-logo img { width: 26px; height: 26px; border-radius: 6px; }
+            .nav-logo span { font-size: 20px; }
+
+            .hero { height: 720px; min-height: 0; padding-top: 120px; }
+            /* The shelf photo is 2:1, so a portrait viewport crops it hard.
+               Anchor to the shelf line rather than the middle of the bottles. */
+            .hero .bleed img { object-position: 50% 100%; }
+            .hero h1 .line { display: inline; }
+            .tiles { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+            .footer-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar" role="navigation" aria-label="Main navigation">
-        <div class="navbar-container">
-            <a href="#" class="navbar-logo"><img src="renew-icon.png" alt="Renew"> Renew</a>
-            <ul class="navbar-links">
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="ph ph-sun icon-sun"></i>
-                        <i class="ph ph-moon icon-moon"></i>
-                    </button>
-                </li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="#download" class="btn-download">Download</a></li>
-            </ul>
-            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
+    <div class="nav-sentinel" aria-hidden="true"></div>
+    <nav class="nav" aria-label="Main navigation">
+        <a href="#" class="nav-logo">
+            <img src="renew-icon.png" alt="" width="28" height="28">
+            <span class="serif">Renew</span>
+        </a>
+        <div class="nav-links">
+            <a href="#the-app">The app</a>
+            <a href="#pricing">Pricing</a>
+            <a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" class="nav-cta">Get the app</a>
         </div>
     </nav>
 
-    <div class="mobile-overlay"></div>
+    <main>
+        <section class="hero">
+            <picture class="bleed">
+                <source srcset="img/hero-morning-shelf-1000.webp" media="(max-width: 800px)">
+                <img src="img/hero-morning-shelf.webp" alt="A shelf of skincare bottles in soft morning light" fetchpriority="high" width="2000" height="1000">
+            </picture>
 
-    <section class="hero" id="hero">
-        <div class="parallax-layer">
-            <div class="deco deco-circle floating-slow" style="width:300px;height:300px;top:8%;left:-6%;opacity:0.5;"></div>
-            <div class="deco deco-circle floating" style="width:200px;height:200px;bottom:12%;right:-4%;opacity:0.35;animation-delay:-2s;"></div>
-        </div>
-        <div class="deco deco-ring floating-rotate" style="width:70px;height:70px;top:22%;right:8%;opacity:0.4;"></div>
-        <div class="deco deco-ring floating-slow" style="width:45px;height:45px;bottom:28%;left:6%;animation-delay:-3s;"></div>
-        <div class="deco deco-leaf floating" style="top:12%;right:22%;opacity:0.35;animation-delay:-1s;"></div>
-        <div class="deco deco-dot" style="top:35%;left:18%;animation:dot-drift 5s ease-in-out infinite;"></div>
-        <div class="deco deco-dot" style="top:55%;right:15%;animation:dot-drift 7s ease-in-out infinite 1s;"></div>
-        <div class="deco deco-dot" style="top:18%;left:42%;animation:dot-drift 6s ease-in-out infinite 0.5s;"></div>
-        <div class="deco deco-dot" style="top:72%;left:30%;animation:dot-drift 8s ease-in-out infinite 1.5s;"></div>
-        <div class="deco deco-dot" style="top:42%;right:6%;animation:dot-drift 6.5s ease-in-out infinite 2s;"></div>
-        <div class="deco deco-dot" style="top:82%;right:30%;animation:dot-drift 7.5s ease-in-out infinite 0.8s;"></div>
-        <div class="deco deco-dot" style="top:28%;left:8%;animation:dot-drift 5.5s ease-in-out infinite 1.2s;"></div>
-        <div class="deco deco-dot" style="top:64%;left:46%;animation:dot-drift 9s ease-in-out infinite 2.5s;"></div>
-        <div class="deco deco-ring floating" style="width:30px;height:30px;top:48%;left:3%;opacity:0.3;animation-delay:-1.5s;"></div>
-        <div class="deco deco-leaf floating-slow" style="top:70%;right:9%;width:28px;height:28px;opacity:0.25;animation-delay:-2.5s;"></div>
+            <h1 class="serif"><span class="line">The unhurried way</span> <span class="line">to better skin.</span></h1>
+            <p class="hero-sub">Renew keeps your products, your routines, and your progress. Free on iOS.</p>
 
-        <div class="hero-inner">
-            <div class="hero-content">
-                <div class="hero-eyebrow">Skincare tracking app</div>
-                <h1>Build the routine your skin deserves</h1>
-                <p class="hero-subheadline">Track products, build consistent habits, and finally know what's working. Renew brings calm to your skincare shelf.</p>
-                <div class="hero-actions">
-                    <a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" aria-label="Download on the App Store">
-                        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" class="store-badge">
-                    </a>
-                </div>
-                <div class="hero-stats">
-                    <div>
-                        <div class="hero-stat-number">1k+</div>
-                        <div class="hero-stat-label">Products in Database</div>
-                    </div>
-                    <div>
-                        <div class="hero-stat-number">Scan</div>
-                        <div class="hero-stat-label">Any Product</div>
-                    </div>
-                    <div>
-                        <div class="hero-stat-number">Free</div>
-                        <div class="hero-stat-label">To Get Started</div>
-                    </div>
-                </div>
-            </div>
+            <a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" class="badge">
+                <svg viewBox="0 0 24 30" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.7 15.9c0-3.2 2.6-4.7 2.7-4.8-1.5-2.2-3.8-2.5-4.6-2.5-1.9-.2-3.8 1.2-4.8 1.2-1 0-2.5-1.1-4.1-1.1-2.1 0-4.1 1.2-5.2 3.1-2.2 3.9-.6 9.6 1.6 12.7 1.1 1.5 2.3 3.2 4 3.2 1.6-.1 2.2-1 4.1-1 1.9 0 2.5 1 4.1 1 1.7 0 2.8-1.5 3.9-3.1 1.2-1.8 1.7-3.5 1.7-3.6-.1 0-3.3-1.3-3.4-5.1zM16.6 6.6c.9-1.1 1.5-2.6 1.3-4.1-1.3.1-2.9.9-3.8 2-.8 1-1.5 2.5-1.3 4 1.4.1 2.9-.7 3.8-1.9z"/></svg>
+                <span class="badge-text">
+                    <small>Download on the</small>
+                    <strong>App Store</strong>
+                </span>
+            </a>
+        </section>
 
-            <div class="hero-carousel-wrapper">
-                <div class="carousel-device" id="carouselDevice">
-                    <div class="carousel-screen">
-                        <div class="carousel-track" id="carouselTrack">
-                            <div class="carousel-slide"><img src="Screenshots/renew-1.webp" alt="Home screen with evening greeting, UV index, and today's routines"></div>
-                            <div class="carousel-slide"><img src="Screenshots/renew-2.webp" alt="Stepping through the Retinol Nights routine, checking off each product" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/renew-3.webp" alt="Your shelf, with products organized by category" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/renew-4.webp" alt="Journal calendar showing logged entries and completed routines" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/renew-5.webp" alt="Insights with the skin score trend chart" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/renew-6.webp" alt="Product insights with before and after analysis" loading="lazy"></div>
-                            <div class="carousel-slide"><img src="Screenshots/renew-7.webp" alt="Home screen in dark mode" loading="lazy"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-dots" id="carouselDots">
-                    <button class="carousel-dot active" data-slide="0" aria-label="Go to screenshot 1"></button>
-                    <button class="carousel-dot" data-slide="1" aria-label="Go to screenshot 2"></button>
-                    <button class="carousel-dot" data-slide="2" aria-label="Go to screenshot 3"></button>
-                    <button class="carousel-dot" data-slide="3" aria-label="Go to screenshot 4"></button>
-                    <button class="carousel-dot" data-slide="4" aria-label="Go to screenshot 5"></button>
-                    <button class="carousel-dot" data-slide="5" aria-label="Go to screenshot 6"></button>
-                    <button class="carousel-dot" data-slide="6" aria-label="Go to screenshot 7"></button>
-                </div>
-                <div class="carousel-arrows">
-                    <button class="carousel-arrow" id="carouselPrev" aria-label="Previous screenshot"><i class="ph ph-caret-left"></i></button>
-                    <button class="carousel-arrow" id="carouselNext" aria-label="Next screenshot"><i class="ph ph-caret-right"></i></button>
-                </div>
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+                <span>CLEANSE</span><span>TREAT</span><span>PROTECT</span><span>LOG</span><span>REPEAT</span>
+                <span>CLEANSE</span><span>TREAT</span><span>PROTECT</span><span>LOG</span><span>REPEAT</span>
+                <span>CLEANSE</span><span>TREAT</span><span>PROTECT</span><span>LOG</span><span>REPEAT</span>
+                <span>CLEANSE</span><span>TREAT</span><span>PROTECT</span><span>LOG</span><span>REPEAT</span>
             </div>
         </div>
-    </section>
 
-    <section class="section" id="features">
-        <div class="section-container">
-            <h2 class="section-title reveal">Skincare tracking, simplified.</h2>
-            <p class="section-subtitle reveal">Everything you need to build better habits and understand your routine.</p>
-            <div class="features-grid reveal-stagger">
-                <div class="feature-card reveal">
-                    <div class="feature-icon"><i class="ph ph-package"></i></div>
-                    <h3>Track Products</h3>
-                    <p>Add your entire skincare collection. Know what you have, what's running low.</p>
+        <section class="manifesto">
+            <p class="serif reveal">Renew is not another ten step program. It is a shelf for what you own, a rhythm for the routines you keep, and a record of what your skin does next.</p>
+        </section>
+
+        <section class="tiles" id="the-app">
+            <h2 class="sr-only">The app</h2>
+            <article class="tile reveal">
+                <div class="tile-frame">
+                    <img src="Screenshots/renew-3.webp" alt="Your shelf, with products organized by category" width="1095" height="2267" loading="lazy">
                 </div>
-                <div class="feature-card reveal">
-                    <div class="feature-icon"><i class="ph ph-sparkle"></i></div>
-                    <h3>Build Routines</h3>
-                    <p>Create AM and PM routines. Check off products as you go.</p>
+                <h3>The shelf</h3>
+                <p>Scan a barcode and every detail fills itself in.</p>
+            </article>
+            <article class="tile reveal">
+                <div class="tile-frame">
+                    <img src="Screenshots/renew-2.webp" alt="Stepping through the Retinol Nights routine, checking off each product" width="1095" height="2267" loading="lazy">
                 </div>
-                <div class="feature-card reveal">
-                    <div class="feature-icon"><i class="ph ph-sun"></i></div>
-                    <h3>UV Index</h3>
-                    <p>Real-time UV for your location. Know when to apply (and reapply) SPF.</p>
+                <h3>The ritual</h3>
+                <p>Morning and evening, one step at a time.</p>
+            </article>
+            <article class="tile reveal">
+                <div class="tile-frame">
+                    <img src="Screenshots/renew-4.webp" alt="Journal calendar showing logged entries and completed routines" width="1095" height="2267" loading="lazy">
                 </div>
-                <div class="feature-card reveal">
-                    <div class="feature-icon"><i class="ph ph-fire"></i></div>
-                    <h3>Streaks</h3>
-                    <p>Build consistency with daily streaks. Small habits, big results.</p>
-                </div>
-                <div class="feature-card reveal">
-                    <div class="feature-icon"><i class="ph ph-bell-ringing"></i></div>
-                    <h3>Smart Reminders <span class="feature-badge">Pro</span></h3>
-                    <p>Gentle nudges to complete your routine. Never forget your retinol again.</p>
-                </div>
-                <div class="feature-card reveal">
-                    <div class="feature-icon"><i class="ph ph-trophy"></i></div>
-                    <h3>Achievements <span class="feature-badge">Pro</span></h3>
-                    <p>Unlock badges as you build your skincare habits. Celebrate the wins.</p>
-                </div>
+                <h3>The record</h3>
+                <p>A skin log that takes thirty seconds a night.</p>
+            </article>
+        </section>
+
+        <picture>
+            <source srcset="img/texture-macro-1000.webp" media="(max-width: 800px)">
+            <img src="img/texture-macro.webp" alt="" class="divider" width="2000" height="833" loading="lazy">
+        </picture>
+
+        <section class="insights">
+            <div>
+                <h2 class="serif reveal">Proof over promises.</h2>
+                <p class="insights-body reveal">A score for every day and a chart for every product. When something works, you will see it in the trend. When something does not, you will see that too.</p>
+                <p class="insights-note reveal">Weekly reports and trigger analysis arrive with Pro.</p>
             </div>
-        </div>
-    </section>
+            <img src="Screenshots/renew-5.webp" alt="Insights with the skin score trend chart" class="insights-phone reveal" width="1095" height="2267" loading="lazy">
+        </section>
 
-    <section class="section" id="pricing">
-        <div class="section-container">
-            <h2 class="section-title reveal">Simple pricing. No surprises.</h2>
-            <p class="section-subtitle reveal">Start for free, upgrade when you're ready.</p>
-            <div class="pricing-grid reveal-stagger">
-                <div class="pricing-card reveal">
-                    <div class="pricing-tier">Free</div>
-                    <div class="pricing-price">$0</div>
-                    <div class="pricing-period">Forever free</div>
-                    <div class="pricing-yearly">&nbsp;</div>
-                    <ul class="pricing-features">
-                        <li><i class="ph ph-check-circle"></i> Up to 10 products</li>
-                        <li><i class="ph ph-check-circle"></i> AM & PM routines</li>
-                        <li><i class="ph ph-check-circle"></i> Streak tracking</li>
-                        <li><i class="ph ph-check-circle"></i> UV index widget</li>
+        <section class="evening">
+            <picture class="bleed">
+                <source srcset="img/evening-ritual-1000.webp" media="(max-width: 800px)">
+                <img src="img/evening-ritual.webp" alt="" width="2000" height="1111" loading="lazy">
+            </picture>
+            <div>
+                <h2 class="serif reveal"><span class="line">Tonight, log it</span> <span class="line">in thirty seconds.</span></h2>
+                <p class="reveal">How your skin feels, what you used, and whether you slept. The journal takes half a minute. The streak keeps itself.</p>
+            </div>
+            <img src="Screenshots/renew-7.webp" alt="The Renew home screen in dark mode" class="evening-phone reveal" width="1095" height="2267" loading="lazy">
+        </section>
+
+        <section class="pricing" id="pricing">
+            <picture class="bleed">
+                <source srcset="img/pricing-botanical-1000.webp" media="(max-width: 800px)">
+                <img src="img/pricing-botanical.webp" alt="" width="2000" height="1333" loading="lazy">
+            </picture>
+            <h2 class="serif reveal">Simple pricing.</h2>
+            <div class="plans">
+                <article class="plan reveal">
+                    <div class="plan-head">
+                        <h3 class="serif">Free</h3>
+                        <p class="plan-price">
+                            <span class="amount serif">$0</span>
+                            <small>for as long as you like</small>
+                        </p>
+                    </div>
+                    <ul>
+                        <li>Ten products on your shelf</li>
+                        <li>Morning and evening routines</li>
+                        <li>Streaks and the UV index</li>
+                        <li>The journal, every day</li>
                     </ul>
-                    <a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" class="btn btn-secondary">Download Free</a>
-                </div>
-                <div class="pricing-card reveal">
-                    <div class="pricing-tier">Pro Monthly</div>
-                    <div class="pricing-price">$4.99<span>/mo</span></div>
-                    <div class="pricing-period">Billed monthly</div>
-                    <div class="pricing-yearly">&nbsp;</div>
-                    <ul class="pricing-features">
-                        <li><i class="ph ph-check-circle"></i> Everything in Free, plus:</li>
-                        <li><i class="ph ph-check-circle"></i> Unlimited products</li>
-                        <li><i class="ph ph-check-circle"></i> Unlimited custom routines</li>
-                        <li><i class="ph ph-check-circle"></i> Smart reminders</li>
-                        <li><i class="ph ph-check-circle"></i> UV alerts</li>
-                        <li><i class="ph ph-check-circle"></i> Weekly insights</li>
-                        <li><i class="ph ph-check-circle"></i> Achievements & badges</li>
-                        <li><i class="ph ph-check-circle"></i> Priority support</li>
+                </article>
+                <article class="plan reveal">
+                    <div class="plan-head">
+                        <h3 class="serif">Pro</h3>
+                        <p class="plan-price">
+                            <span class="amount serif">$39.99</span>
+                            <small>a year, or $4.99 monthly</small>
+                        </p>
+                    </div>
+                    <ul>
+                        <li>An unlimited shelf</li>
+                        <li>Unlimited routines and reminders</li>
+                        <li>Weekly insights and correlations</li>
+                        <li>Achievements and priority support</li>
                     </ul>
-                    <a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" class="btn btn-secondary">Go Pro</a>
-                </div>
-                <div class="pricing-card featured reveal">
-                    <div class="pricing-tier">Pro Yearly</div>
-                    <div class="pricing-price">$39.99<span>/yr</span></div>
-                    <div class="pricing-period">Billed annually</div>
-                    <div class="pricing-yearly"><span class="savings-badge">Save 33%</span></div>
-                    <ul class="pricing-features">
-                        <li><i class="ph ph-check-circle"></i> Everything in Free, plus:</li>
-                        <li><i class="ph ph-check-circle"></i> Unlimited products</li>
-                        <li><i class="ph ph-check-circle"></i> Unlimited custom routines</li>
-                        <li><i class="ph ph-check-circle"></i> Smart reminders</li>
-                        <li><i class="ph ph-check-circle"></i> UV alerts</li>
-                        <li><i class="ph ph-check-circle"></i> Weekly insights</li>
-                        <li><i class="ph ph-check-circle"></i> Achievements & badges</li>
-                        <li><i class="ph ph-check-circle"></i> Priority support</li>
-                    </ul>
-                    <a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" class="btn btn-primary">Go Pro</a>
-                </div>
+                </article>
             </div>
-            <p class="pricing-note reveal">7-day free trial. Cancel anytime.</p>
-        </div>
-    </section>
+            <p class="pricing-note reveal">Pro includes a seven day trial. Cancel anytime in the App Store.</p>
+        </section>
 
-    <section class="section" id="download">
-        <div class="section-container">
-            <h2 class="section-title reveal">Ready to start your skincare journey?</h2>
-            <p class="reveal">Download Renew for free and build the routine your skin deserves.</p>
-            <div class="cta-buttons reveal">
-                <a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" aria-label="Download on the App Store">
-                    <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" class="store-badge">
-                </a>
-            </div>
-        </div>
-    </section>
+        <section class="cta">
+            <h2 class="serif reveal">Begin tonight.</h2>
+            <p class="reveal">Free on the App Store. Your first routine takes three minutes.</p>
+            <a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" class="badge reveal">
+                <svg viewBox="0 0 24 30" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.7 15.9c0-3.2 2.6-4.7 2.7-4.8-1.5-2.2-3.8-2.5-4.6-2.5-1.9-.2-3.8 1.2-4.8 1.2-1 0-2.5-1.1-4.1-1.1-2.1 0-4.1 1.2-5.2 3.1-2.2 3.9-.6 9.6 1.6 12.7 1.1 1.5 2.3 3.2 4 3.2 1.6-.1 2.2-1 4.1-1 1.9 0 2.5 1 4.1 1 1.7 0 2.8-1.5 3.9-3.1 1.2-1.8 1.7-3.5 1.7-3.6-.1 0-3.3-1.3-3.4-5.1zM16.6 6.6c.9-1.1 1.5-2.6 1.3-4.1-1.3.1-2.9.9-3.8 2-.8 1-1.5 2.5-1.3 4 1.4.1 2.9-.7 3.8-1.9z"/></svg>
+                <span class="badge-text">
+                    <small>Download on the</small>
+                    <strong>App Store</strong>
+                </span>
+            </a>
+        </section>
+    </main>
 
     <footer class="footer">
-        <div class="footer-logo reveal"><img src="renew-icon.png" alt="Renew"> Renew</div>
-        <p class="footer-tagline reveal">Made with <i class="ph ph-coffee"></i> in Melbourne, Australia</p>
-        <div class="footer-social reveal">
-            <a href="https://x.com/larsitodev" target="_blank" rel="noopener" aria-label="Follow on X"><i class="ph ph-x-logo"></i></a>
+        <div class="footer-row">
+            <p class="copy">&copy; 2026 Renew</p>
+            <nav class="footer-links" aria-label="Footer">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="support.html">Support</a>
+                <a href="blog.html">Blog</a>
+            </nav>
+            <a href="https://x.com/larsitodev" target="_blank" rel="noopener" class="footer-social">@larsitodev</a>
         </div>
-        <div class="footer-links reveal">
-            <a href="privacy.html">Privacy</a>
-            <a href="terms.html">Terms</a>
-            <a href="support.html">Support</a>
-            <a href="blog.html">Blog</a>
-        </div>
-        <p class="footer-copyright reveal">&copy; 2026 Renew. All rights reserved.</p>
+        <p class="footer-wordmark serif" aria-hidden="true">Renew</p>
     </footer>
 
     <script>
-        // Theme
-        (function() {
-            const saved = localStorage.getItem('theme');
-            if (saved) {
-                document.documentElement.setAttribute('data-theme', saved);
-            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        })();
+        var nav = document.querySelector('.nav');
+        new IntersectionObserver(function (entries) {
+            nav.classList.toggle('frosted', !entries[0].isIntersecting);
+        }).observe(document.querySelector('.nav-sentinel'));
 
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            const next = isDark ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                var href = this.getAttribute('href');
+                if (href === '#') return;
+                var target = document.querySelector(href);
+                if (!target) return;
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         });
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-            }
-        });
-
-        // Navbar scroll
-        const navbar = document.querySelector('.navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Mobile menu
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.navbar-links');
-        const mobileOverlay = document.querySelector('.mobile-overlay');
-
-        function toggleMenu() {
-            menuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            mobileOverlay.classList.toggle('active');
-            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-            menuToggle.setAttribute('aria-expanded', navLinks.classList.contains('active'));
-        }
-        menuToggle.addEventListener('click', toggleMenu);
-        mobileOverlay.addEventListener('click', toggleMenu);
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => { if (navLinks.classList.contains('active')) toggleMenu(); });
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        e.preventDefault();
-                        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - navbar.offsetHeight - 20, behavior: 'smooth' });
-                    }
+        var revealObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
                 }
             });
-        });
-
-        // Scroll reveal
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('revealed'); revealObserver.unobserve(entry.target); }
-            });
         }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-        document.querySelectorAll('.reveal, .reveal-scale').forEach(el => revealObserver.observe(el));
-
-        // Parallax
-        const parallaxLayer = document.querySelector('.parallax-layer');
-        const heroSection = document.querySelector('.hero');
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    const scrolled = window.pageYOffset;
-                    if (scrolled < heroSection.offsetHeight && parallaxLayer) {
-                        parallaxLayer.style.transform = `translateY(${scrolled * 0.3}px)`;
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-        // Carousel
-        const track = document.getElementById('carouselTrack');
-        const dots = document.querySelectorAll('.carousel-dot');
-        const device = document.getElementById('carouselDevice');
-        let currentSlide = 0;
-        const totalSlides = 7;
-        let autoplayInterval;
-
-        function goToSlide(n) {
-            currentSlide = ((n % totalSlides) + totalSlides) % totalSlides;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-        }
-
-        dots.forEach(dot => dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide))));
-        document.getElementById('carouselPrev').addEventListener('click', () => { goToSlide(currentSlide - 1); resetAutoplay(); });
-        document.getElementById('carouselNext').addEventListener('click', () => { goToSlide(currentSlide + 1); resetAutoplay(); });
-
-        function resetAutoplay() {
-            clearInterval(autoplayInterval);
-            autoplayInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
-        }
-        autoplayInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
-
-        // Device float after load
-        setTimeout(() => { if (device) device.classList.add('floating-active'); }, 1600);
+        document.querySelectorAll('.reveal').forEach(function (el) { revealObserver.observe(el); });
     </script>
 </body>
 </html>
