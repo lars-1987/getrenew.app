@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The story behind Renew: why I built a skincare tracking app and what I learned about building a routine that actually sticks.">
+    <meta name="description" content="A practical protocol for working out whether a skincare product is doing anything: baselines, one change at a time, four-week windows, fixed-condition photos, and logging the confounders that mislead you.">
     <meta name="theme-color" content="#4A5240">
-    <title>Why I Built Renew (And How to Actually Stick to a Skincare Routine) - Renew</title>
+    <title>How to Tell If Your Skincare Is Actually Working - Renew</title>
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://getrenew.app/blog/why-i-built-renew">
+    <link rel="canonical" href="https://getrenew.app/blog/is-my-skincare-working">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Why I Built Renew (And How to Actually Stick to a Skincare Routine)">
-    <meta property="og:description" content="The story behind Renew: why I built a skincare tracking app and what I learned about building a routine that actually sticks.">
+    <meta property="og:title" content="How to Tell If Your Skincare Is Actually Working">
+    <meta property="og:description" content="A practical protocol for working out whether a skincare product is doing anything: baselines, one change at a time, four-week windows, fixed-condition photos, and logging the confounders that mislead you.">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://getrenew.app/blog/why-i-built-renew">
-    <meta property="og:image" content="https://getrenew.app/renew-icon.png">
-    <meta property="og:article:published_time" content="2026-04-01">
-    <meta property="og:article:author" content="Lars Holmström">
+    <meta property="og:url" content="https://getrenew.app/blog/is-my-skincare-working">
+    <meta property="og:image" content="https://getrenew.app/blog/insights-1.webp">
+    <meta property="og:article:published_time" content="2026-07-24">
+    <meta property="og:article:author" content="Lars Holmstr&ouml;m">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Why I Built Renew (And How to Actually Stick to a Skincare Routine)">
-    <meta name="twitter:description" content="The story behind Renew: why I built a skincare tracking app and what I learned about building a routine that actually sticks.">
+    <meta name="twitter:image" content="https://getrenew.app/blog/insights-1.webp">
+    <meta name="twitter:title" content="How to Tell If Your Skincare Is Actually Working">
+    <meta name="twitter:description" content="A practical protocol for working out whether a skincare product is doing anything: baselines, one change at a time, four-week windows, fixed-condition photos, and logging the confounders that mislead you.">
 
     <!-- Favicon -->
     <link rel="icon" href="../favicon.png" type="image/png">
@@ -41,33 +42,74 @@
         (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.setAttribute('data-theme','dark');})();
     </script>
 
-    <!-- Article JSON-LD -->
+    <!-- Article / HowTo / FAQ JSON-LD -->
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Why I Built Renew (And How to Actually Stick to a Skincare Routine)",
-        "author": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "headline": "How to Tell If Your Skincare Is Actually Working",
+          "description": "A practical protocol for working out whether a skincare product is doing anything: baselines, one change at a time, four-week windows, fixed-condition photos, and logging the confounders that mislead you.",
+          "author": {
             "@type": "Person",
-            "name": "Lars Holmström"
-        },
-        "datePublished": "2026-04-01",
-        "description": "The story behind Renew: why I built a skincare tracking app and what I learned about building a routine that actually sticks.",
-        "publisher": {
+            "name": "Lars Holmstr\u00f6m",
+            "url": "https://getrenew.app"
+          },
+          "publisher": {
             "@type": "Organization",
             "name": "Renew",
             "logo": {
-                "@type": "ImageObject",
-                "url": "https://getrenew.app/renew-icon.png"
+              "@type": "ImageObject",
+              "url": "https://getrenew.app/renew-icon.png"
             }
+          },
+          "datePublished": "2026-07-24",
+          "dateModified": "2026-07-24",
+          "mainEntityOfPage": "https://getrenew.app/blog/is-my-skincare-working",
+          "image": "https://getrenew.app/blog/insights-1.webp"
         },
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://getrenew.app/blog/why-i-built-renew"
+        {
+          "@type": "HowTo",
+          "name": "How to test whether a skincare product is working",
+          "totalTime": "P4W",
+          "step": [
+            { "@type": "HowToStep", "name": "Establish a baseline", "text": "Track your current routine for two weeks with daily scores and weekly photos before changing anything." },
+            { "@type": "HowToStep", "name": "Introduce one product", "text": "Add a single new product, not a category and not several at once." },
+            { "@type": "HowToStep", "name": "Hold everything else constant", "text": "Keep the rest of your routine, order and habits unchanged for the duration of the test." },
+            { "@type": "HowToStep", "name": "Wait four weeks minimum", "text": "Allow four weeks for hydration and barrier effects, eight to twelve for pigmentation, texture and fine lines." },
+            { "@type": "HowToStep", "name": "Log daily, review weekly", "text": "Record a daily score and state tags, then review the trend and photos once a week rather than day to day." },
+            { "@type": "HowToStep", "name": "Decide", "text": "Keep it if the trend improved, extend or drop it if flat, and stop immediately if it got worse." }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How long before I can tell if a skincare product is working?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Four weeks minimum for hydration, barrier and general calm. Eight to twelve weeks for pigmentation, texture and fine lines. Anything that appears to transform skin in under a week is usually delivering hydration and occlusion rather than the advertised effect." }
+            },
+            {
+              "@type": "Question",
+              "name": "Is purging real, and how do I tell it from a bad reaction?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Purging typically appears in areas you already break out, arrives within two to four weeks of starting an ingredient that speeds cell turnover, and resolves faster than a normal breakout. A reaction tends to appear in new areas, often with itching, burning or persistent redness, and does not settle. Seek professional advice if it spreads, is painful, or lasts beyond six weeks." }
+            },
+            {
+              "@type": "Question",
+              "name": "Should I take skin photos every day?",
+              "acceptedAnswer": { "@type": "Answer", "text": "No. Daily photos mostly capture lighting variance. Weekly photos in the same location, light and time of day are the right cadence." }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I test two skincare products at once?",
+              "acceptedAnswer": { "@type": "Answer", "text": "You can, but you accept ambiguity: if something goes wrong you will not know which product to stop. If you do it, stagger the start dates by at least two weeks so timing gives you a clue." }
+            }
+          ]
         }
+      ]
     }
     </script>
-
     <style>
         :root {
             --color-cream: #FAF8F5;
@@ -477,6 +519,104 @@
             .reveal { opacity: 1; transform: none; }
             .floating, .floating-slow, .floating-rotate { animation: none !important; }
         }
+        /* -- Lede / TL;DR -- */
+        .article-tldr {
+            background: var(--color-oat);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .article-tldr p { margin-bottom: 0; }
+
+        /* -- Ordered list (the protocol) -- */
+        .article-body ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+        }
+        .article-body ol li {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 0.9rem;
+        }
+
+        /* -- Tables (scroll horizontally rather than squashing on mobile) -- */
+        .table-wrap {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            -webkit-overflow-scrolling: touch;
+        }
+        .article-body table {
+            width: 100%;
+            min-width: 520px;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .article-body th,
+        .article-body td {
+            text-align: left;
+            vertical-align: top;
+            padding: 0.8rem 1rem 0.8rem 0;
+            border-bottom: 1px solid var(--color-oat-dark);
+            line-height: 1.6;
+        }
+        .article-body th {
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+        [data-theme="dark"] .article-body th,
+        [data-theme="dark"] .article-body td {
+            border-bottom-color: rgba(255,255,255,0.08);
+        }
+
+        /* -- Figures -- */
+        .article-figure {
+            margin: 2.25rem 0;
+        }
+        .article-figure img {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto;
+            filter: drop-shadow(0 18px 30px rgba(33,33,28,0.2));
+        }
+        [data-theme="dark"] .article-figure img {
+            filter: drop-shadow(0 18px 30px rgba(0,0,0,0.5));
+        }
+        .article-figure figcaption {
+            margin-top: 1.1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        /* -- FAQ -- */
+        .article-body .faq-q {
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* -- Foot disclaimer -- */
+        .article-disclaimer {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-oat-dark);
+            font-size: 0.9rem;
+            font-style: italic;
+            line-height: 1.7;
+            opacity: 0.6;
+        }
+        [data-theme="dark"] .article-disclaimer {
+            border-top-color: rgba(255,255,255,0.08);
+        }
     </style>
 </head>
 <body>
@@ -509,133 +649,216 @@
         <div class="deco deco-leaf floating" style="bottom:15%;right:8%;opacity:0.3;animation-delay:-1s;"></div>
         <div class="deco deco-dot" style="top:40%;left:12%;animation:dot-drift 6s ease-in-out infinite;"></div>
         <div class="deco deco-dot" style="bottom:30%;right:18%;animation:dot-drift 7s ease-in-out infinite 2s;"></div>
-
         <article class="article">
-            <a href="../index.html" class="article-back reveal">&larr; Back to Blog</a>
+            <a href="../blog.html" class="article-back reveal">&larr; Back to Blog</a>
 
             <header class="article-header reveal">
-                <h1>Why I Built Renew (And How to Actually Stick to a Skincare Routine)</h1>
+                <h1>How to Tell If Your Skincare Is Actually Working</h1>
                 <div class="article-meta">
-                    <span>Lars Holmström</span>
+                    <span>Lars Holmstr&ouml;m</span>
                     <span class="meta-separator"></span>
-                    <span>April 2026</span>
+                    <span>July 2026</span>
                 </div>
             </header>
 
             <div class="article-body reveal" style="transition-delay: 150ms;">
-                <p>I have 23 skincare products.</p>
+                <h2>The Short Answer</h2>
 
-                <p>I didn't plan to have 23 skincare products. It started with a cleanser and a moisturiser. Then I learned about SPF. Then serums. Then someone mentioned retinol, and suddenly I had a shelf full of bottles I couldn't keep track of.</p>
+                <div class="article-tldr">
+                    <p>Most people can&rsquo;t tell whether their skincare is working because they change too many things at once and judge results too early. To actually know: change one product at a time, give it a minimum of four weeks (twelve for anything targeting texture or pigmentation), take photos in fixed lighting at a fixed time of day, and log the things that confound your skin independently of products, mainly sleep, stress, humidity and cycle. Judge the trend across weeks, not how your face looks on any single morning. If you aren&rsquo;t recording anything, you are relying on memory, and memory is heavily biased toward whatever you bought most recently.</p>
+                </div>
 
-                <p>Sound familiar?</p>
-
-                <p>I'd buy a new serum, use it religiously for a week, then completely forget it existed. I'd run out of sunscreen without noticing. I'd layer products in the wrong order. And don't get me started on trying to figure out which products were actually making a difference.</p>
-
-                <p>So I built Renew, a simple app to track what I use, build consistent routines, and finally understand what's working.</p>
-
-                <p>This is the story of why I made it, and what I learned about building a skincare routine that actually sticks.</p>
-
-                <hr>
-
-                <h2>The Problem With Skincare Routines</h2>
-
-                <p>Most skincare advice focuses on <em>what</em> to use. Vitamin C in the morning. Retinol at night. SPF always.</p>
-
-                <p>But nobody talks about the harder part: <strong>consistency</strong>.</p>
-
-                <p>A £50 serum does nothing if it sits unopened in your bathroom cabinet. The best routine is the one you actually follow.</p>
-
-                <p>I tried everything. Notes apps. Spreadsheets. Setting alarms. Nothing stuck. The friction was too high, and the reward was too invisible. Skincare isn't like exercise; you don't feel the burn after a good session. Changes happen slowly, over weeks and months.</p>
-
-                <p>That's why I built Renew around <strong>streaks, habits, and small wins</strong>. Not a product database. Not a 10-step routine planner. Just a calm, simple way to check off what you use and watch your consistency grow.</p>
+                <figure class="article-figure">
+                    <img src="insights-1.webp" alt="The Renew Insights screen showing a 30 day skin score trend, averaging 7.2 out of 10 across 30 scored entries, above a summary panel of streak, routine completion, top skin states and top triggers." width="1095" height="2267" loading="lazy">
+                    <figcaption>Thirty days of daily scores. The shape of the line is the thing to read, not where it sits on any single morning.</figcaption>
+                </figure>
 
                 <hr>
 
-                <h2>How to Build a Skincare Routine That Sticks</h2>
+                <h2>Why You Genuinely Can&rsquo;t Tell</h2>
 
-                <p>After months of building this app, and tracking my own routine with it, here's what I've learned:</p>
+                <p>Skin is slow, and you look at it every day.</p>
 
-                <h3>1. Start With Less Than You Think</h3>
+                <p>That combination is the whole problem. Daily observation makes gradual change invisible: you notice the pimple that appeared overnight, not the fact that you&rsquo;re getting three a month instead of nine. Meanwhile the actual timescale of skin change runs from weeks to months. Cell turnover alone takes roughly 28 days in your twenties and slows from there, so a product affecting turnover cannot show its full effect inside a month no matter how good it is.</p>
 
-                <p>The biggest mistake is starting with too many products. You've just watched a 10-step Korean skincare video and you're ready to overhaul everything.</p>
+                <p>Then there&rsquo;s the confounding. Your skin on any given day is responding to sleep, stress, weather, humidity, diet, hormones, how much water you drank, whether you touched your face during a bad meeting, and, somewhere in that list, your skincare. Attributing a good skin day to the serum you started last week is usually just a guess wearing a lab coat.</p>
 
-                <p>Don't.</p>
-
-                <p>Start with three products:</p>
-                <ul>
-                    <li><strong>Cleanser</strong> (morning and evening)</li>
-                    <li><strong>Moisturiser</strong> (morning and evening)</li>
-                    <li><strong>SPF</strong> (morning only)</li>
-                </ul>
-
-                <p>That's it. Do this for two weeks. Build the habit of <em>doing something</em> before you optimise <em>what</em> you're doing.</p>
-
-                <h3>2. Attach It to Something You Already Do</h3>
-
-                <p>Habits stick when they're linked to existing behaviours. This is called "habit stacking."</p>
-
-                <p>Instead of "I'll do my skincare routine every morning," try:</p>
-                <ul>
-                    <li>"After I brush my teeth, I'll wash my face."</li>
-                    <li>"Before I get into bed, I'll do my evening routine."</li>
-                </ul>
-
-                <p>The cue is already there. You're just adding a step.</p>
-
-                <h3>3. Make It Visible</h3>
-
-                <p>Your skincare products shouldn't live in a closed drawer. Put them where you'll see them: on the counter, next to your toothbrush.</p>
-
-                <p>Same with tracking. If checking off your routine feels like a chore, you won't do it. That's why Renew lives on your home screen. One tap, check off your products, done. Your streak grows. Small dopamine hit. Repeat.</p>
-
-                <h3>4. Track for Trends, Not Perfection</h3>
-
-                <p>You're going to miss days. That's fine.</p>
-
-                <p>What matters isn't a perfect streak; it's the trend over time. Are you doing your routine more often than you were a month ago? That's progress.</p>
-
-                <p>Renew shows you your consistency at a glance. Not to shame you when you slip, but to show you that you're doing better than you think.</p>
-
-                <h3>5. Add Products Slowly</h3>
-
-                <p>Once your basic routine is locked in, and I mean <em>really</em> locked in, like you don't have to think about it anymore, then you can add.</p>
-
-                <p>One product at a time. Give it at least two weeks before adding another. This does two things:</p>
-                <ul>
-                    <li>You'll actually notice if it's working (or causing breakouts)</li>
-                    <li>You won't overwhelm yourself</li>
-                </ul>
-
-                <p>The goal isn't to use every product you own. It's to find the ones that make a difference and use them consistently.</p>
+                <p>And the most common failure of all: changing three things simultaneously. New cleanser, new serum, new moisturiser, all in the same week. If your skin improves, you&rsquo;ve learned nothing about which one did it. If it gets worse, you&rsquo;ve learned nothing about which one to stop.</p>
 
                 <hr>
 
-                <h2>Why I Made Renew Free (Mostly)</h2>
+                <h2>The Four Things Worth Measuring</h2>
 
-                <p>The free version of Renew lets you track up to 10 products, build morning and evening routines, and see your daily streak.</p>
+                <p>You don&rsquo;t need to quantify everything. Four signals cover almost all of it.</p>
 
-                <p>For most people, that's enough.</p>
+                <p><strong>Consistency.</strong> Did you actually use the product, on the schedule it needs? This sounds trivial and it is the single biggest confounder in home skincare. A retinoid used four nights a week produces a different result from one used every night, and most people are much less consistent than they believe. Before concluding a product doesn&rsquo;t work, check you actually used it.</p>
 
-                <p>Pro unlocks unlimited products, custom routines, weekly insights, a skin journal, and cloud sync. It's there if you want to go deeper. But the core experience, tracking your routine and staying consistent, is free.</p>
+                <p><strong>A subjective daily score.</strong> One number, same scale, same time of day. I use a 1 to 10. It feels unscientific and it works, because the point isn&rsquo;t precision on any single day, it&rsquo;s the shape of the line across 30 days. Noise averages out.</p>
 
-                <p>I built Renew because I needed it. Now it's here for anyone else who's tired of buying products they forget to use.</p>
+                <p><strong>Descriptive state, not just a score.</strong> A 7 because you&rsquo;re dry is a different 7 from a 7 because you&rsquo;re congested. Tagging state (calm, dry, oily, congested, red, even-toned, textured) is what lets you notice that a product improved one thing while quietly making another worse.</p>
 
-                <hr>
-
-                <h2>Your Routine, Ready to Go</h2>
-
-                <p>If you've made it this far, you're probably someone who cares about their skin but struggles with consistency. Same.</p>
-
-                <p>Renew is available now on the App Store. It's free, it's calm, and it might just be the thing that makes your routine finally stick.</p>
-
-                <p><a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" class="article-cta">Download Renew &rarr;</a></p>
+                <p><strong>Photos in fixed conditions.</strong> Same spot, same light, same time, no makeup, neutral expression. Natural indirect daylight beats bathroom lighting, which is usually top-down and exaggerates texture. Front and both three-quarter angles. Weekly is plenty.</p>
 
                 <hr>
 
-                <p class="article-bio">Lars is an indie developer based in Melbourne, Australia. When he's not building apps, he's probably adding another serum to his shelf.</p>
+                <h2>The Protocol</h2>
+
+                <ol>
+                    <li><strong>Establish a baseline before you change anything.</strong> Two weeks of your current routine, scored and photographed. Without this you have nothing to compare against, and &ldquo;before&rdquo; photos taken after you&rsquo;ve already started are worthless.</li>
+
+                    <li><strong>Introduce one product at a time.</strong> One. Not one category, one product.</li>
+
+                    <li><strong>Hold everything else constant.</strong> Same cleanser, same moisturiser, same SPF, same order. If you change your pillowcase habit or start a new medication in the same fortnight, note it, because it will show up in the data.</li>
+
+                    <li><strong>Give it four weeks minimum.</strong> Twelve for anything targeting pigmentation, fine lines or texture. Actives that appear to &ldquo;work&rdquo; in five days are usually producing hydration or barrier effects, not the change advertised on the box.</li>
+
+                    <li><strong>Log daily, review weekly.</strong> Daily logging takes fifteen seconds. Weekly review is where you look at the trend line and the photos side by side. Do not evaluate day to day; that&rsquo;s how you end up abandoning something at the two-week purge stage that was about to work.</li>
+
+                    <li><strong>Then decide: keep, drop, or isolate further.</strong> If the trend improved and nothing else changed, that&rsquo;s real evidence. If it&rsquo;s flat, either extend the window or drop it. If it got worse, stop and let your skin settle for two weeks before testing anything else.</li>
+                </ol>
+
+                <hr>
+
+                <h2>Confounders Worth Logging</h2>
+
+                <p>These affect your skin independently of what you put on it. If you&rsquo;re not recording them, you&rsquo;ll misattribute their effects to products.</p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Confounder</th>
+                                <th scope="col">Typical lag</th>
+                                <th scope="col">Why it matters</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sleep</td>
+                                <td>1 to 2 days</td>
+                                <td>Poor sleep shows up as dullness and inflammation, easily mistaken for a product reaction</td>
+                            </tr>
+                            <tr>
+                                <td>Stress</td>
+                                <td>2 to 7 days</td>
+                                <td>Cortisol-driven breakouts often arrive after the stressful period has ended</td>
+                            </tr>
+                            <tr>
+                                <td>Humidity and season</td>
+                                <td>Immediate to days</td>
+                                <td>A moisturiser that &ldquo;stopped working&rdquo; in July may just be meeting a drier month</td>
+                            </tr>
+                            <tr>
+                                <td>Menstrual cycle</td>
+                                <td>Predictable, ~monthly</td>
+                                <td>Cyclical breakouts get blamed on whatever product was newest that week</td>
+                            </tr>
+                            <tr>
+                                <td>Travel and water</td>
+                                <td>Days</td>
+                                <td>Different water hardness and cabin air change how skin behaves</td>
+                            </tr>
+                            <tr>
+                                <td>New product elsewhere</td>
+                                <td>Days to weeks</td>
+                                <td>Laundry detergent, hair products and SPF in makeup all touch your face</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>The practical upshot: if you tag these alongside your daily score, patterns surface on their own. In my own 30-day data the tag that most often coincided with lower scores was poor sleep, which is not a skincare problem at all, and which I&rsquo;d previously have blamed on a product.</p>
+
+                <hr>
+
+                <h2>Tracking Methods Compared</h2>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Method</th>
+                                <th scope="col">Good at</th>
+                                <th scope="col">Falls down on</th>
+                                <th scope="col">Best for</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Memory</strong></td>
+                                <td>Nothing</td>
+                                <td>Recency bias, no trend, no photo baseline</td>
+                                <td>Nobody, honestly</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Notes app</strong></td>
+                                <td>Zero setup, flexible</td>
+                                <td>No structure, no trend view, photos scattered</td>
+                                <td>3 to 5 products, short experiments</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Spreadsheet</strong></td>
+                                <td>Genuinely powerful, full control, free</td>
+                                <td>Tedious on mobile, you will stop after ten days, photos live elsewhere</td>
+                                <td>Data-minded people running a single deliberate experiment</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Paper journal</strong></td>
+                                <td>Pleasant, no phone</td>
+                                <td>No trend visualisation, no photo pairing, easy to lose</td>
+                                <td>People who already journal</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dedicated app</strong></td>
+                                <td>Structure, trend charts, photos and scores in one place, reminders</td>
+                                <td>Another app, some are bloated</td>
+                                <td>10+ products or anything longer than a month</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>The honest version: if you use four products and want to test one new serum, a spreadsheet is completely adequate and costs nothing. The case for an app starts when the number of variables outgrows your willingness to maintain a sheet by hand, which for most people is somewhere around ten products or two months.</p>
+
+                <p>That&rsquo;s the gap <a href="../index.html">Renew</a> was built for. Daily score, state tags, photos and product history sit in one place, so the trend chart is a byproduct of logging rather than something you have to assemble.</p>
+
+                <hr>
+
+                <h2>Frequently Asked Questions</h2>
+
+                <p class="faq-q">How long before I can tell if a product is working?</p>
+                <p>Four weeks minimum for hydration, barrier and general calm. Eight to twelve weeks for pigmentation, texture and fine lines. Anything that appears to transform your skin in under a week is almost certainly delivering water and occlusion, which is genuine but not what most actives are sold on.</p>
+
+                <p class="faq-q">Is purging real, and how do I tell it from a bad reaction?</p>
+                <p>Purging typically appears in areas you already break out, arrives within the first two to four weeks of starting an ingredient that speeds cell turnover, and resolves faster than a normal breakout. A reaction tends to appear in new areas, often with itching, burning or persistent redness, and doesn&rsquo;t settle. If it&rsquo;s spreading, painful, or lasting beyond six weeks, stop and speak to a professional.</p>
+
+                <p class="faq-q">Should I take photos every day?</p>
+                <p>No. Daily photos mostly capture lighting variance and make you obsess. Weekly, in the same conditions, is the right cadence.</p>
+
+                <p class="faq-q">What if my skin gets worse after I start tracking?</p>
+                <p>That&rsquo;s usually attention, not causation. You&rsquo;re noticing things you previously didn&rsquo;t record. Give it a fortnight before drawing conclusions.</p>
+
+                <p class="faq-q">Can I test two products at once if they do different things?</p>
+                <p>You can, but you&rsquo;re accepting ambiguity. If something goes wrong you won&rsquo;t know which to stop. If you&rsquo;re going to do it, at least stagger the start dates by two weeks so the timing tells you something.</p>
+
+                <p class="faq-q">Do I need to score my skin to make this work?</p>
+                <p>It helps a lot, because it turns a vague impression into a line you can look at. But if scoring feels like a chore, tracking consistency plus weekly photos still gets you most of the way there.</p>
+
+                <hr>
+
+                <h2>Start With One Change</h2>
+
+                <p>If you take one thing from this: stop changing three products at once, and write something down every day, even if it&rsquo;s a single number.</p>
+
+                <p>Renew does this in about fifteen seconds a day. Daily score, state tags, weekly photos, and a trend chart that shows you the shape of the last 30 days rather than how you happen to look this morning. Free to start.</p>
+
+                <p><a href="https://apps.apple.com/us/app/renew-skincare-tracker/id6758534567" target="_blank" rel="noopener" class="article-cta">Download Renew on the App Store &rarr;</a></p>
+
+                <p class="article-disclaimer">This article is general information about tracking and observation methods, not medical advice. It is not intended to diagnose or treat any skin condition. If you have persistent acne, a painful or spreading reaction, sudden changes in a mole or pigmentation, or any skin concern that worries you, please see a doctor or a qualified dermatologist. Individual skin varies enormously, and a professional assessment will always beat a self-tracked chart.</p>
+
+                <p class="article-bio">Lars is an indie developer based in Melbourne, Australia. He built Renew after losing track of his own shelf.</p>
             </div>
         </article>
-    </main>
 
     <footer class="footer">
         <div class="footer-logo reveal"><img src="../renew-icon.png" alt="Renew"> Renew</div>
