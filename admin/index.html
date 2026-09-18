@@ -624,6 +624,7 @@
 
         .feedback-actions {
             display: flex;
+            flex-wrap: wrap;
             gap: 8px;
             align-items: center;
         }
@@ -692,7 +693,18 @@
 
         .thread-reply textarea {
             flex: 1;
+            width: auto;
+            min-width: 0;
             min-height: 64px;
+        }
+
+        /* .btn-primary is full-width for the forms; in these rows buttons
+           size to their label so the reply box gets the space. */
+        .feedback-actions .btn,
+        .thread-reply .btn {
+            width: auto;
+            flex: none;
+            white-space: nowrap;
         }
 
         .feedback-filter-bar {
