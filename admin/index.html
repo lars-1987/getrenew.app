@@ -2566,16 +2566,27 @@ async function sendFeedbackReply(id) {
     const btn = $('replyBtn-' + id);
     btn.disabled = true;
 
-    const { data: { user } } = await sb.auth.getUser();
-    const { data, error } = await sb
-        .from('feedback_messages')
-        .insert({ feedback_id: id, sender: 'admin', author_id: user.id, body })
-        .select('id, sender, body, created_at')
-        .single();
+    // author_id defaults to auth.uid() in the database, so there's no need to
+    // look the user up first. That lookup (auth.getUser) hits the auth server
+    // and 403s once the session has been revoked elsewhere, even while the
+    // access token still works for everything else.
+    let data, error;
+    try {
+        ({ data, error } = await sb
+            .from('feedback_messages')
+            .insert({ feedback_id: id, sender: 'admin', body })
+            .select('id, sender, body, created_at')
+            .single());
+    } catch (err) {
+        error = err;
+    }
 
     if (error) {
         btn.disabled = false;
-        showToast('Error sending reply: ' + error.message, true);
+        const expired = error.code === 'PGRST301' || error.code === '42501' || /jwt|expired/i.test(error.message || '');
+        showToast(expired
+            ? 'Your session has ended. Sign out and back in, then send again. Your draft is saved.'
+            : 'Error sending reply: ' + (error.message || error), true);
         return;
     }
 
