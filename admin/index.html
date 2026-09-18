@@ -662,6 +662,9 @@
             border-radius: 14px;
             font-size: 14px;
             line-height: 1.5;
+        }
+
+        .thread-body {
             white-space: pre-wrap;
         }
 
@@ -2492,10 +2495,12 @@ function renderThread(f) {
     }
     const seenByUser = f.last_admin_reply_at && f.user_seen_at &&
         new Date(f.user_seen_at) >= new Date(f.last_admin_reply_at);
-    const msgs = replies.map(m => `
-        <div class="thread-msg from-${m.sender}">${escapeHtml(m.body)}
-            <span class="thread-stamp">${m.sender === 'admin' ? 'You' : 'User'} · ${formatStamp(m.created_at)}</span>
-        </div>`).join('');
+    // No whitespace inside .thread-msg: the body keeps its own line breaks
+    // (pre-wrap), so template indentation would render as blank lines.
+    const msgs = replies.map(m =>
+        `<div class="thread-msg from-${m.sender}"><span class="thread-body">${escapeHtml(m.body)}</span>` +
+        `<span class="thread-stamp">${m.sender === 'admin' ? 'You' : 'User'} · ${formatStamp(m.created_at)}</span></div>`
+    ).join('');
     return `
         <div class="feedback-thread">
             ${msgs || '<div class="feedback-date">No replies yet.</div>'}
@@ -2655,6 +2660,15 @@ async function updateFeedbackStatus(id, status) {
 }
 
 $('feedbackFilter').addEventListener('change', loadFeedback);
+
+// Replies and "seen" happen on users' phones, so refresh when coming back to
+// the dashboard instead of showing whatever was true when it was last loaded.
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && $('feedbackTab').classList.contains('active')) {
+        loadFeedback();
+        loadFeedbackCount();
+    }
+});
 
 // ═══════════════════════════════════════════════════════
 //  INIT
