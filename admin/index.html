@@ -640,6 +640,61 @@
         .status-replied { background: var(--amber-light); color: var(--amber); }
         .status-resolved { background: var(--oat-dark); color: var(--stone); }
 
+        .feedback-meta {
+            font-size: 12px;
+            color: var(--stone);
+            margin-left: auto;
+        }
+
+        .feedback-thread {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--oat-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .thread-msg {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .thread-msg.from-user {
+            align-self: flex-start;
+            background: var(--oat);
+            border-bottom-left-radius: 4px;
+        }
+
+        .thread-msg.from-admin {
+            align-self: flex-end;
+            background: var(--sage-light);
+            border-bottom-right-radius: 4px;
+        }
+
+        .thread-stamp {
+            display: block;
+            font-size: 11px;
+            color: var(--stone);
+            margin-top: 4px;
+        }
+
+        .thread-reply {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            margin-top: 6px;
+        }
+
+        .thread-reply textarea {
+            flex: 1;
+            min-height: 64px;
+        }
+
         .feedback-filter-bar {
             display: flex;
             gap: 12px;
@@ -2348,6 +2403,10 @@ $('submissionCancel').addEventListener('click', closeEditor);
 //  FEEDBACK
 // ═══════════════════════════════════════════════════════
 let feedbackItems = [];
+let feedbackEmails = {};
+let feedbackThreads = {};   // feedback id → replies (loaded on open)
+let feedbackDrafts = {};    // feedback id → unsent reply text (survives re-render)
+let openFeedbackId = null;
 
 async function loadFeedbackCount() {
     const { count } = await sb.from('feedback').select('*', { count: 'exact', head: true }).eq('status', 'new');
@@ -2369,7 +2428,7 @@ async function loadFeedback() {
     let query = sb
         .from('feedback')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('updated_at', { ascending: false })
         .limit(50);
 
     if (filter !== 'all') {
@@ -2394,20 +2453,130 @@ async function loadFeedback() {
         return;
     }
 
-    // Resolve user emails for display
+    // Resolve sender emails (admin-only RPC, migration 038). Fall back to a
+    // truncated id if it fails.
     const userIds = [...new Set(feedbackItems.map(f => f.user_id))];
-    const userEmails = {};
+    const { data: emails } = await sb.rpc('admin_feedback_user_emails', { p_user_ids: userIds });
+    feedbackEmails = {};
+    for (const id of userIds) feedbackEmails[id] = id.substring(0, 8) + '...';
+    for (const row of emails || []) feedbackEmails[row.user_id] = row.email;
 
-    // Try to get emails from auth.users via RPC (may not work without service key)
-    // Fallback: show truncated user_id
-    for (const id of userIds) {
-        userEmails[id] = id.substring(0, 8) + '...';
+    renderFeedback();
+    if (openFeedbackId && feedbackItems.some(f => f.id === openFeedbackId)) {
+        openFeedbackThread(openFeedbackId);
     }
-
-    renderFeedback(userEmails);
 }
 
-function renderFeedback(userEmails) {
+function formatStamp(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ', ' +
+        d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+
+function renderThread(f) {
+    const replies = feedbackThreads[f.id];
+    if (!replies) {
+        return '<div class="feedback-thread"><div class="loading-spinner"></div></div>';
+    }
+    const seenByUser = f.last_admin_reply_at && f.user_seen_at &&
+        new Date(f.user_seen_at) >= new Date(f.last_admin_reply_at);
+    const msgs = replies.map(m => `
+        <div class="thread-msg from-${m.sender}">${escapeHtml(m.body)}
+            <span class="thread-stamp">${m.sender === 'admin' ? 'You' : 'User'} · ${formatStamp(m.created_at)}</span>
+        </div>`).join('');
+    return `
+        <div class="feedback-thread">
+            ${msgs || '<div class="feedback-date">No replies yet.</div>'}
+            ${f.last_admin_reply_at ? `<div class="feedback-date" style="align-self:flex-end">${seenByUser ? '✓ Seen by user' : 'Not seen by user yet'}</div>` : ''}
+            <div class="thread-reply">
+                <textarea id="reply-${f.id}" placeholder="Reply to this user — they'll see it in the app"
+                    oninput="feedbackDrafts['${f.id}'] = this.value">${escapeHtml(feedbackDrafts[f.id] || '')}</textarea>
+                <button class="btn btn-primary btn-small" id="replyBtn-${f.id}" onclick="sendFeedbackReply('${f.id}')">
+                    <i class="ph ph-paper-plane-right"></i> Send
+                </button>
+            </div>
+        </div>`;
+}
+
+function toggleFeedbackThread(id) {
+    if (openFeedbackId === id) {
+        openFeedbackId = null;
+        renderFeedback();
+        return;
+    }
+    openFeedbackThread(id);
+}
+
+async function openFeedbackThread(id) {
+    openFeedbackId = id;
+    renderFeedback();
+
+    const f = feedbackItems.find(x => x.id === id);
+    const { data, error } = await sb
+        .from('feedback_messages')
+        .select('id, sender, body, created_at')
+        .eq('feedback_id', id)
+        .order('created_at', { ascending: true });
+    if (error) {
+        showToast('Error loading thread: ' + error.message, true);
+        return;
+    }
+    feedbackThreads[id] = data || [];
+
+    // Opening a new ticket counts as reading it — the user sees "Seen".
+    if (f && f.status === 'new') {
+        const { error: readError } = await sb
+            .from('feedback')
+            .update({ status: 'read', updated_at: new Date().toISOString() })
+            .eq('id', id);
+        if (!readError) {
+            f.status = 'read';
+            loadFeedbackCount();
+        }
+    }
+
+    if (openFeedbackId === id) {
+        renderFeedback();
+        $('reply-' + id)?.focus();
+    }
+}
+
+async function sendFeedbackReply(id) {
+    const input = $('reply-' + id);
+    const body = (input?.value || '').trim();
+    if (!body) return;
+
+    const btn = $('replyBtn-' + id);
+    btn.disabled = true;
+
+    const { data: { user } } = await sb.auth.getUser();
+    const { data, error } = await sb
+        .from('feedback_messages')
+        .insert({ feedback_id: id, sender: 'admin', author_id: user.id, body })
+        .select('id, sender, body, created_at')
+        .single();
+
+    if (error) {
+        btn.disabled = false;
+        showToast('Error sending reply: ' + error.message, true);
+        return;
+    }
+
+    // The trigger sets status → 'replied' and stamps last_admin_reply_at.
+    const f = feedbackItems.find(x => x.id === id);
+    if (f) {
+        f.status = 'replied';
+        f.last_admin_reply_at = data.created_at;
+    }
+    feedbackThreads[id] = [...(feedbackThreads[id] || []), data];
+    delete feedbackDrafts[id];
+    showToast('Reply sent');
+    renderFeedback();
+    loadFeedbackCount();
+}
+
+function renderFeedback() {
+    const userEmails = feedbackEmails;
     const container = $('feedbackContainer');
     const html = feedbackItems.map(f => {
         const statusClass = `status-${f.status}`;
@@ -2430,6 +2599,9 @@ function renderFeedback(userEmails) {
                 </div>
                 <div class="feedback-message">${escapeHtml(f.message)}</div>
                 <div class="feedback-actions">
+                    <button class="btn btn-primary btn-small" onclick="toggleFeedbackThread('${f.id}')">
+                        <i class="ph ph-chat-circle-text"></i> ${openFeedbackId === f.id ? 'Hide thread' : 'Open thread'}
+                    </button>
                     ${f.status === 'new' ? `
                         <button class="btn btn-secondary btn-small" onclick="updateFeedbackStatus('${f.id}', 'read')">
                             <i class="ph ph-check"></i> Mark Read
@@ -2445,7 +2617,9 @@ function renderFeedback(userEmails) {
                             <i class="ph ph-arrow-counter-clockwise"></i> Reopen
                         </button>
                     ` : ''}
+                    ${f.last_admin_reply_at ? `<span class="feedback-meta">Last reply ${timeAgo(f.last_admin_reply_at)}</span>` : ''}
                 </div>
+                ${openFeedbackId === f.id ? renderThread(f) : ''}
             </div>`;
     }).join('');
 
