@@ -1935,8 +1935,8 @@ function switchTab(tab) {
 let dupeGroups = [];
 
 async function loadDupeCount() {
-    // Query the potential duplicates view
-    const { data, error } = await sb.from('catalogue_potential_duplicates').select('entry_a_id');
+    // Admin-only RPC over the potential duplicates view
+    const { data, error } = await sb.rpc('admin_get_potential_duplicates');
     const badge = $('dupeCount');
     if (!error && data && data.length > 0) {
         badge.textContent = data.length;
@@ -1950,7 +1950,7 @@ async function loadDuplicates() {
     const container = $('dupeContainer');
     container.innerHTML = '<div class="loading-overlay"><div class="loading-spinner"></div></div>';
 
-    const { data, error } = await sb.from('catalogue_potential_duplicates').select('*');
+    const { data, error } = await sb.rpc('admin_get_potential_duplicates');
 
     if (error) {
         container.innerHTML = `<div class="empty-state"><p>Error loading duplicates: ${error.message}</p></div>`;
