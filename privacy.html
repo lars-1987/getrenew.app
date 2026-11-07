@@ -327,8 +327,13 @@
                         <td>No</td>
                     </tr>
                     <tr>
-                        <td><strong>Location</strong> (approximate)</td>
-                        <td>UV index feature (city-level only)</td>
+                        <td><strong>Usage data</strong></td>
+                        <td>Anonymous analytics and session recordings that help us improve the App (see Analytics)</td>
+                        <td>Collected automatically</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location</strong> (if you allow it)</td>
+                        <td>The UV card. Your phone's location is used to get the UV forecast and show your city's name. It isn't stored on our servers</td>
                         <td>No</td>
                     </tr>
                 </tbody>
@@ -440,14 +445,14 @@
                         <td>The product webpage content (not your personal data)</td>
                     </tr>
                     <tr>
-                        <td><strong>Product photo analysis</strong></td>
-                        <td>When you photograph a product, AI can identify the product name, brand, and ingredients</td>
-                        <td>The product photo only (not journal photos)</td>
+                        <td><strong>Product label scanning</strong></td>
+                        <td>When you photograph a product, your phone reads the text on the label. Only that text is sent to AI, which picks out the product name, brand and ingredients</td>
+                        <td>The label text only. The photos themselves are never sent to AI</td>
                     </tr>
                 </tbody>
             </table>
             <p><strong>AI Service Provider:</strong> We use Google Gemini API for AI processing.</p>
-            <p><strong>What we send:</strong> Only product-related content (URLs, product photos). We never send your personal information, journal photos, or skin photos to AI services.</p>
+            <p><strong>What we send:</strong> Only product-related content: a product URL you paste, or the text read from a product label. We never send photos, your personal information, journal entries, or skin photos to AI services.</p>
             <p><strong>What we don't do:</strong></p>
             <ul>
                 <li>Use AI to analyse your skin or face</li>
@@ -460,7 +465,7 @@
             <ul>
                 <li>Health or medical diagnoses</li>
                 <li>Biometric identifiers (facial recognition data, fingerprints)</li>
-                <li>Precise GPS location</li>
+                <li>Your location history (your location is only used, when you allow it, to get the UV forecast)</li>
                 <li>Contacts or address book</li>
                 <li>Payment card details (handled by Apple/Google)</li>
             </ul>
@@ -469,7 +474,7 @@
             <p>We use your information to:</p>
             <ul>
                 <li><strong>Provide the App</strong>: Create your account, sync your data, deliver features</li>
-                <li><strong>Improve the App</strong>: Understand how features are used, fix bugs</li>
+                <li><strong>Improve the App</strong>: Understand how features are used and fix bugs, using anonymous analytics (see Analytics)</li>
                 <li><strong>Communicate with you</strong>: Password resets, important service updates</li>
                 <li><strong>Process payments</strong>: Manage your subscription (via Apple App Store or Google Play)</li>
             </ul>
@@ -502,8 +507,26 @@
                     <tr>
                         <td><strong>Google Gemini API</strong></td>
                         <td>AI product extraction</td>
-                        <td>Product URLs, product photos</td>
+                        <td>Product URLs, text read from product labels</td>
                         <td><a href="https://ai.google.dev/terms" target="_blank" rel="noopener">ai.google.dev/terms</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Open-Meteo</strong></td>
+                        <td>UV forecast</td>
+                        <td>Your location's coordinates, when you allow location (no account or personal details)</td>
+                        <td><a href="https://open-meteo.com/en/terms" target="_blank" rel="noopener">open-meteo.com/en/terms</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apple location services</strong></td>
+                        <td>Turning your location into a city name for the UV card</td>
+                        <td>Your location's coordinates, when you allow location</td>
+                        <td><a href="https://www.apple.com/privacy/" target="_blank" rel="noopener">apple.com/privacy</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>PostHog</strong></td>
+                        <td>Product analytics and session recordings</td>
+                        <td>Usage events, taps, and screen recordings with typed text and images hidden (see Analytics below)</td>
+                        <td><a href="https://posthog.com/privacy" target="_blank" rel="noopener">posthog.com/privacy</a></td>
                     </tr>
                     <tr>
                         <td><strong>Apple App Store</strong></td>
@@ -520,7 +543,12 @@
                 </tbody>
             </table>
             <p><strong>Note on AI processing:</strong> Product information sent to Google Gemini API is processed to extract details and is not used to train AI models under our API agreement.</p>
-            <p>We may add analytics and crash reporting services in the future. This policy will be updated accordingly.</p>
+            <p><strong>Note on the UV forecast:</strong> When you allow location, the App sends your phone's coordinates straight to Open-Meteo to get the UV forecast, and to Apple to look up your city's name. They don't pass through our servers, and we don't store them.</p>
+
+            <h3>Analytics</h3>
+            <p>We use PostHog to understand how the App is used, so we can improve it and fix problems. PostHog receives anonymous usage events (such as finishing onboarding steps or asking for a rating), the taps you make, and when the App opens and closes.</p>
+            <p>PostHog also records some sessions as a video-like replay of the screen, so we can see where people get stuck. These recordings hide everything you type and every image, including product, profile and journal photos. They can show other text on screen, such as your first name, product names, and journal scores and tags.</p>
+            <p>Analytics are not linked to your email address. PostHog processes this data in the United States.</p>
 
             <h2>Data Storage & Security</h2>
             <ul>
